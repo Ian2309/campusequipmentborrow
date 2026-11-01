@@ -8,7 +8,7 @@ let me, equipment = [], requests = [], damages = [], resets = [], snap = '', act
   $('#chipId').textContent = $('#accUser').textContent = me.username;
   $('#accName').textContent = me.full_name;
   $('#logout2').addEventListener('click', logout);
-  wireShell({ overview: 'Overview', requests: 'Borrow requests', inventory: 'Inventory', damage: 'Damage records', resets: 'Password resets', notifications: 'Notifications', account: 'Account and backup' });
+  wireShell({ overview: 'Dashboard Overview', requests: 'Borrow Requests', inventory: 'Equipment Inventory', damage: 'Damage Records', resets: 'Password Reset Requests', notifications: 'Notifications', account: 'Account & Backup' });
   await refresh();
   every(5000, refresh); // new student requests and notifications appear within seconds
 })();
