@@ -128,8 +128,3 @@ body .auth .auth-card p,
 body .auth .auth-card .muted,
 body .auth .auth-card small,
 body .auth .auth-card label{color:#1f3568}
-
-/* Fix: role buttons overflowing the card on narrow phones */
-body .auth .auth-card .role-switch { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-body .auth .auth-card .role-switch button { min-width: 0; grid-template-columns: 44px minmax(0, 1fr); overflow-wrap: anywhere; }
-@media (max-width: 420px) { body .auth .auth-card .role-switch { grid-template-columns: minmax(0, 1fr); } }
