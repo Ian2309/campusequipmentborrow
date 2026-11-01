@@ -159,3 +159,47 @@ function openEquipment(x, opts = {}) {
   window.addEventListener('offline', sync);
   window.addEventListener('online', () => { sync(); if ($('#toasts')) toast('Back online.', 'info'); });
 })();
+
+// ---- dark mode toggle (remembered in this browser; only on pages with the top bar, never on login) ----
+(function () {
+  const KEY = 'rtu-theme', root = document.documentElement;
+  const moon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>';
+  const sun = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  let dark = false;
+  try { dark = localStorage.getItem(KEY) === 'dark'; } catch (e) {}
+  const apply = () => {
+    const on = dark && !!document.querySelector('.top-r');
+    const el = document.querySelector('.theme-admin,.theme-student');
+    [root, el].forEach(n => { if (n) { if (on) n.setAttribute('data-dark', ''); else n.removeAttribute('data-dark'); } });
+    const b = document.getElementById('themeToggle');
+    if (b) { b.innerHTML = dark ? sun : moon; b.title = dark ? 'Switch to light mode' : 'Switch to dark mode'; b.setAttribute('aria-label', b.title); }
+  };
+  const mount = () => {
+    const bar = document.querySelector('.top-r');
+    if (bar && !document.getElementById('themeToggle')) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.id = 'themeToggle'; b.className = 'icon-btn';
+      b.addEventListener('click', () => { dark = !dark; try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch (e) {} apply(); });
+      bar.prepend(b);
+    }
+    apply();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
+})();
+
+// ---- professional sidebar labels (text only; same buttons, same behavior) ----
+(function () {
+  const admin = { overview: 'Dashboard Overview', requests: 'Borrow Requests', inventory: 'Equipment Inventory', damage: 'Damage Records', notifications: 'Notifications', account: 'Account & Backup' };
+  const student = { catalog: 'Equipment Catalog', requests: 'My Borrow Requests', notifications: 'Notifications', account: 'Account Details' };
+  const run = () => {
+    const isAdmin = !!document.querySelector('.nav [data-tab="overview"]');
+    const map = isAdmin ? admin : student;
+    document.querySelectorAll('.nav button[data-tab]').forEach(b => {
+      const label = map[b.dataset.tab]; if (!label) return;
+      const t = [...b.childNodes].find(n => n.nodeType === 3 && n.nodeValue.trim());
+      if (t) t.nodeValue = label;
+    });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+})();
+

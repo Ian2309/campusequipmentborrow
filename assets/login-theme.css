@@ -1,0 +1,130 @@
+/* login-theme.css (v2: higher specificity so it wins over app.css)  — assets-only restyle of the existing login page (.auth, .auth-card, .role-switch, .field, .forgot, .auth-foot).
+   Loaded from the first line of app.css:  @import url("login-theme.css");
+   Student/Admin colors still come from .theme-student / .theme-admin. No HTML or JS changes needed. */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+body .auth{
+  --navy:#0a2f7a;--navy-deep:#06255f;--gold:#f6b91d;
+  font-family:"Poppins","Segoe UI",system-ui,sans-serif;
+  display:grid;grid-template-columns:min(960px,100%);justify-content:center;justify-items:center;align-content:center;row-gap:1.6rem;
+  --h:clamp(.8rem,3vw,2.1rem);--s:max(.65rem,calc(var(--h)*.5));--box:144px;--logo:116px;--pl:176px;--lx:24px;
+  padding:2.5rem 1rem 3rem;overflow-x:hidden;
+  background:
+    linear-gradient(135deg,var(--navy) 0 40%,var(--gold) 40% 52%,transparent 52%) top left/190px 190px no-repeat,
+    linear-gradient(315deg,var(--navy) 0 40%,var(--gold) 40% 52%,transparent 52%) bottom right/190px 190px no-repeat,
+    linear-gradient(180deg,rgba(6,37,95,.38),rgba(6,37,95,.14) 45%,rgba(6,37,95,.42)),
+    url("images/campus.jpg") center/cover no-repeat,
+    linear-gradient(160deg,#dbe8fb,#7fb0ee);
+}
+
+/* header: glass bar. ::before = seal + divider + title, ::after = smaller subtitle laid over the same bar */
+body .auth::before,body .auth::after{grid-area:1/1;pointer-events:none}
+body .auth::before{
+  content:"CAMPUS BORROWING SYSTEM";
+  justify-self:stretch;align-self:start;box-sizing:border-box;height:var(--box);white-space:nowrap;text-align:center;
+  padding:calc(var(--box)/2 - (1.35*var(--h) + 4px + 1.35*var(--s))/2) 20px 0 var(--pl);
+  border-radius:24px;border:1px solid rgba(255,255,255,.75);box-shadow:0 12px 36px rgba(6,37,95,.18);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  font-weight:700;font-size:var(--h);line-height:1.35;color:var(--navy);
+  background:
+    url("images/rtu-logo.png") var(--lx) center/var(--logo) var(--logo) no-repeat,
+    linear-gradient(var(--navy),var(--navy)) calc(var(--pl) - 20px) center/2px calc(var(--logo) - 20px) no-repeat,
+    rgba(255,255,255,.55);
+}
+body .auth::after{
+  content:"Programs and Events Management Unit";
+  justify-self:stretch;align-self:start;white-space:nowrap;text-align:center;z-index:1;
+  margin:calc(var(--box)/2 + (1.35*var(--h) + 4px - 1.35*var(--s))/2) 21px 0 calc(var(--pl) + 1px);
+  font-weight:500;font-size:var(--s);line-height:1.35;color:var(--navy);
+}
+
+/* card */
+body .auth .auth-card{width:min(560px,100%);border-top:6px solid var(--gold);border-radius:22px;
+  background:rgba(255,255,255,.96);padding:1.75rem 2rem;box-shadow:0 24px 60px rgba(6,37,95,.25)}
+body .auth .auth-card h1{text-align:center;font-size:1.6rem;color:var(--navy)}
+body .auth .auth-card>p{text-align:center;margin:.35rem 0 1.2rem}
+body .auth .auth-card .role-switch button{background:#f4f8ff;border-radius:14px;padding:.9rem 1rem}
+body .auth .auth-card .field{color:var(--navy)}
+body .auth .auth-card .field input{height:52px;border-radius:12px;background-color:#f7faff;border-color:#d5deef}
+body .auth .auth-card .field input:focus{background-color:#fff}
+body .auth .auth-card .btn.primary{height:54px;background:linear-gradient(180deg,#0b3a91,var(--navy-deep));border-color:var(--navy-deep);color:#fff;border-radius:12px;font-size:1.05rem}
+body .auth .auth-card .btn.primary:hover{filter:brightness(1.12)}
+body .auth .auth-foot a,body .auth .forgot{color:#1d4ed8}
+
+@media(max-width:520px){
+  body .auth{--box:84px;--logo:64px;--pl:108px;--lx:16px}
+  body .auth{padding-top:1.5rem}
+  body .auth .auth-card{padding:1.4rem 1.1rem}
+}
+
+/* ---- professional polish ---- */
+body .auth .auth-card{
+  background:rgba(255,255,255,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-radius:20px;
+  box-shadow:0 30px 70px rgba(4,20,60,.38),0 1px 0 rgba(255,255,255,.7) inset;
+}
+body .auth .auth-card h1{letter-spacing:-.01em;font-weight:700}
+body .auth .auth-card h1::after{content:"";display:block;width:56px;height:3px;border-radius:3px;background:var(--gold);margin:.6rem auto 0}
+body .auth .auth-card .field{font-size:.85rem;letter-spacing:.02em;color:#27407a}
+body .auth .auth-card .field input{border:1.5px solid #cfd9ec;transition:border-color .15s,box-shadow .15s,background .15s}
+body .auth .auth-card .field input:hover{border-color:#9db3dc}
+body .auth .auth-card .field input:focus{outline:none;border-color:#1d4ed8;box-shadow:0 0 0 4px rgba(29,78,216,.16)}
+body .auth .auth-card .role-switch button{border:2px solid #d5deef;transition:border-color .15s,box-shadow .15s,transform .15s,background .15s}
+body .auth .auth-card .role-switch button:hover{border-color:var(--primary);transform:translateY(-1px)}
+body .auth .auth-card .role-switch button.active{box-shadow:0 6px 16px rgba(10,47,122,.14)}
+body .auth .auth-card .btn.primary{letter-spacing:.02em;box-shadow:0 10px 22px rgba(10,47,122,.35);transition:filter .15s,transform .15s,box-shadow .15s}
+body .auth .auth-card .btn.primary:hover{transform:translateY(-1px);box-shadow:0 14px 26px rgba(10,47,122,.4)}
+body .auth .auth-card .btn.primary:active{transform:translateY(0);box-shadow:0 6px 14px rgba(10,47,122,.35)}
+body .auth .auth-card::after{
+  content:"\00A9  Rizal Technological University \00B7 Programs and Events Management Unit";
+  display:block;margin-top:1.3rem;padding-top:.9rem;border-top:1px solid #e3e9f5;
+  text-align:center;font-size:.72rem;color:#6b7a99;
+}
+@media(prefers-reduced-motion:no-preference){
+  body .auth .auth-card{animation:rtu-rise .5s ease-out both}
+  body .auth::before,body .auth::after{animation:rtu-fade .6s ease-out both}
+  @keyframes rtu-rise{from{opacity:0;transform:translateY(14px)}}
+  @keyframes rtu-fade{from{opacity:0}}
+}
+
+/* ---- icons (CSS only) ---- */
+body .auth .auth-card .field input[type=text],
+body .auth .auth-card .field input[type=email],
+body .auth .auth-card .field input[type=password]{
+  padding-left:3rem;background-repeat:no-repeat;background-position:1rem center;background-size:20px 20px}
+body .auth .auth-card .field input[type=text],
+body .auth .auth-card .field input[type=email]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a2f7a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7'/%3E%3C/svg%3E")}
+body .auth .auth-card .field input[type=password]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a2f7a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='11' width='16' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 018 0v3'/%3E%3C/svg%3E")}
+
+body .auth .auth-card .role-switch button{display:grid;grid-template-columns:44px 1fr;column-gap:.75rem;align-items:center}
+body .auth .auth-card .role-switch button::before{content:"";grid-row:1/3;width:40px;height:40px;background:center/contain no-repeat}
+body .auth .auth-card .role-switch button:first-child::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%230a2f7a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 18l20-10 20 10-20 10z'/%3E%3Cpath d='M12 23v10c0 3 5 6 12 6s12-3 12-6V23'/%3E%3Cpath d='M44 18v12'/%3E%3C/svg%3E")}
+body .auth .auth-card .role-switch button:last-child::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%230a2f7a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='20' cy='14' r='7'/%3E%3Cpath d='M6 40c0-7 6-12 14-12 2 0 4 .3 5.5 1'/%3E%3Ccircle cx='35' cy='35' r='4'/%3E%3Cpath d='M35 27v3M35 40v3M27 35h3M40 35h3'/%3E%3C/svg%3E")}
+
+/* ---- transparent (frosted glass) login form ---- */
+body .auth .auth-card{
+  background:rgba(255,255,255,.30);
+  -webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);
+  border:1px solid rgba(255,255,255,.55);border-top:6px solid var(--gold);
+}
+body .auth .auth-card h1,
+body .auth .auth-card .field{color:#06255f}
+body .auth .auth-card>p,
+body .auth .auth-card .role-switch small{color:#27407a}
+body .auth .auth-card .role-switch button{background-color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.7)}
+body .auth .auth-card .role-switch button.active{background-color:var(--soft);border-color:var(--primary)}
+body .auth .auth-card .field input{background-color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.8)}
+body .auth .auth-card .field input:focus{background-color:rgba(255,255,255,.9);border-color:#1d4ed8}
+body .auth .auth-foot,body .auth .auth-card::after{color:#27407a}
+body .auth .auth-card::after{border-top-color:rgba(255,255,255,.6)}
+body .auth .auth-foot a,body .auth .forgot{color:#0a3a9a}
+
+/* readable text on the glass card (Forgot password and other sub-pages) */
+body .auth .auth-card{background:rgba(255,255,255,.58)}
+body .auth .auth-card h1,
+body .auth .auth-card h2,
+body .auth .auth-card h3{color:#06255f}
+body .auth .auth-card p,
+body .auth .auth-card .muted,
+body .auth .auth-card small,
+body .auth .auth-card label{color:#1f3568}

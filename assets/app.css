@@ -1,3 +1,8 @@
+@import url("login-theme.css");
+@import url("admin-theme.css");
+@import url("student-theme.css");
+@import url("sidebar-slide.css");
+@import url("dark-mode.css");
 :root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--card:#fff;--ok:#15803d;--warn:#b45309;--bad:#b91c1c;--r:12px;font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
 .theme-student{--primary:#1d4ed8;--primary-dark:#1e40af;--on:#fff;--soft:#e6eeff;--page:#f3f6fd;--side:linear-gradient(180deg,#1e3a8a,#1d4ed8);--side-ink:#dbe7ff;--side-on:rgba(255,255,255,.16);--side-act:#fff}
 .theme-admin{--primary:#f5b301;--primary-dark:#d99a00;--on:#2b2000;--soft:#fff3c2;--page:#fffbea;--side:linear-gradient(180deg,#fcd34d,#f5b301);--side-ink:#3b2a00;--side-on:rgba(43,32,0,.14);--side-act:#2b2000}
@@ -117,3 +122,8 @@ summary{cursor:pointer;font-weight:600}details p{margin:.5rem 0 0}
 
 .alerts li>.badge{margin-left:auto}
 .eq-body .actions{margin-top:.2rem}
+
+.theme-admin .side{
+  background:linear-gradient(180deg,#fcd34d 0%,#f5b301 55%,#e6a100 100%);
+  box-shadow:4px 0 18px rgba(120,80,0,.18);
+}

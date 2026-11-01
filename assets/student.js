@@ -12,7 +12,7 @@ let me, equipment = [], requests = [], waiver = '', current = null, snap = '';
   $('#sigLabel').textContent = `Type your full name to sign (${full})`;
   $('#logout2').addEventListener('click', logout);
 
-  wireShell({ catalog: 'Equipment catalog', requests: 'My requests', notifications: 'Notifications', account: 'Account details' });
+  wireShell({ catalog: 'Equipment Catalog', requests: 'My Borrow Requests', notifications: 'Notifications', account: 'Account Details' });
   $('#changePw').addEventListener('click', () => openPw(false));
   if (me.must_change_password) openPw(true); else await startData();
 })();
