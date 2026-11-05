@@ -1,0 +1,84 @@
+/* student-theme.css — blue + RTU seal restyle for the Student portal. Scoped to .theme-student only.
+   Pure CSS (no HTML/JS changes). Loaded from the top of app.css:  @import url("student-theme.css"); */
+.theme-student{font-family:"Poppins","Segoe UI",system-ui,sans-serif}
+
+/* ===== sidebar ===== */
+.theme-student .side{background:linear-gradient(180deg,#0b2a7a 0%,#1e40af 55%,#1d4ed8 100%);padding:0;gap:0;box-shadow:4px 0 18px rgba(10,47,122,.2);overflow-y:auto}
+.theme-student .side .brand{padding:1rem;gap:.8rem;background:linear-gradient(135deg,#3b6ef0 0%,#1d4ed8 100%);border-bottom:3px solid #0b2a7a}
+.theme-student .side .brand strong{color:#fff;font-size:1.05rem}
+.theme-student .side .brand small{color:#dbe7ff;opacity:1}
+.theme-student .side .brand .logo-mark{width:54px;height:54px;flex:none;border-radius:50%;font-size:0;color:transparent;
+  background:#fff url("images/rtu-logo.png") center/80% no-repeat;box-shadow:0 4px 12px rgba(0,0,0,.3),0 0 0 3px rgba(255,255,255,.45)}
+.theme-student .side .nav{flex:none;padding:.9rem .75rem 0;gap:.15rem}
+.theme-student .side .nav button,.theme-student .side .nav-out{position:relative;padding:.7rem .85rem .7rem 2.8rem;border-radius:10px;font-size:.92rem;font-weight:500;color:#e6eeff;transition:background .15s,color .15s}
+.theme-student .side .nav button::before,.theme-student .side .nav-out::before{content:"";position:absolute;left:.95rem;top:50%;width:20px;height:20px;margin-top:-10px;background:center/contain no-repeat}
+.theme-student .side .nav button:hover{background:rgba(255,255,255,.12)}
+.theme-student .side .nav button.active{background:#fff;color:#1d4ed8;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.theme-student .side .nav button.active::after{content:"";position:absolute;left:0;top:22%;bottom:22%;width:4px;border-radius:4px;background:#1d4ed8}
+.theme-student .side .nav button:nth-child(1)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cfe0ff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='7' rx='1.5'/%3E%3Crect x='14' y='3' width='7' height='7' rx='1.5'/%3E%3Crect x='3' y='14' width='7' height='7' rx='1.5'/%3E%3Crect x='14' y='14' width='7' height='7' rx='1.5'/%3E%3C/svg%3E")}
+.theme-student .side .nav button:nth-child(1).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d4ed8' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='7' rx='1.5'/%3E%3Crect x='14' y='3' width='7' height='7' rx='1.5'/%3E%3Crect x='3' y='14' width='7' height='7' rx='1.5'/%3E%3Crect x='14' y='14' width='7' height='7' rx='1.5'/%3E%3C/svg%3E")}
+.theme-student .side .nav button:nth-child(2)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cfe0ff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='4' width='14' height='17' rx='2'/%3E%3Cpath d='M9 4h6v3H9z'/%3E%3Cpath d='M9 12h6M9 16h6'/%3E%3C/svg%3E")}
+.theme-student .side .nav button:nth-child(2).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d4ed8' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='4' width='14' height='17' rx='2'/%3E%3Cpath d='M9 4h6v3H9z'/%3E%3Cpath d='M9 12h6M9 16h6'/%3E%3C/svg%3E")}
+.theme-student .side .nav button:nth-child(3)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cfe0ff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8'/%3E%3Cpath d='M10 21h4'/%3E%3C/svg%3E")}
+.theme-student .side .nav button:nth-child(3).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d4ed8' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8'/%3E%3Cpath d='M10 21h4'/%3E%3C/svg%3E")}
+.theme-student .side .nav button:nth-child(4)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cfe0ff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7'/%3E%3C/svg%3E")}
+.theme-student .side .nav button:nth-child(4).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d4ed8' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7'/%3E%3C/svg%3E")}
+
+.theme-student .side .nav-out{margin:.9rem .75rem 0;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.08);color:#fff;font-weight:600;justify-content:flex-start}
+.theme-student .side .nav-out:hover{background:rgba(255,255,255,.2)}
+.theme-student .side .nav-out::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4'/%3E%3Cpath d='M16 17l5-5-5-5M21 12H9'/%3E%3C/svg%3E")}
+
+/* ===== top bar, page ===== */
+.theme-student .main{min-height:100vh;background:linear-gradient(180deg,#e8f0ff 0,#f3f7ff 340px,#f8faff 100%)}
+.theme-student .main .top{padding:1rem 2rem;border-bottom:3px solid #1d4ed8;box-shadow:0 4px 14px rgba(10,47,122,.06)}
+.theme-student .main .top h2{color:#0a2f7a;font-size:1.4rem;font-weight:700;letter-spacing:-.01em}
+.theme-student .main .chip,.theme-student .main .icon-btn{border-color:#c7d7fb}
+.theme-student .main .avatar{box-shadow:0 0 0 3px #e6eeff}
+.theme-student .main .content{max-width:none;padding:1.6rem 2rem 2.5rem}
+
+/* ===== search, filters ===== */
+.theme-student .main .toolbar input{padding-left:2.6rem;border-color:#bcd0f7;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c93c9' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M21 21l-4.3-4.3'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:1rem center;background-size:18px}
+.theme-student .main .toolbar select,.theme-student .main .field input,.theme-student .main .field select,.theme-student .main .field textarea{border-color:#bcd0f7}
+.theme-student .main .toolbar input:focus,.theme-student .main .toolbar select:focus,.theme-student .main .field input:focus,.theme-student .main .field select:focus,.theme-student .main .field textarea:focus{outline:none;border-color:#1d4ed8;box-shadow:0 0 0 4px rgba(29,78,216,.18)}
+
+/* ===== equipment cards ===== */
+.theme-student .main .grid{grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.2rem}
+.theme-student .main .eq{border-color:#d6e2fb;border-radius:14px;box-shadow:0 1px 2px rgba(10,47,122,.05),0 6px 18px rgba(10,47,122,.06);transition:box-shadow .15s,transform .15s,border-color .15s}
+.theme-student .main .eq[data-eq]:hover,.theme-student .main .eq:hover{border-color:#1d4ed8;box-shadow:0 14px 28px rgba(10,47,122,.16);transform:translateY(-2px)}
+.theme-student .main .thumb{background:linear-gradient(135deg,#e6eeff,#c9dbff);color:#1d4ed8;text-shadow:0 2px 6px rgba(29,78,216,.2)}
+.theme-student .main .pill{background:#e6eeff;color:#1e40af;border:1px solid #bcd0f7}
+.theme-student .main .eq-body h3,.theme-student .main .eq-body strong{color:#0a2f7a}
+.theme-student .main .stock{color:#334e7e}
+.theme-student .main .btn.primary{background:linear-gradient(180deg,#2b5fe6,#1d4ed8);border-color:#1e40af;box-shadow:0 8px 16px rgba(29,78,216,.3);border-radius:10px;transition:transform .15s,box-shadow .15s,filter .15s}
+.theme-student .main .btn.primary:hover{transform:translateY(-1px);box-shadow:0 12px 22px rgba(29,78,216,.38);filter:brightness(1.06)}
+.theme-student .main .btn{border-radius:10px}
+.theme-student .main .btn:hover{border-color:#1d4ed8}
+
+/* ===== panels, tables, badges, empty state ===== */
+.theme-student .main .panel{padding:1.4rem 1.5rem;margin-bottom:1.4rem;border-color:#d6e2fb;border-radius:14px;box-shadow:0 1px 2px rgba(10,47,122,.05),0 8px 24px rgba(10,47,122,.06)}
+.theme-student .main .panel h3{display:flex;align-items:center;gap:.6rem;color:#0a2f7a;font-size:1.1rem}
+.theme-student .main .panel h3::before{content:"";width:5px;height:1.1em;border-radius:3px;background:#1d4ed8;flex:none}
+.theme-student .main th{padding:.75rem .8rem;background:#eaf1ff;color:#1e3a8a;text-transform:uppercase;letter-spacing:.05em;font-size:.72rem;border-bottom:2px solid #bcd0f7}
+.theme-student .main td{padding:.85rem .8rem;border-bottom:1px solid #e3ebfb}
+.theme-student .main tbody tr:nth-child(even){background:#f8faff}
+.theme-student .main tbody tr:hover{background:#eef4ff}
+.theme-student .main .badge{padding:.2rem .7rem;font-weight:600}
+.theme-student .main .badge::before{content:"";display:inline-block;width:6px;height:6px;margin-right:.45rem;border-radius:50%;background:currentColor;vertical-align:middle}
+.theme-student .main .empty{padding:2.4rem 1rem}
+.theme-student .main .empty::before{content:"";display:block;width:56px;height:56px;margin:0 auto .8rem;border-radius:50%;background:#e6eeff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d4ed8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M8 12.5l2.7 2.7L16 9.5'/%3E%3C/svg%3E") center/26px no-repeat}
+
+/* ===== dialogs, focus ===== */
+.theme-student dialog{border-top:5px solid #1d4ed8;border-radius:18px}
+.theme-student dialog h3{color:#0a2f7a}
+.theme-student :focus-visible{outline:3px solid rgba(29,78,216,.55);outline-offset:2px}
+
+@media(max-width:820px){
+  .theme-student .side{padding:.5rem;overflow-y:visible}
+  .theme-student .side .brand{padding:.4rem .6rem;background:none;border-bottom:0}
+  .theme-student .side .brand .logo-mark{width:40px;height:40px}
+  .theme-student .side .nav{padding:0}
+  .theme-student .side .nav button{padding:.6rem .85rem}
+  .theme-student .side .nav button::before{display:none}
+  .theme-student .main .content{padding:1rem}
+  .theme-student .main .top{padding:.8rem 1rem}
+}

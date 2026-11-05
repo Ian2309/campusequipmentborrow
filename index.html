@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-api="api/">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RTU Equipment Hub · Log in</title>
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body class="theme-student" data-page="login">
+<main class="auth">
+  <section class="auth-card">
+    <h1>RTU Equipment Hub</h1>
+    <p class="muted">Borrow campus equipment, track your requests.</p>
+
+    <div class="role-switch" role="group" aria-label="Choose how to log in">
+      <button type="button" data-role="student" class="active" aria-pressed="true"><strong>Student</strong><small>Borrow equipment</small></button>
+      <button type="button" data-role="admin" aria-pressed="false"><strong>PEMU Admin</strong><small>Manage inventory</small></button>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <label class="field"><span id="userLabel">Student number or email</span><input id="username" autocomplete="username" required></label>
+      <label class="field">Password<input id="password" type="password" autocomplete="current-password" required></label>
+      <a href="#" class="forgot" id="showForgot">Forgot password?</a>
+      <button class="btn primary block" id="loginBtn">Log in as Student</button>
+      <p class="form-msg" id="loginMsg" role="alert"></p>
+    </form>
+    <p class="auth-foot" id="regLink">New student? <a href="#" id="showReg">Create an account</a></p>
+
+    <form id="forgotForm" hidden novalidate>
+      <h3>Forgot your password?</h3>
+      <p class="muted">Enter your student number and the email you registered with. PEMU will be notified and will give you a temporary password.</p><br>
+      <label class="field">Student number<input id="f_sid" maxlength="20"></label>
+      <label class="field">Registered email<input id="f_email" type="email" maxlength="120"></label>
+      <button class="btn primary block" id="forgotBtn">Request password reset</button>
+      <p class="form-msg" id="forgotMsg" role="alert"></p>
+      <p class="auth-foot"><a href="#" id="backLogin">Back to log in</a></p>
+    </form>
+
+    <form id="regForm" hidden novalidate>
+      <h3>Create student account</h3><br>
+      <div class="row">
+        <label class="field">First name<input id="r_first" autocomplete="given-name" maxlength="50"></label>
+        <label class="field">Last name<input id="r_last" autocomplete="family-name" maxlength="50"></label>
+      </div>
+      <div class="row">
+        <label class="field">Student number<input id="r_sid" maxlength="20" placeholder="e.g. 2021-00123"></label>
+        <label class="field">Email<input id="r_email" type="email" autocomplete="email" maxlength="120"></label>
+      </div>
+      <div class="row">
+        <label class="field">Course<input id="r_course" maxlength="80" placeholder="e.g. BSIT"></label>
+        <label class="field">Year level
+          <select id="r_year"><option value="">Choose…</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option><option>5th Year</option></select>
+        </label>
+      </div>
+      <div class="row">
+        <label class="field">Password (8+ characters, letters and numbers)<input id="r_pass" type="password" autocomplete="new-password"></label>
+        <label class="field">Confirm password<input id="r_pass2" type="password" autocomplete="new-password"></label>
+      </div>
+      <button class="btn primary block" id="regBtn">Create account</button>
+      <p class="form-msg" id="regMsg" role="alert"></p>
+      <p class="auth-foot"><a href="#" id="showLogin">Back to log in</a></p>
+    </form>
+  </section>
+</main>
+<div id="toasts"></div>
+<script src="assets/app.js"></script>
+<script src="assets/login.js"></script>
+</body>
+</html>

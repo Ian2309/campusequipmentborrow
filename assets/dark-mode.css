@@ -1,0 +1,94 @@
+/* dark-mode.css — dark theme for the admin (gold) and student (blue) pages.
+   Switched on by the top-bar button (adds data-dark to <html> and to the .theme-* element). Import it LAST in app.css. */
+[data-dark]{color-scheme:dark}
+.theme-student[data-dark]{--ink:#e6ecfa;--muted:#9fb0d0;--line:#26345a;--card:#121a33;--page:#0b1226;--soft:#172a58;--primary:#3b6ef0;--primary-dark:#2a55d0}
+.theme-admin[data-dark]{--ink:#f5efdc;--muted:#bfb28a;--line:#3a3220;--card:#1e1a10;--page:#15120a;--soft:#3a2d08}
+
+/* ----- page, top bar ----- */
+:is(.theme-admin,.theme-student)[data-dark] .main{background:var(--page)}
+.theme-student[data-dark] .main .top{background:radial-gradient(circle at 90% -50%,rgba(255,255,255,.12) 0,transparent 46%),linear-gradient(120deg,#07163f 0%,#12308a 62%,#1d4ed8 100%);border-bottom-color:#030a24}
+.theme-admin[data-dark] .main .top{background:radial-gradient(circle at 90% -50%,rgba(255,224,138,.18) 0,transparent 46%),linear-gradient(120deg,#2b2208 0%,#5c4300 62%,#8a6500 100%);border-bottom-color:#f5b301}
+.theme-admin[data-dark] .main .top h2{color:#ffe08a;text-shadow:none}
+:is(.theme-admin,.theme-student)[data-dark] .main .chip,
+:is(.theme-admin,.theme-student)[data-dark] .main .icon-btn,
+:is(.theme-admin,.theme-student)[data-dark] .main .top .btn{background:var(--card);color:var(--ink);border-color:var(--line)}
+
+/* ----- sidebar ----- */
+.theme-student[data-dark] .side{background:linear-gradient(180deg,#050b20,#0a1740 60%,#0f2a78)}
+.theme-student[data-dark] .side .brand{background:linear-gradient(135deg,#1b3a9a,#12307f);border-bottom-color:#030a24}
+.theme-student[data-dark] .side .nav button.active{background:rgba(255,255,255,.14);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.theme-student[data-dark] .side .nav button.active::after{background:#7ea2ff}
+.theme-admin[data-dark] .side{background:linear-gradient(180deg,#2a2208,#17120a);border-right-color:#3a3220}
+.theme-admin[data-dark] .side .brand{background:linear-gradient(135deg,#7a5800,#4a3600);border-bottom-color:#2a1f00}
+.theme-admin[data-dark] .side .brand strong{color:#fff}
+.theme-admin[data-dark] .side .brand small{color:#f3dfa0}
+.theme-admin[data-dark] .side .nav button{color:#f1e4b8}
+.theme-admin[data-dark] .side .nav button:hover{background:rgba(255,255,255,.08)}
+.theme-admin[data-dark] .side .nav button.active{background:rgba(245,179,1,.2);color:#ffd35a;box-shadow:inset 0 0 0 1px rgba(245,179,1,.45)}
+.theme-admin[data-dark] .side .nav-out{background:transparent;color:#ff9a9a;border-color:rgba(255,130,130,.4)}
+:is(.theme-admin,.theme-student)[data-dark] .side .nav button::before{filter:brightness(0) invert(1);opacity:.85}
+
+/* ----- panels, cards, tables ----- */
+:is(.theme-admin,.theme-student)[data-dark] .main .panel,
+:is(.theme-admin,.theme-student)[data-dark] .main .eq{background:var(--card);border-color:var(--line);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+:is(.theme-admin,.theme-student)[data-dark] .main .stat{background-color:var(--card);border-left-color:var(--line);border-right-color:var(--line);border-bottom-color:var(--line);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+:is(.theme-admin,.theme-student)[data-dark] .main .stat b,
+:is(.theme-admin,.theme-student)[data-dark] .main .panel h3,
+:is(.theme-admin,.theme-student)[data-dark] .main .eq-body h3,
+:is(.theme-admin,.theme-student)[data-dark] .main .eq-body strong,
+:is(.theme-admin,.theme-student)[data-dark] .main .cat-head,
+:is(.theme-admin,.theme-student)[data-dark] .main .stock{color:var(--ink)}
+:is(.theme-admin,.theme-student)[data-dark] .main .stat::after,
+:is(.theme-admin,.theme-student)[data-dark] .main .stat span{color:var(--muted)}
+:is(.theme-admin,.theme-student)[data-dark] .main th{background:rgba(255,255,255,.05);color:var(--muted);border-bottom-color:var(--line)}
+:is(.theme-admin,.theme-student)[data-dark] .main td{border-bottom-color:var(--line)}
+:is(.theme-admin,.theme-student)[data-dark] .main tbody tr:nth-child(even){background:rgba(255,255,255,.03)}
+:is(.theme-admin,.theme-student)[data-dark] .main tbody tr:hover{background:rgba(255,255,255,.07)}
+.theme-student[data-dark] .main .thumb{background:linear-gradient(135deg,#172a58,#1d3a85);color:#9db8f5;text-shadow:none}
+.theme-admin[data-dark] .main .thumb{background:linear-gradient(135deg,#3a2d08,#5a4410);color:#ffd35a;text-shadow:none}
+:is(.theme-admin,.theme-student)[data-dark] .main .pill{background:var(--soft);color:var(--ink);border-color:var(--line)}
+:is(.theme-admin,.theme-student)[data-dark] .main .empty::before{background-color:var(--soft)}
+:is(.theme-admin,.theme-student)[data-dark] .main .cat-tabs button:not(.active){background:var(--card);color:var(--ink);border-color:var(--line)}
+
+/* ----- inputs, buttons ----- */
+:is(.theme-admin,.theme-student)[data-dark] .main .toolbar input,
+:is(.theme-admin,.theme-student)[data-dark] .main .toolbar select,
+:is(.theme-admin,.theme-student)[data-dark] .main .field input,
+:is(.theme-admin,.theme-student)[data-dark] .main .field select,
+:is(.theme-admin,.theme-student)[data-dark] .main .field textarea{background-color:rgba(255,255,255,.06);color:var(--ink);border-color:var(--line)}
+:is(.theme-admin,.theme-student)[data-dark] .main .btn:not(.primary){background:var(--card);color:var(--ink);border-color:var(--line)}
+[data-dark] .btn.danger{color:#ff9a9a}
+
+/* ----- dialogs ----- */
+[data-dark] dialog{background:#141b2e;color:#e8edf7}
+.theme-admin[data-dark] dialog,[data-dark] .theme-admin dialog{background:#1e1a10;color:#f5efdc}
+[data-dark] .waiver{background:rgba(255,255,255,.05);border-color:var(--line)}
+
+/* ----- chatbot ----- */
+[data-dark] .orb-wrap .orb-panel{background:rgba(16,22,40,.97)}
+.theme-admin[data-dark] .orb-wrap .orb-panel{background:rgba(30,26,16,.97)}
+[data-dark] .orb-wrap .orb-log{background:var(--page)}
+[data-dark] .orb-wrap .msg.bot{background:var(--card);color:var(--ink);border-color:var(--line)}
+[data-dark] .orb-wrap .orb-chips{border-top-color:var(--line)}
+[data-dark] .orb-wrap .orb-chips button{background:var(--soft);color:var(--ink)}
+[data-dark] .orb-wrap .orb-form input{background:var(--card);color:var(--ink);border-color:var(--line)}
+[data-dark] .orb-wrap .orb-tip{background:var(--card);color:var(--ink);border-color:var(--primary)}
+
+/* ----- the toggle button ----- */
+#themeToggle{width:42px;height:42px;display:grid;place-items:center;cursor:pointer;border-radius:10px;transition:transform .15s}
+#themeToggle:hover{transform:scale(1.08)}
+#themeToggle svg{width:20px;height:20px}
+
+/* ----- buttons and fields everywhere, including dialogs (e.g. "Stay logged in") ----- */
+[data-dark] .btn:not(.primary):not(.danger){background:#1b2440;color:#e8edf7;border-color:#2c3a63}
+[data-dark] .btn:not(.primary):not(.danger):hover{border-color:#6c97ff}
+[data-dark] .btn.danger{background:#1b2440;border-color:#6b2a2a}
+.theme-admin[data-dark] .btn:not(.primary):not(.danger){background:#2a2410;color:#f5efdc;border-color:#4a3f22}
+.theme-admin[data-dark] .btn:not(.primary):not(.danger):hover{border-color:#f5b301}
+.theme-admin[data-dark] .btn.danger{background:#2a2410;border-color:#6b2a2a}
+[data-dark] dialog .field input,[data-dark] dialog .field select,[data-dark] dialog .field textarea{background:rgba(255,255,255,.07);color:#e8edf7;border-color:#2c3a63}
+.theme-admin[data-dark] dialog .field input,.theme-admin[data-dark] dialog .field select,.theme-admin[data-dark] dialog .field textarea{color:#f5efdc;border-color:#4a3f22}
+[data-dark] dialog .muted,[data-dark] dialog small{color:#9fb0d0}
+
+/* admin dark mode: dialog titles (e.g. "Log out?") in gold */
+.theme-admin[data-dark] dialog h3,[data-dark] .theme-admin dialog h3{color:#ffd35a}
