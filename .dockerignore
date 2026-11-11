@@ -1,0 +1,6 @@
+.git
+.gitignore
+config/supabase.php
+backups/*.sql
+uploads/*
+README.md

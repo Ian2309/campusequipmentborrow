@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-api="../api/">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PEMU Admin · RTU Equipment Hub</title>
+<link rel="stylesheet" href="../assets/app.css">
+</head>
+<body class="theme-admin" data-page="admin">
+<div class="app">
+  <aside class="side">
+    <div class="brand"><span class="logo-mark">P</span><div><strong>PEMU Admin</strong><small>RTU Equipment Hub</small></div></div>
+    <nav class="nav">
+      <button data-tab="overview">Overview <span class="count" data-low-badge hidden>0</span></button>
+      <button data-tab="requests">Borrow requests <span class="count" data-pending-badge hidden>0</span></button>
+      <button data-tab="inventory">Inventory</button>
+      <button data-tab="damage">Damage records <span class="count" data-damage-badge hidden>0</span></button>
+      <button data-tab="notifications">Notifications <span class="count" data-notif-badge hidden>0</span></button>
+      <button data-tab="account">Account and backup</button>
+    </nav>
+    <button class="nav-out" id="logout">Log out</button>
+  </aside>
+
+  <div class="main">
+    <header class="top">
+      <h2 id="pageTitle"></h2>
+      <div class="top-r">
+        <button class="btn sm" data-tab="resets">Password resets <span class="count" data-reset-badge hidden>0</span></button>
+        <button class="icon-btn" data-tab="notifications" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg>
+          <span class="count" data-notif-badge hidden>0</span>
+        </button>
+        <button class="chip" data-tab="account" aria-label="Account details"><span class="avatar" id="avatar"></span><span id="chipId"></span></button>
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="view" id="view-overview">
+        <div class="stats" id="stats"></div>
+        <div class="panel" id="lowPanel" hidden><h3>Low stock alerts</h3><ul class="alerts" id="lowList"></ul></div>
+        <div class="panel"><h3>Waiting for your decision</h3><div class="table-wrap">
+          <table><thead><tr><th>Student</th><th>Equipment</th><th>Dates</th><th>Status</th><th></th></tr></thead><tbody id="pendBody"></tbody></table>
+        </div></div>
+        <div class="panel"><h3>Equipment</h3>
+          <div class="toolbar"><input id="eqSearch" type="search" placeholder="Search equipment…" aria-label="Search equipment"></div>
+          <div class="cat-tabs" id="catTabs" aria-label="Filter by category"></div>
+          <div id="eqGrid"></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-requests" hidden>
+        <div class="toolbar">
+          <input id="rSearch" type="search" placeholder="Search receipt no., student or equipment…" aria-label="Search requests">
+          <select id="rFilter" aria-label="Filter by status"><option value="">All statuses</option><option>Pending Approval</option><option>Approved</option><option>Rejected</option><option>Returned</option><option>Returned Damaged</option></select>
+        </div>
+        <div class="panel"><div class="table-wrap">
+          <table><thead><tr><th>Receipt</th><th>Student</th><th>Equipment</th><th>Dates</th><th>Purpose</th><th>Signed waiver</th><th>Status</th><th></th></tr></thead><tbody id="reqBody"></tbody></table>
+        </div></div>
+      </section>
+
+      <section class="view" id="view-inventory" hidden>
+        <div class="panel"><h3>Add equipment</h3>
+          <form id="addForm" novalidate>
+            <p class="muted">All fields are required, including a photo.</p><br>
+            <div class="row">
+              <label class="field">Name *<input id="eName" maxlength="100" required></label>
+              <label class="field">Category *<select id="eCat" required><option value="">Choose a category</option><option>AV</option><option>Computing</option><option>Laboratory</option><option>Sports</option><option>Tools</option><option>Other</option></select></label>
+            </div>
+            <div class="row">
+              <label class="field">Total units *<input id="eTotal" type="number" min="1" max="1000" value="1" required></label>
+              <label class="field">Photo * (JPG, PNG or WebP)<input id="ePhoto" type="file" accept="image/jpeg,image/png,image/webp" required></label>
+            </div>
+            <div class="photo-prev" id="photoPrev"></div>
+            <label class="field">Description *<textarea id="eDesc" maxlength="500" required></textarea></label>
+            <button class="btn primary" id="addBtn">Add to inventory</button>
+            <p class="form-msg" id="addMsg" role="alert"></p>
+          </form>
+        </div>
+        <div class="panel"><h3>Current inventory</h3><div class="table-wrap">
+          <table><thead><tr><th>Photo</th><th>Equipment</th><th>Category</th><th>Available</th><th>Total</th><th></th></tr></thead><tbody id="invBody"></tbody></table>
+        </div></div>
+      </section>
+
+      <section class="view" id="view-damage" hidden>
+        <div class="panel"><div class="table-wrap">
+          <table><thead><tr><th>Recorded</th><th>Student</th><th>Equipment</th><th>Damage</th><th>Est. cost</th><th>Waiver on file</th><th>Status</th></tr></thead><tbody id="dmgBody"></tbody></table>
+        </div></div>
+      </section>
+
+      <section class="view" id="view-resets" hidden>
+        <div class="panel">
+          <p class="muted">Students who forgot their password appear here. Generate a temporary password and give it to the student in person. They must choose their own at next login.</p><br>
+          <div class="table-wrap"><table><thead><tr><th>Requested</th><th>Student</th><th>Email</th><th>Status</th><th></th></tr></thead><tbody id="resetBody"></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-notifications" hidden>
+        <div class="panel">
+          <div class="toolbar"><button class="btn sm" id="markRead">Mark all as read</button></div>
+          <ul class="notifs" id="notifList"></ul>
+        </div>
+      </section>
+
+      <section class="view" id="view-account" hidden>
+        <div class="panel account">
+          <span class="avatar" id="accAvatar"></span>
+          <dl class="dl"><dt>Username</dt><dd class="big" id="accUser"></dd><dt>Full name</dt><dd id="accName"></dd><dt>Role</dt><dd>PEMU administrator</dd></dl>
+        </div>
+        <div class="panel"><h3>Database backup</h3>
+          <p class="muted">Downloads a full SQL copy of students, equipment, requests, waivers and damage records. A copy is also kept in the server's <code>backups</code> folder (newest 30). Backups contain password hashes: store them safely.</p>
+          <button class="btn primary" id="backupBtn">Download backup</button>
+        </div>
+        <div class="panel"><h3>Help and support</h3>
+          <details><summary>A student forgot their password</summary><p class="muted">Open Password resets, click Generate temporary password and give it to the student in person. They must choose a new one at next login.</p></details>
+          <details><summary>Adding equipment fails or the photo is rejected</summary><p class="muted">Fill in every field and pick a JPG, PNG or WebP photo (it is shrunk automatically). If it still fails, make sure the server's <code>uploads</code> folder is writable.</p></details>
+          <details><summary>The page shows old data or an offline message</summary><p class="muted">Check the internet connection. The page refreshes by itself every few seconds once you are back online.</p></details>
+          <details><summary>Protecting the data</summary><p class="muted">Download a backup regularly from this page. Backups contain password hashes, so store them safely.</p></details>
+          <details><summary>Need a quick answer?</summary><p class="muted">Ask the assistant (the glowing orb at the bottom left), for example "Which items are low on stock?".</p></details>
+        </div>
+        <button class="btn danger" id="logout2">Log out</button>
+        <button class="btn" id="changePw">Change password</button>
+      </section>
+    </div>
+  </div>
+</div>
+
+<dialog id="actDialog">
+  <form id="actForm" novalidate>
+    <h3 id="actTitle"></h3>
+    <p class="muted" id="actInfo"></p><br>
+    <div id="condBox" hidden>
+      <label class="check"><input type="radio" name="cond" value="good" checked><span>Returned in good condition</span></label>
+      <label class="check"><input type="radio" name="cond" value="damaged"><span>Returned damaged or incomplete</span></label>
+      <div id="dmgBox" hidden>
+        <label class="field">What was damaged?<textarea id="dDesc" maxlength="500"></textarea></label>
+        <div class="row">
+          <label class="field">Severity<select id="dSev"><option>Minor</option><option>Moderate</option><option>Severe</option></select></label>
+          <label class="field">Estimated cost (₱)<input id="dCost" type="number" min="0" step="0.01" value="0"></label>
+        </div>
+        <label class="check"><input type="checkbox" id="dUnusable"><span>Unit is unusable: remove it from inventory</span></label>
+      </div>
+    </div>
+    <label class="field">Note to student (optional)<input id="actNote" maxlength="300"></label>
+    <p class="form-msg" id="actMsg" role="alert"></p>
+    <div class="dialog-foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary" id="actSubmit">Confirm</button></div>
+  </form>
+</dialog>
+
+<dialog id="tempDialog">
+  <h3>Temporary password</h3>
+  <p class="muted" id="tempFor"></p>
+  <div class="temp" id="tempPw"></div>
+  <p class="muted">Shown only once. Give it to the student privately. They will be asked to set a new password when they log in.</p>
+  <div class="dialog-foot"><button type="button" class="btn primary" data-close>Done</button></div>
+</dialog>
+
+<dialog id="pwDialog">
+  <form id="pwForm" novalidate>
+    <h3>Change password</h3><br>
+    <label class="field">Current password<input id="pwCur" type="password" autocomplete="current-password"></label>
+    <label class="field">New password (10+ characters, letters and numbers)<input id="pwNew" type="password" autocomplete="new-password"></label>
+    <label class="field">Confirm new password<input id="pwNew2" type="password" autocomplete="new-password"></label>
+    <p class="form-msg" id="pwMsg" role="alert"></p>
+    <div class="dialog-foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary" id="pwSubmit">Save password</button></div>
+  </form>
+</dialog>
+
+<dialog id="stockDialog">
+  <form id="stockForm" novalidate>
+    <h3 id="stockTitle">Add quantity</h3>
+    <p class="muted" id="stockInfo"></p><br>
+    <label class="field">Units to add<input id="stockQty" type="number" min="1" max="1000" value="1"></label>
+    <p class="muted">Total and available units go up by this amount, the student catalog updates within seconds, and every active student gets a "restocked" notification.</p>
+    <p class="form-msg" id="stockMsg" role="alert"></p>
+    <div class="dialog-foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary" id="stockSubmit">Add units</button></div>
+  </form>
+</dialog>
+
+<dialog id="delDialog">
+  <h3>Delete equipment?</h3>
+  <p class="muted" id="delInfo"></p>
+  <p class="form-msg" id="delMsg" role="alert"></p>
+  <div class="dialog-foot"><button type="button" class="btn" data-close>Cancel</button><button type="button" class="btn danger" id="delConfirm">Yes, delete</button></div>
+</dialog>
+
+<dialog id="eqDialog" class="eq-dialog">
+  <div class="thumb" id="eqPhoto"></div>
+  <span class="pill" id="eqCat"></span>
+  <h3 id="eqName"></h3>
+  <p class="muted" id="eqDesc"></p>
+  <dl class="dl" id="eqFacts"></dl>
+  <p class="muted" id="eqNote"></p>
+  <div class="dialog-foot"><button type="button" class="btn" data-close>Close</button><button type="button" class="btn primary" id="eqRequest" hidden>Request to borrow</button></div>
+</dialog>
+
+<div id="toasts"></div>
+<script src="../assets/app.js"></script>
+<script src="../assets/admin.js"></script>
+<script src="../assets/chat.js"></script>
+</body>
+</html>
