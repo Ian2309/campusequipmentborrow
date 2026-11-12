@@ -8,7 +8,8 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 header('Cache-Control: no-store');
 
-ini_set('session.use_strict_mode', '1');
+require_once __DIR__ . '/session_db.php';
+session_set_save_handler(new DbSessionHandler($pdo), true);
 session_name('campusmate');
 session_set_cookie_params([
     'path' => '/', 'httponly' => true, 'samesite' => 'Strict', 'secure' => !empty($_SERVER['HTTPS']) || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https',
