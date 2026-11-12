@@ -1,20 +1,23 @@
-<?php
-// Shared bootstrap for every API endpoint: headers, session, helpers and auth guards.
-date_default_timezone_set('Asia/Manila');
-ini_set('display_errors', '0');
+   <?php
+   // Shared bootstrap for every API endpoint: headers, session, helpers and auth guards.
+   date_default_timezone_set('Asia/Manila');
+   ini_set('display_errors', '0');
 
-header('Content-Type: application/json; charset=utf-8');
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('Cache-Control: no-store');
+   header('Content-Type: application/json; charset=utf-8');
+   header('X-Content-Type-Options: nosniff');
+   header('X-Frame-Options: DENY');
+   header('Cache-Control: no-store');
 
-require_once __DIR__ . '/session_db.php';
-session_set_save_handler(new DbSessionHandler($pdo), true);
-session_name('campusmate');
-session_set_cookie_params([
-    'path' => '/', 'httponly' => true, 'samesite' => 'Strict', 'secure' => !empty($_SERVER['HTTPS']) || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https',
-]);
-session_start();
+   // Sessions live in the database so they survive restarts and sleeping on Render's free plan.
+   require_once __DIR__ . '/database.php';
+   require_once __DIR__ . '/session_db.php';
+   session_set_save_handler(new DbSessionHandler($pdo), true);
+   ini_set('session.use_strict_mode', '1');
+   session_name('campusmate');
+   session_set_cookie_params([
+       'path' => '/', 'httponly' => true, 'samesite' => 'Strict', 'secure' => !empty($_SERVER['HTTPS']) || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https',
+   ]);
+   session_start();
 
 // Log out after 30 minutes of inactivity.
 if (isset($_SESSION['last']) && time() - $_SESSION['last'] > 1800) {
@@ -23,7 +26,6 @@ if (isset($_SESSION['last']) && time() - $_SESSION['last'] > 1800) {
 }
 $_SESSION['last'] = time();
 
-require_once __DIR__ . '/database.php';
 
 const WAIVER_VERSION = '2026-v1';
 const WAIVER_TEXT = <<<'TXT'
