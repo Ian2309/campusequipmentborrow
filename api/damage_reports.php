@@ -1,5 +1,5 @@
 <?php
-// Admin: damage records with the waiver the student signed. POST {id} marks a record as settled.
+// AdminPEMU: damage records with the waiver the student signed. POST {id} marks a record as settled.
 require_once __DIR__ . '/../config/bootstrap.php';
 require_admin();
 

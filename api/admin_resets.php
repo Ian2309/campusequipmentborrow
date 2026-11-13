@@ -1,5 +1,5 @@
 <?php
-// Admin: list password-reset requests (GET) and issue a one-time temporary password (POST {id}).
+// AdminPEMU: list password-reset requests (GET) and issue a one-time temporary password (POST {id}).
 require_once __DIR__ . '/../config/bootstrap.php';
 $admin = require_admin();
 

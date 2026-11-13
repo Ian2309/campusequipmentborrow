@@ -16,7 +16,7 @@ const NLP_INTENTS = [
     'bye'     => [['admin', 'student'], ['bye' => 4, 'goodbye' => 4, 'see you' => 4, 'paalam' => 4], 'Goodbye! I will be right here if you need anything.'],
     'smalltalk' => [['admin', 'student'], ['how are you' => 7, 'kumusta ka' => 7, 'hows it going' => 6], "I'm doing great, thanks for asking! What can I help you with?"],
     'about'   => [['admin', 'student'], ['who are you' => 7, 'what are you' => 6, 'your name' => 6, 'are you ai' => 6, 'are you a bot' => 6, 'are you real' => 5, 'chatbot' => 3, 'assistant' => 2],
-                  "I'm the built-in assistant of the RTU Equipment Hub. I read live data from the system (equipment, requests, due dates) and explain how things work. I'm not a person or a large AI model, so very unusual phrasing may confuse me. Just rephrase it or pick one of the suggestions."],
+                  "I'm the built-in assistant of the RTU Equipment Hub. I read live data from the system (equipment, requests, due dates) and explain how things work. I'm not a person or a large AI model, so complicated phrasing may confuse me. Just rephrase it or pick one of the suggestions."],
     'help'    => [['admin', 'student'], ['help' => 4, 'what can you do' => 6, 'commands' => 3, 'menu' => 3, 'options' => 2, 'what can i ask' => 6]],
     'howto'   => [['admin', 'student'], ['how' => 2, 'how do i' => 3, 'how to' => 3, 'steps' => 2, 'guide' => 2, 'tutorial' => 3, 'explain' => 2, 'teach' => 2, 'where' => 1, 'can i' => 1, 'paano' => 3]],
     'account' => [['admin', 'student'], ['who am i' => 7, 'my account' => 5, 'my profile' => 5, 'my details' => 5, 'my student number' => 7, 'my name' => 3, 'my username' => 6]],

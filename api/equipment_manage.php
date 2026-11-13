@@ -1,5 +1,5 @@
 <?php
-// Admin: add quantity to an item (restock) or delete an item.
+// AdminPEMU: add quantity to an item (restock) or delete an item.
 // POST {action:'restock', id, qty}  -> raises total + available units and notifies every active student.
 // POST {action:'delete', id}        -> removes an item that has never been borrowed (borrowed items keep their records).
 require_once __DIR__ . '/../config/bootstrap.php';

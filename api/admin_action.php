@@ -1,5 +1,5 @@
 <?php
-// Admin: approve / reject a pending request, or mark an approved item as returned (optionally with a damage report).
+// AdminPEMU: approve or reject a pending request, or mark an approved item as returned (optional with a damage report).
 require_once __DIR__ . '/../config/bootstrap.php';
 $admin = require_admin();
 $in = post();
