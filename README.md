@@ -1,16 +1,22 @@
-# CampusMate / RTU Equipment Hub (Render + Supabase)
+# CONFIDENTECH / RTU Equipment Hub (Render + Supabase)
 
 PHP app in a Docker container on Render, with Supabase for the database (Postgres) and equipment photos (Storage).
+## Languages Used
+PHP
+CSS
+JavaScript
+HTML
+DockerFile
 
-## Environment variables (Render > your web service > Environment)
-SB_DB_HOST, SB_DB_PORT (5432), SB_DB_NAME (postgres), SB_DB_USER (postgres.<project-ref>), SB_DB_PASS,
-SB_URL (https://<project-ref>.supabase.co), SB_SERVICE_KEY (Supabase secret key, sb_secret_...), SB_BUCKET (equipment)
+## Features
+1. NLP Chatbot that can assist both the students and PEMU Admin in RTU-PASIG. Can automatically ask questions for you.
+2. Damage reports for admin to be used as a monitoring tool for the equipments para ma ensure ang quality ng mga equipments.
+3. Automated receipts everytime a student borrows an equipment. Pwede magamit para makita kung sino ang huling humiram ng equipment.
+4. Online and can be used by students everywhere, Kailangan lang connected sa internet.
 
-## Setup
-1. Supabase: create a project, run database/schema.sql in the SQL Editor.
-2. Create the first admin with a SQL INSERT (see the chat instructions).
-3. GitHub: push this folder (config/supabase.php is git-ignored; never commit keys).
-4. Render: New > Web Service > connect the repo > Language: Docker > add the environment variables > Deploy.
+## Made By ICS-01-502P (GROUP 11)
+ESCARA, FRANCIS JUSTINE
+GONZAGA, KAZANDRA ZHANTEL
+HEBRES, CHRISTIAN
 
-Free Render services sleep when idle and lose files on restart, which is why photos go to Supabase Storage.
-Local development still works: copy config/supabase.example.php to config/supabase.php.
+                         RIZAL TECHNOLOGICAL UNIVERSITY - PASIG CAMPUS   (c) 2026
