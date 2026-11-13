@@ -2,11 +2,11 @@
 
 PHP app in a Docker container on Render, with Supabase for the database (Postgres) and equipment photos (Storage).
 ## Languages Used
-PHP
-CSS
-JavaScript
-HTML
-DockerFile
+1. PHP
+2. CSS
+3. JavaScript
+4. HTML
+5. DockerFile
 
 ## Features
 1. NLP Chatbot that can assist both the students and PEMU Admin in RTU-PASIG. Can automatically ask questions for you.
@@ -14,7 +14,7 @@ DockerFile
 3. Automated receipts everytime a student borrows an equipment. Pwede magamit para makita kung sino ang huling humiram ng equipment.
 4. Online and can be used by students everywhere, Kailangan lang connected sa internet.
 
-## Made By ICS-01-502P (GROUP 11)
+## Made By: ICS-01-502P (GROUP 11)
 1. ESCARA, FRANCIS JUSTINE
 2. GONZAGA, KAZANDRA ZHANTEL
 3. HEBRES, CHRISTIAN
