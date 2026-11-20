@@ -1,3 +1,4 @@
+@import url("fonts.css");
 @import url("login-theme.css");
 @import url("admin-theme.css");
 @import url("student-theme.css");
@@ -137,3 +138,5 @@ summary{cursor:pointer;font-weight:600}details p{margin:.5rem 0 0}
   #receiptPaper, #receiptPaper * { visibility: visible !important; color: #000 !important; }
   #receiptPaper { position: fixed; top: 0; left: 0; right: 0; padding: 24px; background: #fff !important; }
 }
+
+

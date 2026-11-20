@@ -203,3 +203,166 @@ function openEquipment(x, opts = {}) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
 })();
 
+// ---- greeting banner with live date and time (admin Dashboard + student Catalog) ----
+(function () {
+  const ADMIN_NAME = "Ma'am Gunda"; // shown only on the admin banner
+  const st = document.createElement('style');
+  st.textContent = `
+.wb{position:relative;overflow:hidden;margin-bottom:1.6rem;padding:2rem 13rem 2rem 2.2rem;min-height:190px;border-radius:22px;color:#fff;
+  background:radial-gradient(circle at 90% -20%,rgba(255,255,255,.3) 0,transparent 52%),radial-gradient(circle at 5% 130%,rgba(255,255,255,.16) 0,transparent 45%),var(--side);
+  box-shadow:0 16px 36px rgba(0,0,0,.22)}
+.wb small{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .9rem;border-radius:99px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);font-size:.9rem;font-weight:600;letter-spacing:.02em}
+.wb h3{margin:.9rem 0 .2rem;font-size:clamp(1.7rem,4.6vw,2.7rem);line-height:1.15;color:#fff;letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.25)}
+.wb .wb-time{font-size:clamp(1.15rem,2.6vw,1.6rem);font-weight:700;font-variant-numeric:tabular-nums;opacity:.95;margin-bottom:.5rem}
+.wb p{margin:0;max-width:34rem;opacity:.95;font-size:1.02rem}
+.wb::after{content:"";position:absolute;right:1.6rem;bottom:-10px;width:170px;height:170px;background:url("../assets/images/robot.svg") center/contain no-repeat;filter:drop-shadow(0 10px 14px rgba(0,0,0,.3));animation:wb-float 4s ease-in-out infinite}
+@keyframes wb-float{50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.wb::after{animation:none}}
+@media(max-width:700px){.wb{padding:1.4rem 7.5rem 1.4rem 1.3rem;min-height:150px}.wb::after{width:104px;height:104px;right:.6rem}.wb p{font-size:.9rem}}
+@media(max-width:480px){.wb{padding-right:6.2rem}.wb small{font-size:.74rem}.wb::after{width:84px;height:84px}}`;
+  document.head.appendChild(st);
+
+  let name = '';
+  const greet = d => {
+    const h = d.getHours(); // 0-23, so 12:00 am is 0
+    if (h < 12) return ['Good morning', h < 5 ? '\u{1F305}' : '\u2600\uFE0F'];
+    if (h < 18) return ['Good afternoon', '\u{1F324}\uFE0F'];
+    return ['Good evening', '\u{1F319}'];
+  };
+  const tick = () => {
+    const box = document.querySelector('.wb'); if (!box) return;
+    const d = new Date(), g = greet(d);
+    box.querySelector('small').textContent = '\u{1F4C5} ' + d.toLocaleDateString('en-PH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    box.querySelector('h3').textContent = g[0] + (name ? ', ' + name : '') + '! ' + g[1];
+    box.querySelector('.wb-time').textContent = '\u{1F551} ' + d.toLocaleTimeString('en-PH', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+  };
+  const build = () => {
+    const isAdmin = !!document.querySelector('.nav [data-tab="overview"]');
+    const view = document.getElementById(isAdmin ? 'view-overview' : 'view-catalog');
+    if (!view) return false;
+    const src = document.getElementById('accName');
+    const real = (src && src.textContent.trim()) || '';
+    name = isAdmin ? (ADMIN_NAME || real) : real.split(/\s+/)[0];
+    if (!view.querySelector('.wb')) {
+      const box = document.createElement('section'); box.className = 'wb';
+      box.innerHTML = '<small></small><h3></h3><div class="wb-time"></div><p></p>';
+      box.querySelector('p').textContent = isAdmin ? 'Welcome back to RTU Equipment Hub. Here is your equipment overview for today.' : 'Welcome back to RTU Equipment Hub. Browse the catalog and request the equipment you need.';
+      view.prepend(box);
+    }
+    tick();
+    return !!name;
+  };
+  const start = () => { let n = 0; const t = setInterval(() => { if (build() || ++n > 20) clearInterval(t); }, 500); build(); setInterval(tick, 1000); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+
+// ---- show/hide eye on every password field (login, register, dialogs) ----
+(function () {
+  const A = 'viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;pointer-events:none"';
+  const eye = '<svg ' + A + '><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  const eyeOff = '<svg ' + A + '><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><path d="M1 1l22 22"/></svg>';
+  const lockSvg = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>';
+
+  const enhance = () => {
+    document.querySelectorAll('input[type="password"]:not([data-pw])').forEach(inp => {
+      inp.setAttribute('data-pw', '');
+      const wrap = document.createElement('span');
+      wrap.style.cssText = 'position:relative;display:block';
+      inp.parentNode.insertBefore(wrap, inp); wrap.appendChild(inp);
+      inp.style.paddingRight = '3.2rem';
+      if (inp.closest('.auth-card')) {
+        inp.style.paddingLeft = '3rem';
+        const l = document.createElement('span');
+        l.innerHTML = lockSvg;
+        l.style.cssText = 'position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:20px;height:20px;display:flex;pointer-events:none;color:#0a2f7a;z-index:2';
+        wrap.appendChild(l);
+      }
+      const b = document.createElement('button');
+      b.type = 'button'; b.innerHTML = eye; b.title = 'Show password'; b.setAttribute('aria-label', 'Show password');
+      b.style.cssText = 'position:absolute;right:6px;top:50%;transform:translateY(-50%);width:40px;height:40px;padding:0;margin:0;border:0;border-radius:8px;background:transparent;color:inherit;opacity:.7;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2';
+      b.addEventListener('mouseenter', () => { b.style.background = 'rgba(100,116,139,.18)'; b.style.opacity = '1'; });
+      b.addEventListener('mouseleave', () => { b.style.background = 'transparent'; b.style.opacity = '.7'; });
+      b.addEventListener('click', () => {
+        const show = inp.type === 'password';
+        inp.type = show ? 'text' : 'password';
+        b.innerHTML = show ? eyeOff : eye;
+        b.title = show ? 'Hide password' : 'Show password'; b.setAttribute('aria-label', b.title);
+        inp.focus();
+      });
+      wrap.appendChild(b);
+    });
+  };
+  const start = () => { enhance(); new MutationObserver(enhance).observe(document.body, { childList: true, subtree: true }); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+
+// ---- bigger greeting (overrides the sizes of the banner above) ----
+(function () {
+  const st = document.createElement('style');
+  st.textContent = `
+body .wb{min-height:240px;padding:2.4rem 15rem 2.4rem 2.6rem;border-radius:26px}
+body .wb h3{font-size:clamp(2.2rem,6.4vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-.025em;margin:1rem 0 .3rem}
+body .wb small{font-size:1.02rem;padding:.5rem 1.1rem}
+body .wb .wb-time{font-size:clamp(1.4rem,3vw,2rem);font-weight:800}
+body .wb p{font-size:1.15rem;max-width:40rem}
+body .wb::after{width:210px;height:210px;right:2rem}
+@media(max-width:700px){body .wb{padding:1.5rem 7.8rem 1.5rem 1.3rem;min-height:170px}body .wb h3{font-size:clamp(1.7rem,8vw,2.3rem)}body .wb::after{width:118px;height:118px}}
+@media(max-width:480px){body .wb{padding-right:6.4rem}body .wb h3{font-size:1.65rem}body .wb .wb-time{font-size:1.1rem}body .wb::after{width:92px;height:92px}}`;
+  document.head.appendChild(st);
+})();
+
+// ---- RTU favicon (no HTML changes) ----
+(function () {
+  const css = document.querySelector('link[rel="stylesheet"][href*="app.css"]');
+  if (!css) return;
+  const href = css.getAttribute('href').replace(/app\.css.*$/, 'images/rtu-logo.png');
+  let ic = document.querySelector('link[rel~="icon"]');
+  if (!ic) { ic = document.createElement('link'); ic.rel = 'icon'; document.head.appendChild(ic); }
+  ic.type = 'image/png'; ic.href = href;
+})();
+
+// ---- draggable chatbot orb (touch + mouse; remembers where you put it) ----
+(function () {
+  const KEY = 'rtu-orb-pos';
+  const setPos = (wrap, x, y) => {
+    const w = wrap.offsetWidth || 68, h = wrap.offsetHeight || 68;
+    x = Math.min(Math.max(8, x), window.innerWidth - w - 8);
+    y = Math.min(Math.max(8, y), window.innerHeight - h - 8);
+    wrap.style.setProperty('left', x + 'px', 'important');
+    wrap.style.setProperty('top', y + 'px', 'important');
+    wrap.style.setProperty('bottom', 'auto', 'important');
+    wrap.classList.toggle('orb-right', x + w / 2 > window.innerWidth / 2);
+    wrap.classList.toggle('orb-down', y < 460);
+  };
+  const init = wrap => {
+    const orb = wrap.querySelector('.orb'); if (!orb) return false;
+    orb.style.touchAction = 'none'; orb.style.userSelect = 'none'; orb.style.webkitUserSelect = 'none';
+    let sx = 0, sy = 0, ox = 0, oy = 0, down = false, moved = false;
+    const start = (x, y) => { const r = wrap.getBoundingClientRect(); down = true; moved = false; sx = x; sy = y; ox = r.left; oy = r.top; };
+    const move = (x, y) => {
+      if (!down) return false;
+      const dx = x - sx, dy = y - sy;
+      if (!moved && Math.hypot(dx, dy) < 8) return false;
+      moved = true; wrap.classList.add('orb-dragging'); setPos(wrap, ox + dx, oy + dy); return true;
+    };
+    const end = () => {
+      if (!down) return; down = false; wrap.classList.remove('orb-dragging');
+      if (moved) { const r = wrap.getBoundingClientRect(); try { localStorage.setItem(KEY, JSON.stringify([r.left, r.top])); } catch (_) {} }
+    };
+    orb.addEventListener('touchstart', e => { const t = e.touches[0]; start(t.clientX, t.clientY); }, { passive: true });
+    orb.addEventListener('touchmove', e => { const t = e.touches[0]; if (move(t.clientX, t.clientY)) e.preventDefault(); }, { passive: false });
+    orb.addEventListener('touchend', end); orb.addEventListener('touchcancel', end);
+    orb.addEventListener('mousedown', e => { if (!e.button) start(e.clientX, e.clientY); });
+    document.addEventListener('mousemove', e => { move(e.clientX, e.clientY); });
+    document.addEventListener('mouseup', end);
+    wrap.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+    let p = null; try { p = JSON.parse(localStorage.getItem(KEY)); } catch (_) {}
+    if (p && p.length === 2) setPos(wrap, p[0], p[1]);
+    window.addEventListener('resize', () => { if (wrap.style.getPropertyValue('top')) { const r = wrap.getBoundingClientRect(); setPos(wrap, r.left, r.top); } });
+    return true;
+  };
+  const start = () => { let n = 0; const t = setInterval(() => { const w = document.querySelector('.orb-wrap'); if ((w && init(w)) || ++n > 40) clearInterval(t); }, 500); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+
+
