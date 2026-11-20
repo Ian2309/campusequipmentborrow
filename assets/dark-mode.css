@@ -92,3 +92,10 @@
 
 /* admin dark mode: dialog titles (e.g. "Log out?") in gold */
 .theme-admin[data-dark] dialog h3,[data-dark] .theme-admin dialog h3{color:#ffd35a}
+
+/* readable dropdown options in dark mode */
+[data-dark] select{color-scheme:dark}
+[data-dark] select option,[data-dark] select optgroup{background-color:#1b2440;color:#e8edf7}
+.theme-admin[data-dark] select option,.theme-admin[data-dark] select optgroup{background-color:#2a2410;color:#f5efdc}
+[data-dark] select option:checked{background-color:#3b4f8f;color:#fff}
+.theme-admin[data-dark] select option:checked{background-color:#8a6500;color:#fff}
