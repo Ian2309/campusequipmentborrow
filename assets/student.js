@@ -124,7 +124,7 @@ $('#reqForm').addEventListener('submit', async e => {
 // Receipt (shown right after a request is submitted, and from the Receipt column in My requests)
 function showReceipt(r) {
   if (!r) return;
-  $('#rcNo').textContent = r.receipt_no;
+  $('#rcNo').textContent = r.receipt_no;$('#rcPdf').href = 'receipt.html?no=' + encodeURIComponent(r.receipt_no) + '&print=1';
   const rows = [['Student', `${me.first_name} ${me.last_name} (${me.student_id})`], ['Equipment', r.equipment_name || '—'],
     ['Borrow date', fmtDate(r.borrow_date)], ['Return date', fmtDate(r.return_date)], ['Course', r.course_code],
     ['Purpose', r.purpose], ['Status', r.status], ['Issued', fmtDateTime(r.created_at)]];
@@ -135,4 +135,3 @@ $('#reqBody').addEventListener('click', e => {
   const b = e.target.closest('[data-receipt]');
   if (b) showReceipt(requests.find(r => +r.id === +b.dataset.receipt));
 });
-$('#rcPrint').addEventListener('click', () => window.print());

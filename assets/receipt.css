@@ -1,0 +1,66 @@
+/* Standalone receipt page (student/receipt.html). Printable as A4 and saved as PDF from the browser. */
+:root { --navy: #0f2a6b; --gold: #f2b51c; --ink: #1b2430; --grey: #5b6678; --line: #d6dbe5; }
+* { box-sizing: border-box; }
+html { background: #e9edf4; }
+body { margin: 0; padding: 0 8px; font: 14px/1.5 "Segoe UI", Roboto, Arial, sans-serif; color: var(--ink); }
+
+/* Screen-only helpers */
+.toolbar { max-width: 794px; margin: 18px auto 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.toolbar[hidden], .msg[hidden], .sheet[hidden] { display: none; }
+.tb { appearance: none; border: 1px solid var(--navy); background: #fff; color: var(--navy); padding: 9px 16px;
+      border-radius: 8px; font: 600 14px "Segoe UI", Roboto, Arial, sans-serif; text-decoration: none; cursor: pointer; }
+.tb.primary { background: var(--navy); color: #fff; }
+.hint { color: var(--grey); font-size: 13px; }
+.msg { max-width: 794px; margin: 24px auto; padding: 18px; background: #fff; border-radius: 10px; text-align: center; }
+.msg a { color: var(--navy); font-weight: 700; }
+
+/* The receipt sheet (A4 proportions: 794 x 1123 px at 96 dpi) */
+.sheet { width: 794px; max-width: 100%; margin: 14px auto 40px; padding: 40px 48px; background: #fff;
+         border-top: 8px solid var(--gold); box-shadow: 0 6px 24px rgba(15, 42, 107, .15); }
+.head { display: flex; align-items: center; gap: 18px; padding-bottom: 14px; border-bottom: 2px solid var(--navy); }
+.logo { width: 76px; height: 76px; object-fit: contain; }
+.org p { margin: 0; }
+.uni { font-size: 18px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--navy); }
+.unit { font-size: 14px; font-weight: 600; }
+.sys { font-size: 12px; color: var(--grey); }
+h1 { margin: 18px 0 14px; text-align: center; font-size: 22px; letter-spacing: .12em; text-transform: uppercase; color: var(--navy); }
+h2 { margin: 20px 0 6px; padding-bottom: 4px; border-bottom: 1px solid var(--navy); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--navy); }
+
+.no-box { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 20px;
+          border: 2px solid var(--navy); border-radius: 12px; background: #f6f8fc; }
+.label { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--grey); }
+.rno { display: block; font: 700 32px/1.2 ui-monospace, Menlo, Consolas, "Courier New", monospace; letter-spacing: .08em; color: var(--navy); }
+.right { text-align: right; }
+.status { display: inline-block; margin-top: 4px; padding: 4px 14px; border: 1.5px solid var(--navy); border-radius: 999px; font-weight: 700; color: var(--navy); }
+
+dl { display: grid; grid-template-columns: 170px 1fr; margin: 0; }
+dt, dd { margin: 0; padding: 6px 0; border-bottom: 1px solid var(--line); }
+dt { color: var(--grey); }
+dd { font-weight: 600; overflow-wrap: anywhere; }
+
+.terms { margin-top: 20px; padding: 10px 16px; border-left: 4px solid var(--gold); background: #fffaf0; font-size: 13px; }
+.terms p { margin: 0; }
+
+.sign { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 44px; }
+.sign p { margin: 0; }
+.sigline { min-height: 26px; border-bottom: 1px solid var(--ink); font-weight: 600; font-style: italic; }
+.sigcap { margin-top: 4px !important; font-size: 11px; color: var(--grey); }
+
+.foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 30px; padding-top: 8px;
+        border-top: 1px solid var(--line); font-size: 11px; color: var(--grey); }
+
+@page { size: A4; margin: 12mm; }
+@media print {
+  html, body { background: #fff; padding: 0; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .no-print { display: none !important; }
+  .sheet { width: auto; max-width: none; margin: 0; padding: 0; box-shadow: none; }
+  section, .no-box, .head { break-inside: avoid; }
+}
+@media (max-width: 620px) {
+  .sheet { padding: 24px 18px; }
+  dl { grid-template-columns: 1fr; }
+  dt { border-bottom: 0; padding-bottom: 0; }
+  .sign { grid-template-columns: 1fr; }
+  .rno { font-size: 24px; }
+}
