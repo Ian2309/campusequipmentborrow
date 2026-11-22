@@ -1,0 +1,42 @@
+/* fixes-v114.css: v1.1.4 UI fixes. Load it LAST in app.css:  @import url("fixes-v114.css"); */
+:root{--rtu-noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E")}
+
+/* ===== 1. smoother gradients: many eased color stops + a very light grain to hide banding ===== */
+.theme-student:not([data-dark]) .side.side{background:var(--rtu-noise),linear-gradient(180deg,#09266a 0.0%,#0a2a72 20.0%,#0c3487 40.0%,#0e41a1 60.0%,#0f4bb7 80.0%,#1050c0 100%)!important}
+.theme-student:not([data-dark]) .main.main .top{background:var(--rtu-noise),radial-gradient(circle at 92% -20%,rgba(255,255,255,0.22) 0,transparent 52%),linear-gradient(120deg,#0a2a70 0.0%,#0b2e78 12.4%,#0c378b 24.8%,#0e42a3 37.2%,#104cb7 49.6%,#1050c0 62.0%,#1555c3 69.6%,#205fcb 77.2%,#2c6cd5 84.8%,#3777dd 92.4%,#3b7be0 100%)!important}
+.theme-student:not([data-dark]) .wb.wb{background:var(--rtu-noise),radial-gradient(circle at 92% -20%,rgba(255,255,255,0.26) 0,transparent 52%),linear-gradient(135deg,#0a2a70 0.0%,#0b2e78 14.0%,#0c378b 28.0%,#0e42a3 42.0%,#104cb7 56.0%,#1050c0 70.0%,#1555c3 76.0%,#205fcb 82.0%,#2c6cd5 88.0%,#3777dd 94.0%,#3b7be0 100%)!important}
+.theme-student[data-dark] .side.side{background:var(--rtu-noise),linear-gradient(180deg,#040a1e 0.0%,#040b21 12.0%,#060f2a 24.0%,#071234 36.0%,#09163c 48.0%,#0a1740 60.0%,#0a1945 68.0%,#0b1e51 76.0%,#0c2360 84.0%,#0d286d 92.0%,#0d2a73 100%)!important}
+.theme-student[data-dark] .main.main .top{background:var(--rtu-noise),radial-gradient(circle at 92% -20%,rgba(255,255,255,0.1) 0,transparent 52%),linear-gradient(120deg,#06143a 0.0%,#071741 12.4%,#091d53 24.8%,#0c2569 37.2%,#0e2c7d 49.6%,#0f2f85 62.0%,#0f328b 69.6%,#103a99 77.2%,#1044ab 84.8%,#104cba 92.4%,#1050c0 100%)!important}
+.theme-student[data-dark] .wb.wb{background:var(--rtu-noise),radial-gradient(circle at 92% -20%,rgba(255,255,255,0.12) 0,transparent 52%),linear-gradient(135deg,#06143a 0.0%,#071741 20.0%,#091d53 40.0%,#0c2569 60.0%,#0e2c7d 80.0%,#0f2f85 100%)!important}
+
+.theme-admin:not([data-dark]) .side.side{background:var(--rtu-noise),linear-gradient(180deg,#b88a0a 0.0%,#b5870a 11.0%,#ad810a 22.0%,#a37a0a 33.0%,#9b740a 44.0%,#98720a 55.0%,#957009 64.0%,#8d6a06 73.0%,#846303 82.0%,#7d5d01 91.0%,#7a5b00 100%)!important}
+.theme-admin:not([data-dark]) .side.side .brand{background:var(--rtu-noise),linear-gradient(135deg,#cfa11a 0.0%,#c99c18 20.0%,#bb9014 40.0%,#ab8210 60.0%,#9e770c 80.0%,#98720a 100%)!important}
+.theme-admin:not([data-dark]) .main.main .top{background:var(--rtu-noise),radial-gradient(circle at 92% -20%,rgba(255,255,255,0.18) 0,transparent 52%),linear-gradient(120deg,#8a650a 0.0%,#87630a 20.0%,#805e08 40.0%,#785707 60.0%,#725206 80.0%,#6f5006 100%)!important}
+.theme-admin:not([data-dark]) .wb.wb{background:var(--rtu-noise),radial-gradient(circle at 92% -20%,rgba(255,255,255,0.18) 0,transparent 52%),linear-gradient(135deg,#8f6a08 0.0%,#8c6808 12.0%,#866307 24.0%,#7f5e07 36.0%,#795906 48.0%,#775706 60.0%,#745506 68.0%,#6e5105 76.0%,#674b05 84.0%,#614704 92.0%,#5e4504 100%)!important}
+.theme-admin[data-dark] .side.side{background:var(--rtu-noise),linear-gradient(180deg,#2a2208 0.0%,#282008 20.0%,#231c09 40.0%,#1d180a 60.0%,#19140a 80.0%,#17120a 100%)!important}
+.theme-admin[data-dark] .side.side .brand{background:var(--rtu-noise),linear-gradient(135deg,#7a5800 0.0%,#755400 20.0%,#694c00 40.0%,#5a4200 60.0%,#4f3900 80.0%,#4a3600 100%)!important}
+.theme-admin[data-dark] .main.main .top{background:var(--rtu-noise),radial-gradient(circle at 92% -20%,rgba(255,255,255,0.12) 0,transparent 52%),linear-gradient(120deg,#2b2208 0.0%,#302508 12.4%,#3c2d07 24.8%,#4a3705 37.2%,#573f02 49.6%,#5c4300 62.0%,#614600 69.6%,#6c4f00 77.2%,#795900 84.8%,#856100 92.4%,#8a6500 100%)!important}
+.theme-admin[data-dark] .wb.wb{background:var(--rtu-noise),radial-gradient(circle at 92% -20%,rgba(255,255,255,0.14) 0,transparent 52%),linear-gradient(135deg,#2b2208 0.0%,#312608 20.0%,#403108 40.0%,#533e06 60.0%,#644902 80.0%,#6b4e00 100%)!important}
+
+/* ===== 2. chatbot send button: icon centered ===== */
+body .orb-wrap .orb-form{align-items:center}
+body .orb-wrap .orb-send{display:flex!important;align-items:center;justify-content:center;padding:0!important;line-height:0;font-size:0!important}
+body .orb-wrap .orb-send::before{margin:0;flex:none;transform:translateX(1px)}
+
+/* ===== 3. website logo: clearer, transparent seal; student sidebar logo sits on the blue ===== */
+.theme-student .side.side .brand{background:transparent!important;border-bottom:1px solid rgba(255,255,255,.16)!important}
+.theme-student .side.side .brand .logo-mark{background:url("images/rtu-logo.png") center/contain no-repeat!important;border-radius:0!important;box-shadow:none!important;width:58px!important;height:58px!important;filter:drop-shadow(0 3px 7px rgba(0,0,0,.4))}
+
+/* ===== 4. register form: Create password and Confirm password aligned ===== */
+body .auth .auth-card .row{align-items:end;margin-bottom:.9rem}
+body .auth .auth-card .row>.field{display:flex;flex-direction:column;justify-content:flex-end;margin-bottom:0}
+body .auth .auth-card .pw-wrap{margin:0}
+@media(max-width:560px){body .auth .auth-card .row{grid-template-columns:1fr}}
+
+/* ===== 5. login background cover stays fixed while the page scrolls ===== */
+@keyframes login-zoom{from{transform:scale(1)}to{transform:scale(1.14)}}
+body:has(.auth)::before{content:"";position:fixed;inset:0;z-index:-2;background:url("images/campus.jpg") center/cover no-repeat,linear-gradient(160deg,#dbe8fb,#7fb0ee);transform-origin:center;animation:login-zoom 26s ease-in-out infinite alternate}
+body:has(.auth)::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(135deg,#0a2f7a 0 40%,#f6b91d 40% 52%,transparent 52%) top left/190px 190px no-repeat,linear-gradient(315deg,#0a2f7a 0 40%,#f6b91d 40% 52%,transparent 52%) bottom right/190px 190px no-repeat,linear-gradient(180deg,rgba(6,37,95,.38),rgba(6,37,95,.14) 45%,rgba(6,37,95,.42))}
+body .auth{background:none!important}
+@media(prefers-reduced-motion:reduce){body:has(.auth)::before{animation:none}}
+
