@@ -134,17 +134,13 @@ summary{cursor:pointer;font-weight:600}details p{margin:.5rem 0 0}
 /* Receipt */
 .receipt-no { font: 700 1.6rem/1.2 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .08em; margin: .25rem 0 1rem; }
 .receipt-btn { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 600; letter-spacing: .04em; }
-@media print {
-  body * { visibility: hidden !important; }
-  #receiptPaper, #receiptPaper * { visibility: visible !important; color: #000 !important; }
-  #receiptPaper { position: fixed; top: 0; left: 0; right: 0; padding: 24px; background: #fff !important; }
-}
 
 :root{--font:"Poppins","Segoe UI",system-ui,-apple-system,Arial,sans-serif}
 html,body,button,input,select,textarea,
 h1,h2,h3,h4,h5,h6,
 .main .top h2,.brand strong,.stat b,.cat-head,.eq-body h3,.panel h3,dialog h3,
 .orb-log::before{font-family:var(--font)!important}
+a.btn { display: inline-block; text-decoration: none; color: inherit; }
 
 
 

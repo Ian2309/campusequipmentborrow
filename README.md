@@ -57,6 +57,16 @@ PHP app in a Docker container on Render, with Supabase for the database (Postgre
 6. **Admin sidebar icon**
    - "Account & Backup" now has a database icon instead of the sun-like gear (which looked like the dark mode button)
 
+   ## Version 1.1.4
+1. **Chatbot**
+   - Sent button is now fixed (Centered)
+   - Icon is replaced with blue orb
+2. **Slight UI color grading fix**
+   -Color gradient for both student and admin dashboard on pc and android is fixed.
+   -Dashboard RTU logo is enhanced
+   -Login page blocks is centered (Fixed)
+
+
 ## Made By: ICS-01-502P (GROUP 11)
 1. ESCARA, FRANCIS JUSTINE
 2. GONZAGA, KAZANDRA ZHANTEL
