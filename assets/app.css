@@ -4,6 +4,7 @@
 @import url("student-theme.css");
 @import url("sidebar-slide.css");
 @import url("dark-mode.css");
+
 :root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--card:#fff;--ok:#15803d;--warn:#b45309;--bad:#b91c1c;--r:12px;font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
 .theme-student{--primary:#1d4ed8;--primary-dark:#1e40af;--on:#fff;--soft:#e6eeff;--page:#f3f6fd;--side:linear-gradient(180deg,#1e3a8a,#1d4ed8);--side-ink:#dbe7ff;--side-on:rgba(255,255,255,.16);--side-act:#fff}
 .theme-admin{--primary:#f5b301;--primary-dark:#d99a00;--on:#2b2000;--soft:#fff3c2;--page:#fffbea;--side:linear-gradient(180deg,#fcd34d,#f5b301);--side-ink:#3b2a00;--side-on:rgba(43,32,0,.14);--side-act:#2b2000}
@@ -138,5 +139,15 @@ summary{cursor:pointer;font-weight:600}details p{margin:.5rem 0 0}
   #receiptPaper, #receiptPaper * { visibility: visible !important; color: #000 !important; }
   #receiptPaper { position: fixed; top: 0; left: 0; right: 0; padding: 24px; background: #fff !important; }
 }
+
+:root{--font:"Poppins","Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+html,body,button,input,select,textarea,
+h1,h2,h3,h4,h5,h6,
+.main .top h2,.brand strong,.stat b,.cat-head,.eq-body h3,.panel h3,dialog h3,
+.orb-log::before{font-family:var(--font)!important}
+
+
+
+
 
 

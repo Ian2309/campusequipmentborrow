@@ -71,7 +71,14 @@
 [data-dark] .orb-wrap .msg.bot{background:var(--card);color:var(--ink);border-color:var(--line)}
 [data-dark] .orb-wrap .orb-chips{border-top-color:var(--line)}
 [data-dark] .orb-wrap .orb-chips button{background:var(--soft);color:var(--ink)}
-[data-dark] .orb-wrap .orb-form input{background:var(--card);color:var(--ink);border-color:var(--line)}
+[data-dark] .orb-wrap .orb-form input{
+  background:rgba(255,255,255,.12);
+  color:var(--ink);
+  border:1px solid rgba(255,255,255,.2);
+  box-shadow:0 8px 24px rgba(0,0,0,.35)}
+[data-dark] .orb-wrap .orb-form input:focus{
+  border-color:var(--primary);
+  box-shadow:0 8px 24px rgba(0,0,0,.35),0 0 0 3px color-mix(in srgb,var(--primary) 35%,transparent)}
 [data-dark] .orb-wrap .orb-tip{background:var(--card);color:var(--ink);border-color:var(--primary)}
 
 /* ----- the toggle button ----- */
@@ -88,7 +95,7 @@
 .theme-admin[data-dark] .btn.danger{background:#2a2410;border-color:#6b2a2a}
 [data-dark] dialog .field input,[data-dark] dialog .field select,[data-dark] dialog .field textarea{background:rgba(255,255,255,.07);color:#e8edf7;border-color:#2c3a63}
 .theme-admin[data-dark] dialog .field input,.theme-admin[data-dark] dialog .field select,.theme-admin[data-dark] dialog .field textarea{color:#f5efdc;border-color:#4a3f22}
-[data-dark] dialog .muted,[data-dark] dialog small{color:#9fb0d0}
+[data-dark] dialog .muted,[data-dark] dialog small{color:#ffffff}
 
 /* admin dark mode: dialog titles (e.g. "Log out?") in gold */
 .theme-admin[data-dark] dialog h3,[data-dark] .theme-admin dialog h3{color:#ffd35a}
@@ -99,3 +106,7 @@
 .theme-admin[data-dark] select option,.theme-admin[data-dark] select optgroup{background-color:#2a2410;color:#f5efdc}
 [data-dark] select option:checked{background-color:#3b4f8f;color:#fff}
 .theme-admin[data-dark] select option:checked{background-color:#8a6500;color:#fff}
+
+[data-dark] dialog p,
+[data-dark] dialog label,
+[data-dark] dialog .field label{color:#ffffff}
