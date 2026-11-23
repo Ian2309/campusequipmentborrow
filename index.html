@@ -62,6 +62,16 @@
   </section>
 </main>
 <div id="toasts"></div>
+<dialog id="consentDialog" class="consent-dialog" aria-labelledby="consentTitle">
+  <h3 id="consentTitle" tabindex="-1" autofocus>Data Privacy Consent and Notice</h3>
+  <p>In accordance with the Data Privacy Act of 2012 (RA 10173), the information you provide when creating an account will be treated confidentially and used only by the PEMU office of RTU to manage the borrowing of campus equipment.</p>
+  <p>This system collects your name, student number, RTU email address, course and year level. These details are used to identify you, to process and track your borrow requests, to record returns and any damage, and to send you notifications about your requests. Your information is accessible only to authorized PEMU staff and the system administrator, and is stored on secure cloud services used to run this system. Your password is stored only in encrypted form.</p>
+  <p>By selecting “I agree,” you consent to the collection and processing of your personal information for these purposes. Consent is required before your account can be created. You may contact the PEMU office to access, correct or request the removal of your data.</p>
+  <div class="consent-actions">
+    <button type="button" class="consent-btn agree" id="consentAgree">I agree</button>
+    <button type="button" class="consent-btn disagree" id="consentDisagree">Disagree</button>
+  </div>
+</dialog>
 <script src="assets/app.js"></script>
 <script src="assets/login.js"></script>
 </body>

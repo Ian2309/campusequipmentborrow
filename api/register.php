@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/bootstrap.php';
 
+const PRIVACY_NOTICE_VERSION = '2026-v1';  
 $in    = post();
 $first = trim((string)($in['firstname'] ?? ''));
 $last  = trim((string)($in['lastname'] ?? ''));
@@ -10,6 +11,7 @@ $course = trim((string)($in['course'] ?? ''));
 $year  = trim((string)($in['year_level'] ?? ''));
 $pass  = (string)($in['password'] ?? '');
 
+if (($in['consent'] ?? false) !== true) fail('You must agree to the Data Privacy Consent to create an account.');
 if ($first === '' || $last === '' || $sid === '' || $email === '' || $course === '' || $year === '' || $pass === '') {
     fail('Please complete all registration fields.');
 }
@@ -30,8 +32,8 @@ try {
     $check->execute([$sid, $email]);
     if ($check->fetch()) fail('That student number or email is already registered.', 409);
 
-    $pdo->prepare("INSERT INTO students (student_id, email, password, first_name, last_name, course, year_level, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'Active')")
-        ->execute([$sid, $email, password_hash($pass, PASSWORD_DEFAULT), $first, $last, $course, $year]);
+    $pdo->prepare("INSERT INTO students (student_id, email, password, first_name, last_name, course, year_level, status, privacy_consent_at, privacy_consent_version) VALUES (?, ?, ?, ?, ?, ?, ?, 'Active', NOW(), ?)")
+        ->execute([$sid, $email, password_hash($pass, PASSWORD_DEFAULT), $first, $last, $course, $year, PRIVACY_NOTICE_VERSION]);
 
     out(['success' => true, 'message' => 'Account created! You can now log in.']);
 } catch (PDOException $e) {
