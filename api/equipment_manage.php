@@ -1,7 +1,5 @@
 <?php
 // AdminPEMU: add quantity to an item (restock) or delete an item.
-// POST {action:'restock', id, qty}  -> raises total + available units and notifies every active student.
-// POST {action:'delete', id}        -> removes an item that has never been borrowed (borrowed items keep their records).
 require_once __DIR__ . '/../config/bootstrap.php';
 require_once __DIR__ . '/../config/storage.php';
 require_admin();
@@ -26,7 +24,6 @@ try {
             ->execute([$qty, $qty, $id]);
         $avail = (int)$item['available_units'] + $qty;
 
-        // One notification per active student. A failure here must not undo the restock.
         $notified = 0;
         try {
             $msg = "Restocked: {$item['name']} now has $avail available ($qty added). You can request it in the Equipment catalog.";

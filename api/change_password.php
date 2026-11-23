@@ -1,10 +1,10 @@
 <?php
 // A logged-in student OR admin changes their own password.
-// Students also land here after receiving a temporary password from PEMU.
+// Makakapunta si student dito for temporary password from PEMU.
 require_once __DIR__ . '/../config/bootstrap.php';
 
 if (($_SESSION['role'] ?? '') === 'admin') { $user = require_admin(); $table = 'admins'; $min = 10; }
-else { $user = require_student(true); $table = 'students'; $min = 8; }   // $table comes from this fixed pair only
+else { $user = require_student(true); $table = 'students'; $min = 8; }   
 $in = post();
 
 $cur = (string)($in['current'] ?? '');

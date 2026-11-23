@@ -1,5 +1,5 @@
 <?php
-// AdminPEMU: approve or reject a pending request, or mark an approved item as returned (optional with a damage report).
+// AdminPEMU: approve or reject a pending request, or mark an approved item as returned (optional sa damage report).
 require_once __DIR__ . '/../config/bootstrap.php';
 $admin = require_admin();
 $in = post();
@@ -55,7 +55,7 @@ try {
                 ->execute([$id, $eid, $sid, $sev, $desc, $cost, $unusable, $admin['id']]);
         }
 
-        // Stock: a good return (or repairable damage) goes back on the shelf; an unusable unit leaves the inventory.
+        // Stock: a good return (or repairable damage) babalik sa stock, pag hindi mawawala sa inventory.
         if ($damaged && $unusable) {
             $pdo->prepare('UPDATE equipment SET total_units = GREATEST(total_units - 1, 0) WHERE id = ?')->execute([$eid]);
         } else {
