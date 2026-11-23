@@ -1,6 +1,5 @@
 <?php
 // Supabase (Postgres) connection.
-// Credentials live in config/supabase.php (copy supabase.example.php). Environment variables of the same names also work.
 if (is_file(__DIR__ . '/supabase.php')) require_once __DIR__ . '/supabase.php';
 
 function sb_cfg(string $key, string $default = ''): string {
@@ -21,7 +20,7 @@ try {
         [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            // Port 6543 is the transaction pooler, which cannot keep server-side prepared statements.
+            // Port 6543 is the transaction pooler
             PDO::ATTR_EMULATE_PREPARES   => $port === '6543',
         ]
     );

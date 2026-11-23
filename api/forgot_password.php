@@ -1,6 +1,5 @@
 <?php
 // Student (not logged in): asks PEMU for a temporary password.
-// The reply is always the same, so this cannot be used to find out which student numbers or emails exist.
 require_once __DIR__ . '/../config/bootstrap.php';
 
 $in    = post();

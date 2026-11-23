@@ -1,5 +1,5 @@
 <?php
-// A student's own borrowing history (replaces the old update_requests.php, which read a table that doesn't exist).
+// A student's own borrowing history
 require_once __DIR__ . '/../config/bootstrap.php';
 $student = require_student();
 

@@ -1,5 +1,5 @@
 <?php
-// Admin: add equipment. Every field is required, including a photo (sent as a base64 data URL, already resized by the browser).
+// Admin: add equipment.
 require_once __DIR__ . '/../config/bootstrap.php';
 require_once __DIR__ . '/../config/storage.php';
 require_admin();
@@ -27,7 +27,6 @@ $types = [IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_WEBP => 'we
 if (!$info || !isset($types[$info[2]])) fail('That file is not a valid image.');
 if ($info[0] > 4000 || $info[1] > 4000) fail('The photo dimensions are too large.');
 
-// Re-encode through GD when available so only pixels are stored; otherwise keep the verified bytes.
 $file = 'eq_' . bin2hex(random_bytes(8)) . '.';
 if (function_exists('imagecreatefromstring') && ($img = @imagecreatefromstring($bytes))) {
     ob_start();
@@ -43,7 +42,7 @@ if (function_exists('imagecreatefromstring') && ($img = @imagecreatefromstring($
 }
 if ($data === '') fail('Could not process the photo.', 500);
 
-// Supabase Storage when configured; otherwise a local uploads/equipment folder (handy for offline XAMPP development).
+// Supabase Storage when configured, if local pwede xampp
 $local = null;
 if (storage_enabled()) {
     $imageUrl = storage_upload('equipment/' . $file, $data, $mime);

@@ -14,7 +14,6 @@ PHP app in a Docker container on Render, with Supabase for the database (Postgre
 3. Automated receipts everytime a student borrows an equipment. Pwede magamit para makita kung sino ang huling humiram ng equipment.
 4. Online and can be used by students everywhere, Kailangan lang connected sa internet.
 
-## = FRONTEND = 
 ## Version 1.1.2
 1. **Greetings for users and admin**
    - Time-based greeting: Good morning (12:00 AM to 11:59 AM), Good afternoon (12:00 PM to 5:59 PM), Good evening (6:00 PM to 11:59 PM)

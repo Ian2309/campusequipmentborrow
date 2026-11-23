@@ -1,7 +1,5 @@
 <?php
-// Admin-only: exports all app data as a restorable .sql file, keeps a copy in /backups and sends it as a download.
-// Restore: run database/schema.sql on an empty Supabase project, then run this file in the SQL Editor (or with psql).
-// This is an application-level export. For full database backups also use Supabase's own backups / pg_dump.
+// Admin-only
 require_once __DIR__ . '/../config/bootstrap.php';
 require_admin();
 post();

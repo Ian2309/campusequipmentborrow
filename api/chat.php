@@ -93,7 +93,7 @@ const NLP_TOPICS = [
 ];
 
 function nlp_tokens(string $text): array {
-    $t = preg_replace("/['\x{2018}\x{2019}`]/u", '', mb_strtolower($text));   // can't -> cant, what's -> whats
+    $t = preg_replace("/['\x{2018}\x{2019}`]/u", '', mb_strtolower($text));  
     $t = preg_replace('/[^\p{L}\p{N}\s-]/u', ' ', $t);
     return array_values(array_filter(preg_split('/\s+/', $t)));
 }
@@ -105,13 +105,12 @@ function nlp_stem(string $w): string {
 }
 function nlp_same(string $a, string $b): bool {
     if ($a === $b) return true;
-    // Typo tolerance: same first letter, one edit (two for long words). Short words must match exactly.
+    // Typo tolerance
     $n = min(strlen($a), strlen($b));
     return $n >= 5 && $a[0] === $b[0] && levenshtein($a, $b) <= ($n >= 10 ? 2 : 1);
 }
 function nlp_kw(string $kw, array $norm, string $plain): bool {
     if (str_contains($kw, ' ')) {
-        // Phrases match exactly, with plurals/endings stemmed ("damage records" = "damage record"), or run together ("cant login").
         $stemmed = implode(' ', array_map('nlp_stem', explode(' ', $kw)));
         return str_contains($plain, ' ' . $kw . ' ')
             || str_contains(' ' . implode(' ', $norm) . ' ', ' ' . $stemmed . ' ')
@@ -128,7 +127,7 @@ function nlp_has(array $kws, array $norm, string $plain): bool {
 function nlp_topics(string $role, array $norm, string $plain): array {
     $out = [];
     foreach (NLP_TOPICS[$role] as $name => $kws) if (nlp_has($kws, $norm, $plain)) $out[] = $name;
-    if (count($out) > 1) $out = array_values(array_diff($out, ['app']));   // a specific task beats the general tour
+    if (count($out) > 1) $out = array_values(array_diff($out, ['app']));   
     return array_slice($out, 0, 2);
 }
 
@@ -211,7 +210,7 @@ function chat_reply(PDO $pdo, string $role, array $user, string $text): array {
 
     if (!$tokens) return $reply('Type a question and I will look it up.');
 
-    // Entities: equipment (with synonyms/typos), category, and "it/that" pointing at the last item discussed.
+    // Entities
     $equip = nlp_equipment($pdo, $norm);
     $cat   = $equip ? null : nlp_category($pdo, $norm);
     if (!$equip && !$cat && ($ctx['equip'] ?? null) && nlp_has(['it', 'them', 'that', 'this', 'one'], $norm, $plain)) {
@@ -241,7 +240,7 @@ function chat_reply(PDO $pdo, string $role, array $user, string $text): array {
     $intent = $scores ? array_key_first($scores) : null;
     $best   = $scores ? reset($scores) : 0;
 
-    // Follow-ups: bare item names ("what about laptops?"), bare dates ("and tomorrow?"), and task words ("add equipment").
+    // Follow-ups
     if (($intent === null || $best < 2) && ($equip || $cat)) {
         $intent = in_array($ctx['intent'] ?? '', ['stock', 'catalog', 'borrowed', 'overdue', 'due', 'pending', 'demand'], true) ? $ctx['intent'] : 'stock';
     }
@@ -260,7 +259,7 @@ function chat_reply(PDO $pdo, string $role, array $user, string $text): array {
 
     $out = chat_run($pdo, $intent, $role, $user, $equip, $cat, $topics, $norm, $plain, $text);
 
-    // Compound questions ("pending and overdue") answer the top two data intents together.
+    // Compound questions 
     $second = array_keys($scores)[1] ?? null;
     $combo  = ['pending', 'overdue', 'low_stock', 'damage', 'resets', 'due', 'borrowed', 'my_requests', 'my_due', 'notifs', 'my_damage'];
     $joined = str_contains($plain, ' and ') || nlp_has(['also', 'tsaka'], $norm, $plain);
@@ -502,8 +501,8 @@ function chat_howto(string $role, array $topics): array {
     return ['Which task? I can explain: ' . implode(', ', array_keys($set)) . '.', array_map(fn($k) => 'How do I ' . $k . '?', array_slice(array_keys($set), 0, 4))];
 }
 
-// ---------- Endpoint (must stay at the bottom, after the constants and functions above) ----------
-[$chatRole, $chatUser] = require_login();            // same helper notifications.php uses: ['admin'|'student', userRow]
+// Endpoint 
+[$chatRole, $chatUser] = require_login();            
 $in    = post();
 $query = mb_substr(trim((string)($in['query'] ?? '')), 0, 200);
 
