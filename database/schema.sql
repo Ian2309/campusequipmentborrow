@@ -11,6 +11,8 @@ CREATE TABLE students (
   year_level VARCHAR(20) NOT NULL,
   status TEXT NOT NULL DEFAULT 'Active' CHECK (status IN ('Active','Suspended')),
   must_change_password BOOLEAN NOT NULL DEFAULT false,
+  privacy_consent_at TIMESTAMP(0) NULL,
+  privacy_consent_version VARCHAR(20) NULL,
   created_at TIMESTAMP(0) NOT NULL DEFAULT now()
 );
 CREATE UNIQUE INDEX students_student_id_key ON students (LOWER(student_id));
