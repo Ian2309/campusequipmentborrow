@@ -32,8 +32,8 @@ try {
     $check->execute([$sid, $email]);
     if ($check->fetch()) fail('That student number or email is already registered.', 409);
 
-    $pdo->prepare("INSERT INTO students (student_id, email, password, first_name, last_name, course, year_level, status, privacy_consent_at, privacy_consent_version) VALUES (?, ?, ?, ?, ?, ?, ?, 'Active', NOW(), ?)")
-        ->execute([$sid, $email, password_hash($pass, PASSWORD_DEFAULT), $first, $last, $course, $year, PRIVACY_NOTICE_VERSION]);
+    $pdo->prepare("INSERT INTO students (student_id, email, password, first_name, last_name, course, year_level, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'Active')")
+        ->execute([$sid, $email, password_hash($pass, PASSWORD_DEFAULT), $first, $last, $course, $year]);
 
     out(['success' => true, 'message' => 'Account created! You can now log in.']);
 } catch (PDOException $e) {
