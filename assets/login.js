@@ -72,6 +72,7 @@ async function register() {
     const d = await api('register.php', {
       firstname: $('#r_first').value, lastname: $('#r_last').value, student_id: sid, email: $('#r_email').value,
       course: $('#r_course').value, year_level: $('#r_year').value, password: $('#r_pass').value,
+      consent: true
     });
     $('#regForm').reset(); showForm('login');
     $('#username').value = sid; $('#password').value = '';
