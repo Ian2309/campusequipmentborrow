@@ -49,22 +49,10 @@ $('#loginForm').addEventListener('submit', async e => {
   } catch (err) { msg($('#loginMsg'), err.message); mark(err.field); btn.disabled = false; }
 });
 
-// Registration: the student must accept the Data Privacy Consent before the account is created.
-$('#regForm').addEventListener('submit', e => {
+$('#regForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const m = $('#regMsg'); msg(m, '');
-  const ids = ['#r_first', '#r_last', '#r_sid', '#r_email', '#r_course', '#r_year', '#r_pass', '#r_pass2'];
-  if (ids.some(id => !$(id).value.trim())) return msg(m, 'Please complete all registration fields.');
-  if ($('#r_pass').value !== $('#r_pass2').value) return msg(m, 'Passwords do not match.');
-  $('#consentDialog').showModal();
-});
-const consentDeclined = () => msg($('#regMsg'), 'You need to agree to the Data Privacy Consent to create an account.');
-$('#consentAgree').addEventListener('click', () => { $('#consentDialog').close(); register(); });
-$('#consentDisagree').addEventListener('click', () => { $('#consentDialog').close(); consentDeclined(); });
-$('#consentDialog').addEventListener('cancel', consentDeclined);   // Esc key
-
-async function register() {
   const m = $('#regMsg'), btn = $('#regBtn');
+  if ($('#r_pass').value !== $('#r_pass2').value) return msg(m, 'Passwords do not match.');
   btn.disabled = true; msg(m, '');
   try {
     await ensureToken();
@@ -72,14 +60,13 @@ async function register() {
     const d = await api('register.php', {
       firstname: $('#r_first').value, lastname: $('#r_last').value, student_id: sid, email: $('#r_email').value,
       course: $('#r_course').value, year_level: $('#r_year').value, password: $('#r_pass').value,
-      consent: true,
     });
     $('#regForm').reset(); showForm('login');
     $('#username').value = sid; $('#password').value = '';
     msg($('#loginMsg'), d.message, true);
   } catch (err) { msg(m, err.message); }
   btn.disabled = false;
-}
+});
 
 $('#forgotForm').addEventListener('submit', async e => {
   e.preventDefault();
