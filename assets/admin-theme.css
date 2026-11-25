@@ -1,0 +1,170 @@
+/* admin-theme.css v2 — white sidebar with gold brand header, RTU seal, icons, badge-style stat cards.
+   Only .theme-admin is touched, so student and login pages are unaffected. Pure CSS: no HTML or JS changes.
+   Loaded from the top of app.css:  @import url("admin-theme.css"); */
+.theme-admin{font-family:"Poppins","Segoe UI",system-ui,sans-serif}
+
+/* ===== sidebar ===== */
+.theme-admin .side{background:#fff;color:#475569;padding:0;gap:0;border-right:1px solid #f0e2b0;box-shadow:none;overflow-y:auto}
+.theme-admin .side .brand{padding:1rem;gap:.8rem;background:linear-gradient(135deg,#fde68a 0%,#f5b301 100%);border-bottom:3px solid #d99a00}
+.theme-admin .side .brand strong{color:#06255f;font-size:1.05rem}
+.theme-admin .side .brand small{color:#5a4100;opacity:1}
+.theme-admin .side .brand .logo-mark{width:54px;height:54px;flex:none;border-radius:50%;font-size:0;color:transparent;
+  background:#fff url("images/rtu-logo.png") center/80% no-repeat;box-shadow:0 4px 12px rgba(43,32,0,.28),0 0 0 3px rgba(255,255,255,.6)}
+.theme-admin .side .nav{flex:none;padding:.9rem .75rem 0;gap:.15rem}
+.theme-admin .side .nav button,.theme-admin .side .nav-out{position:relative;padding:.7rem .85rem .7rem 2.8rem;border-radius:10px;font-size:.92rem;font-weight:500;color:#475569;transition:background .15s,color .15s}
+.theme-admin .side .nav button::before,.theme-admin .side .nav-out::before{content:"";position:absolute;left:.95rem;top:50%;width:20px;height:20px;margin-top:-10px;background:center/contain no-repeat}
+.theme-admin .side .nav button:hover{background:#fffaf0}
+.theme-admin .side .nav button.active{background:#fff7df;color:#92580a;font-weight:600;box-shadow:inset 0 0 0 1px #f5d36b}
+.theme-admin .side .nav button.active::after{content:"";position:absolute;left:0;top:22%;bottom:22%;width:4px;border-radius:4px;background:#f5b301}
+.theme-admin .side .nav button:nth-child(1)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 11l9-8 9 8'/%3E%3Cpath d='M5 10v10h14V10'/%3E%3Cpath d='M10 20v-6h4v6'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(1).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b86e00' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 11l9-8 9 8'/%3E%3Cpath d='M5 10v10h14V10'/%3E%3Cpath d='M10 20v-6h4v6'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(2)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='4' width='14' height='17' rx='2'/%3E%3Cpath d='M9 4h6v3H9z'/%3E%3Cpath d='M9 12h6M9 16h6'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(2).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b86e00' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='4' width='14' height='17' rx='2'/%3E%3Cpath d='M9 4h6v3H9z'/%3E%3Cpath d='M9 12h6M9 16h6'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(3)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 8l-9-5-9 5 9 5z'/%3E%3Cpath d='M3 8v8l9 5 9-5V8'/%3E%3Cpath d='M12 13v8'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(3).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b86e00' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 8l-9-5-9 5 9 5z'/%3E%3Cpath d='M3 8v8l9 5 9-5V8'/%3E%3Cpath d='M12 13v8'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(4)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l10 18H2z'/%3E%3Cpath d='M12 10v5M12 18h.01'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(4).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b86e00' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l10 18H2z'/%3E%3Cpath d='M12 10v5M12 18h.01'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(5)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8'/%3E%3Cpath d='M10 21h4'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(5).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b86e00' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8'/%3E%3Cpath d='M10 21h4'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(6)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(6).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b86e00' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1'/%3E%3C/svg%3E")}
+
+/* Log out sits right under the menu (not at the very bottom) */
+.theme-admin .side .nav-out{margin:.9rem .75rem 0;border:1px solid #fecaca;background:#fff;color:#b91c1c;font-weight:600;justify-content:flex-start}
+.theme-admin .side .nav-out:hover{background:#fef2f2}
+.theme-admin .side .nav-out::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b91c1c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4'/%3E%3Cpath d='M16 17l5-5-5-5M21 12H9'/%3E%3C/svg%3E")}
+
+/* ===== top bar ===== */
+.theme-admin .main .top{border-bottom:3px solid #f5b301;box-shadow:0 4px 14px rgba(120,80,0,.06)}
+.theme-admin .main .top h2{color:#06255f;font-weight:700}
+.theme-admin .main .chip,.theme-admin .main .icon-btn{border-color:#f3d77a}
+
+/* ===== stat cards: colored top edge, small label, badge, subtitle, icon ===== */
+.theme-admin .main .stat{position:relative;display:flex;flex-direction:column;padding:1rem 1.1rem;background-color:#fff;border:1px solid #eee3bd;border-top:4px solid var(--c);border-radius:14px;
+  box-shadow:0 4px 14px rgba(120,80,0,.06);transition:transform .15s,box-shadow .15s;background-repeat:no-repeat;background-position:right 1.1rem center;background-size:18px}
+.theme-admin .main .stat:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(120,80,0,.12)}
+.theme-admin .main .stat span{order:-1;padding-right:4.6rem;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#64748b}
+.theme-admin .main .stat b{margin:.35rem 0 .15rem;font-size:1.9rem;line-height:1.15;color:#06255f}
+.theme-admin .main .stat::after{font-size:.78rem;color:#64748b}
+.theme-admin .main .stat::before{position:absolute;top:.85rem;right:.9rem;padding:.1rem .5rem;border:1px solid;border-radius:5px;font-size:.6rem;font-weight:700;letter-spacing:.04em}
+.theme-admin .main .stats .stat:nth-child(1){--c:#f59e0b;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E")}
+.theme-admin .main .stats .stat:nth-child(1)::before{content:"ACTION";background:#fff7e6;color:#b45309;border-color:#f8d38a}
+.theme-admin .main .stats .stat:nth-child(1)::after{content:"Awaiting decision"}
+.theme-admin .main .stats .stat:nth-child(2){--c:#0ea5e9;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230ea5e9' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 3l4 4-4 4'/%3E%3Cpath d='M21 7H8'/%3E%3Cpath d='M7 21l-4-4 4-4'/%3E%3Cpath d='M3 17h13'/%3E%3C/svg%3E")}
+.theme-admin .main .stats .stat:nth-child(2)::before{content:"OUT";background:#e8f6fd;color:#0369a1;border-color:#9bd6f0}
+.theme-admin .main .stats .stat:nth-child(2)::after{content:"Units in active use"}
+.theme-admin .main .stats .stat:nth-child(3){--c:#10b981;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E")}
+.theme-admin .main .stats .stat:nth-child(3)::before{content:"READY";background:#e7f8f1;color:#047857;border-color:#9be3c8}
+.theme-admin .main .stats .stat:nth-child(3)::after{content:"Available for borrowing"}
+.theme-admin .main .stats .stat:nth-child(4){--c:#ef4444;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l10 18H2z'/%3E%3Cpath d='M12 10v5M12 18h.01'/%3E%3C/svg%3E")}
+.theme-admin .main .stats .stat:nth-child(4)::before{content:"CRITICAL";background:#fdecec;color:#b91c1c;border-color:#f6b3b3}
+.theme-admin .main .stats .stat:nth-child(4)::after{content:"Requires admin review"}
+.theme-admin .main .stats .stat:nth-child(5){--c:#f97316;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='M3 13h5l1 3h6l1-3h5'/%3E%3C/svg%3E")}
+.theme-admin .main .stats .stat:nth-child(5)::before{content:"STOCK";background:#fff1e6;color:#c2410c;border-color:#f9c9a4}
+.theme-admin .main .stats .stat:nth-child(5)::after{content:"Items near limit"}
+
+/* ===== panels, tables, empty state ===== */
+.theme-admin .main .panel{border-color:#eee3bd;border-radius:14px;box-shadow:0 4px 14px rgba(120,80,0,.05)}
+.theme-admin .main .panel h3{color:#06255f;display:flex;align-items:center;gap:.6rem}
+.theme-admin .main .panel h3::before{content:"";width:5px;height:1.1em;border-radius:3px;background:#f5b301;flex:none}
+.theme-admin .main th{background:#fff8dc;color:#6b4e00;text-transform:uppercase;letter-spacing:.05em;font-size:.72rem}
+.theme-admin .main tbody tr:hover{background:#fffdf3}
+.theme-admin .main .empty{padding:2.4rem 1rem}
+.theme-admin .main .empty::before{content:"";display:block;width:56px;height:56px;margin:0 auto .8rem;border-radius:50%;background:#fff3c2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d99a00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M8 12.5l2.7 2.7L16 9.5'/%3E%3C/svg%3E") center/26px no-repeat}
+
+/* ===== search, tabs, buttons ===== */
+.theme-admin .main .toolbar input{padding-left:2.6rem;border-color:#ecd98f;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M21 21l-4.3-4.3'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:1rem center;background-size:18px}
+.theme-admin .main .toolbar select,.theme-admin .main .field input,.theme-admin .main .field select,.theme-admin .main .field textarea{border-color:#ecd98f}
+.theme-admin .main .toolbar input:focus,.theme-admin .main .toolbar select:focus,.theme-admin .main .field input:focus,.theme-admin .main .field select:focus,.theme-admin .main .field textarea:focus{outline:none;border-color:#f5b301;box-shadow:0 0 0 4px rgba(245,179,1,.25)}
+.theme-admin .main .cat-tabs button{background:#f1f5f9;border-color:transparent;font-size:.85rem}
+.theme-admin .main .cat-tabs button.active{background:#f5b301;border-color:#f5b301;color:#2b2000;box-shadow:0 4px 10px rgba(217,154,0,.35)}
+.theme-admin .main .btn.primary{box-shadow:0 6px 14px rgba(217,154,0,.35)}
+
+/* ===== equipment cards ===== */
+.theme-admin .main .eq{border-color:#eee3bd;border-radius:14px}
+.theme-admin .main .thumb{font-size:0;background:linear-gradient(135deg,#fff3c2,#ffe58a)}
+.theme-admin .main .thumb::after{content:"";width:64px;height:64px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e0a100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='12' rx='2'/%3E%3Cpath d='M8 20h8M12 16v4'/%3E%3C/svg%3E") center/contain no-repeat}
+.theme-admin .main .pill{background:#fff3c2;color:#6b4e00;border:1px solid #f5d36b}
+
+@media(max-width:820px){
+  .theme-admin .side{padding:.5rem;overflow-y:visible}
+  .theme-admin .side .brand{padding:.4rem .6rem;background:none;border-bottom:0}
+  .theme-admin .side .brand .logo-mark{width:40px;height:40px}
+  .theme-admin .side .nav{padding:0}
+  .theme-admin .side .nav button{padding:.6rem .85rem}
+  .theme-admin .side .nav button::before{display:none}
+}
+
+/* ===== v3: full-width layout + professional polish ===== */
+.theme-admin .main{min-height:100vh;background:linear-gradient(180deg,#fff9e0 0,#fffdf6 340px,#fff 100%)}
+.theme-admin .main .content{max-width:none;padding:1.6rem 2rem 2.5rem}
+.theme-admin .main .top{padding:1rem 2rem}
+.theme-admin .main .top h2{font-size:1.4rem;letter-spacing:-.01em}
+.theme-admin .main .stats{gap:1.1rem;margin-bottom:1.4rem}
+.theme-admin .main .stat b{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.theme-admin .main .panel{padding:1.4rem 1.5rem;margin-bottom:1.4rem;box-shadow:0 1px 2px rgba(120,80,0,.06),0 8px 24px rgba(120,80,0,.06)}
+.theme-admin .main .panel h3{font-size:1.1rem;margin-bottom:1rem}
+.theme-admin .main .grid{grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.2rem}
+
+
+
+/* tables */
+.theme-admin .main th{padding:.75rem .8rem;border-bottom:2px solid #f5d36b}
+.theme-admin .main td{padding:.85rem .8rem;border-bottom:1px solid #f4ecd0}
+.theme-admin .main tbody tr:nth-child(even){background:#fffdf7}
+.theme-admin .main tbody tr:hover{background:#fff8dc}
+
+/* status badges get a dot */
+.theme-admin .main .badge{padding:.2rem .7rem;font-weight:600}
+.theme-admin .main .badge::before{content:"";display:inline-block;width:6px;height:6px;margin-right:.45rem;border-radius:50%;background:currentColor;vertical-align:middle}
+
+/* equipment cards */
+.theme-admin .main .eq{box-shadow:0 1px 2px rgba(120,80,0,.05);transition:box-shadow .15s,transform .15s,border-color .15s}
+.theme-admin .main .eq[data-eq]:hover{border-color:#f5b301;box-shadow:0 14px 28px rgba(120,80,0,.14)}
+.theme-admin .main .eq-body h3,.theme-admin .main .eq-body strong{color:#06255f}
+.theme-admin .main .cat-head{color:#06255f;padding-bottom:.4rem;border-bottom:1px solid #f4ecd0}
+
+/* buttons, focus, dialogs */
+.theme-admin .main .btn{border-radius:9px;transition:border-color .15s,box-shadow .15s,transform .15s}
+.theme-admin .main .btn:hover{border-color:#f5b301}
+.theme-admin .main .btn.danger:hover{background:#fef2f2;border-color:#f6b3b3}
+.theme-admin :focus-visible{outline:3px solid rgba(245,179,1,.7);outline-offset:2px}
+.theme-admin dialog{border-top:5px solid #f5b301;border-radius:18px}
+.theme-admin dialog h3{color:#06255f}
+.theme-admin .main .avatar{box-shadow:0 0 0 3px #fff3c2}
+
+@media(max-width:820px){
+  .theme-admin .main .content{padding:1rem}
+  .theme-admin .main .top{padding:.8rem 1rem}
+}
+
+/* ===== v3.1 fixes: aligned stat numbers, readable icons/labels on the gold sidebar ===== */
+.theme-admin .main .stat span{min-height:2.8em}
+.theme-admin .side .nav::before{color:#6b4e00;opacity:.75}
+.theme-admin .side .nav button{color:#2b2000}
+.theme-admin .side .nav button:nth-child(1)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b4e00' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 11l9-8 9 8'/%3E%3Cpath d='M5 10v10h14V10'/%3E%3Cpath d='M10 20v-6h4v6'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(2)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b4e00' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='4' width='14' height='17' rx='2'/%3E%3Cpath d='M9 4h6v3H9z'/%3E%3Cpath d='M9 12h6M9 16h6'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(3)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b4e00' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 8l-9-5-9 5 9 5z'/%3E%3Cpath d='M3 8v8l9 5 9-5V8'/%3E%3Cpath d='M12 13v8'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(4)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b4e00' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l10 18H2z'/%3E%3Cpath d='M12 10v5M12 18h.01'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(5)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b4e00' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8'/%3E%3Cpath d='M10 21h4'/%3E%3C/svg%3E")}
+.theme-admin .side .nav button:nth-child(6)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b4e00' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1'/%3E%3C/svg%3E")}
+
+/* ===== dark yellow (mustard) ===== */
+.theme-admin.theme-admin{--primary:#c49a0c;--primary-dark:#a67c00;--on:#1a1300;--soft:#f3e7bd;--page:#f8f2dc;--side:linear-gradient(180deg,#b88a0a,#7a5b00)}
+.theme-admin .side.side{background:linear-gradient(180deg,#b88a0a 0%,#98720a 55%,#7a5b00 100%)}
+.theme-admin .side.side .brand{background:linear-gradient(135deg,#cfa11a 0%,#98720a 100%);border-bottom-color:#5c4400}
+.theme-admin .side.side .brand strong{color:#fff}
+.theme-admin .side.side .brand small{color:#f5e3a8}
+.theme-admin .side.side .nav button{color:#fff}
+.theme-admin .side.side .nav button:hover{background:rgba(255,255,255,.14)}
+.theme-admin .side.side .nav button.active{background:#fff;color:#7a5b00}
+.theme-admin .side.side .nav button::before{filter:brightness(0) invert(1);opacity:.9}
+.theme-admin .side.side .nav button.active::before{filter:none;opacity:1}
+.theme-admin .main.main .top{background:radial-gradient(circle at 90% -50%,rgba(255,255,255,.2) 0,transparent 46%),radial-gradient(circle at 68% 170%,rgba(255,255,255,.1) 0,transparent 52%),linear-gradient(120deg,#b88a0a 0%,#98720a 62%,#7a5b00 100%);border-bottom-color:#5c4400;box-shadow:0 8px 24px rgba(92,68,0,.3)}
+.theme-admin .main.main .top h2{color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.25)}
+.theme-admin .main.main{background:linear-gradient(180deg,#f3e9c4 0,#f9f4e0 340px,#fff 100%)}
+.theme-admin .main .panel h3::before{background:#98720a}
+.theme-admin .main .cat-tabs button.active{background:#c49a0c;border-color:#c49a0c;color:#1a1300}
+.theme-admin .main .thumb{background:linear-gradient(135deg,#f1e3b0,#e2c870)}
+.theme-admin .main .pill{background:#f3e7bd;border-color:#d9bf6a}
+.theme-admin .main th{background:#f4ebc8;border-bottom-color:#d9bf6a}
