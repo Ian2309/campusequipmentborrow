@@ -192,19 +192,55 @@ $('#addForm').addEventListener('submit', async e => {
 });
 
 // Backup download
-$('#backupBtn').addEventListener('click', async () => {
-  const btn = $('#backupBtn'); btn.disabled = true;
+document.getElementById('downloadHistoryExcelBtn')?.addEventListener('click', async (e) => {
+  const btn = e.currentTarget;
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = 'Exporting...';
+
   try {
-    // ENDPOINT CALL (POST): Download database SQL backup file
-    const res = await fetch(API + 'backup.php', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF }, body: '{}' });
-    if (!(res.headers.get('content-type') || '').includes('sql')) throw new Error((await res.json().catch(() => ({}))).message || 'Backup failed.');
+
+const res = await fetch('../api/export_history_excel.php', {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': window.CSRF_TOKEN || state?.csrf || ''
+    },
+    body: '{}'
+});
+
+if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to download spreadsheet.');
+}
+
+const blob = await res.blob();
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement('a');
+a.href = url;
+a.download = `rtu_borrowing_history_${new Date().toISOString().slice(0, 10)}.xlsx`;
+
+document.body.appendChild(a);
+a.click();
+a.remove();
+
+URL.revokeObjectURL(url);
+
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(await res.blob());
-    a.download = (res.headers.get('content-disposition') || '').match(/filename="(.+?)"/)?.[1] || 'campusmate_backup.sql';
-    a.click(); URL.revokeObjectURL(a.href);
-    toast('Backup downloaded and saved on the server.');
-  } catch (err) { toast(err.message, 'err'); }
-  btn.disabled = false;
+    a.href = url;
+    a.download = `rtu_borrowing_history_${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    alert(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
 });
 
 // Password resets

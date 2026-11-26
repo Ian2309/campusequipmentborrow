@@ -105,10 +105,13 @@
           <span class="avatar" id="accAvatar"></span>
           <dl class="dl"><dt>Username</dt><dd class="big" id="accUser"></dd><dt>Full name</dt><dd id="accName"></dd><dt>Role</dt><dd>PEMU administrator</dd></dl>
         </div>
-        <div class="panel"><h3>Database backup</h3>
-          <p class="muted">Downloads a full SQL copy of students, equipment, requests, waivers and damage records. A copy is also kept in the server's <code>backups</code> folder (newest 30). Backups contain password hashes: store them safely.</p>
-          <button class="btn primary" id="backupBtn">Download backup</button>
-        </div>
+      <section class="card">
+         <h3>Borrowing history export</h3>
+         <p class="muted">
+         </p>
+         <button type="button" class="btn primary" id="downloadHistoryExcelBtn">
+         </button>
+        </section>
         <div class="panel"><h3>Help and support</h3>
           <details><summary>A student forgot their password</summary><p class="muted">Open Password resets, click Generate temporary password and give it to the student in person. They must choose a new one at next login.</p></details>
           <details><summary>Adding equipment fails or the photo is rejected</summary><p class="muted">Fill in every field and pick a JPG, PNG or WebP photo (it is shrunk automatically). If it still fails, make sure the server's <code>uploads</code> folder is writable.</p></details>
