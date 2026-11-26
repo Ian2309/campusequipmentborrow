@@ -1,9 +1,11 @@
 <?php
+// ENDPOINT: Admin Password Resets (GET list / POST issue temporary password)
 // AdminPEMU: list password-reset requests (GET) and issue a one-time temporary password (POST {id}).
 require_once __DIR__ . '/../config/bootstrap.php';
 $admin = require_admin();
 
 try {
+    // ENDPOINT METHOD BRANCH: POST handler
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $in = post();
         $id = (int)($in['id'] ?? 0);
@@ -21,14 +23,17 @@ try {
         $pdo->prepare("UPDATE password_resets SET status = 'Done', handled_by = ?, handled_at = NOW() WHERE id = ?")->execute([$admin['id'], $id]);
         $pdo->prepare('DELETE FROM login_attempts WHERE identifier = ? OR identifier = ?')->execute(['student:' . strtolower($r['sid']), 'student:' . strtolower($r['email'])]);
         $pdo->commit();
+        // ENDPOINT RESPONSE: POST JSON output
         out(['success' => true, 'temp_password' => $temp]); // shown once; only the hash is stored
     }
 
+    // ENDPOINT METHOD BRANCH: GET handler
     $rows = $pdo->query("
         SELECT pr.id, pr.status, pr.created_at, pr.handled_at, s.first_name, s.last_name, s.student_id, s.email, s.course
         FROM password_resets pr JOIN students s ON s.id = pr.student_id
         ORDER BY pr.status = 'Pending' DESC, pr.created_at DESC LIMIT 100
     ")->fetchAll();
+    // ENDPOINT RESPONSE: GET JSON output
     out(['success' => true, 'resets' => $rows]);
 } catch (UserError $e) {
     rollback();

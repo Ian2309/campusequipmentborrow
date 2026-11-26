@@ -1,4 +1,5 @@
 <?php
+// ENDPOINT: Student Account Registration (POST)
 require_once __DIR__ . '/../config/bootstrap.php';
 
 const PRIVACY_NOTICE_VERSION = '2026-v1';  
@@ -35,6 +36,7 @@ try {
     $pdo->prepare("INSERT INTO students (student_id, email, password, first_name, last_name, course, year_level, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'Active')")
         ->execute([$sid, $email, password_hash($pass, PASSWORD_DEFAULT), $first, $last, $course, $year]);
 
+    // ENDPOINT RESPONSE: JSON output confirming account creation
     out(['success' => true, 'message' => 'Account created! You can now log in.']);
 } catch (PDOException $e) {
     if ($e->getCode() === '23505') fail('That student number or email is already registered.', 409);

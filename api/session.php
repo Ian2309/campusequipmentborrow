@@ -1,4 +1,5 @@
    <?php
+   // ENDPOINT: Current Session & CSRF Token Check (GET)
    // Who is logged in? Also hands the browser its CSRF token.
    require_once __DIR__ . '/../config/bootstrap.php';
 
@@ -11,4 +12,5 @@
        error_log($e->getMessage());
        fail('Service temporarily unavailable.', 500);
    }
+   // ENDPOINT RESPONSE: JSON output with auth state, role, user info, and CSRF token
    out(['success' => true, 'authenticated' => (bool)$user, 'role' => $user ? $role : null, 'user' => $user, 'csrf' => csrf_token()]);

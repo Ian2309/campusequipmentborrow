@@ -1,4 +1,5 @@
 <?php
+// ENDPOINT: Admin Add Equipment (POST)
 // Admin: add equipment.
 require_once __DIR__ . '/../config/bootstrap.php';
 require_once __DIR__ . '/../config/storage.php';
@@ -42,6 +43,7 @@ if (function_exists('imagecreatefromstring') && ($img = @imagecreatefromstring($
 }
 if ($data === '') fail('Could not process the photo.', 500);
 
+// ENDPOINT / STORAGE TARGET: Supabase Storage upload endpoint (when enabled) or local uploads path
 // Supabase Storage when configured, if local pwede xampp
 $local = null;
 if (storage_enabled()) {
@@ -64,8 +66,10 @@ if (storage_enabled()) {
 try {
     $pdo->prepare('INSERT INTO equipment (name, category, total_units, available_units, description, image_url) VALUES (?, ?, ?, ?, ?, ?)')
         ->execute([$name, $cat, $total, $total, $desc, $imageUrl]);
+    // ENDPOINT RESPONSE: JSON output returned by this endpoint
     out(['success' => true, 'message' => "$name added to inventory."]);
 } catch (PDOException $e) {
+    // ENDPOINT / STORAGE TARGET: Supabase Storage delete endpoint fallback on error
     if ($local) @unlink($local); else storage_delete($imageUrl);
     error_log($e->getMessage());
     fail('Could not add the equipment.', 500);

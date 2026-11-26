@@ -1,9 +1,11 @@
 <?php
+// ENDPOINT: Admin Damage Records (GET list / POST mark settled)
 // AdminPEMU: damage records with the waiver the student signed. POST {id} marks a record as settled.
 require_once __DIR__ . '/../config/bootstrap.php';
 require_admin();
 
 try {
+    // ENDPOINT METHOD BRANCH: POST mark damage record as settled
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $in = post();
         $id = (int)($in['id'] ?? 0);
@@ -13,9 +15,11 @@ try {
         if (!$d) fail('Damage record not found or already settled.', 404);
         $pdo->prepare('UPDATE damage_reports SET resolved = true, resolved_at = NOW() WHERE id = ?')->execute([$id]);
         notify('student', (int)$d['student_id'], 'damage_settled', "Your damage record for {$d['name']} has been marked as settled by PEMU.", (int)$d['request_id']);
+        // ENDPOINT RESPONSE: POST JSON output
         out(['success' => true]);
     }
 
+    // ENDPOINT METHOD BRANCH: GET list damage records
     $rows = $pdo->query('
         SELECT d.id, d.severity, d.description, d.estimated_cost, d.unusable, d.resolved, d.created_at,
                e.name AS equipment_name, s.first_name, s.last_name, s.student_id,
@@ -27,6 +31,7 @@ try {
         ORDER BY d.resolved ASC, d.created_at DESC
     ')->fetchAll();
     foreach ($rows as &$r) { $r['unusable'] = (bool)$r['unusable']; $r['resolved'] = (bool)$r['resolved']; $r['estimated_cost'] = (float)$r['estimated_cost']; }
+    // ENDPOINT RESPONSE: GET JSON output
     out(['success' => true, 'damages' => $rows]);
 } catch (PDOException $e) {
     error_log($e->getMessage());
