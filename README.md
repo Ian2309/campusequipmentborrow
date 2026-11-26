@@ -68,8 +68,6 @@ PHP app in a Docker container on Render, with Supabase for the database (Postgre
 ## Version 1.1.5
 1. **Receipt**
    - Receipt print function is removed.
-   - Added Data Privacy consent pop up when a student registers.
-   - Added extra column for return time and date on admin dashboard.
 
 ## Made By: ICS-01-502P (GROUP 11)
 1. ESCARA, FRANCIS JUSTINE

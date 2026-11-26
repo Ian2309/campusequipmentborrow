@@ -1,3 +1,4 @@
+/* NOTE: Pure CSS stylesheet — no backend API endpoints are called in this file. */
 @import url("fonts.css");
 @import url("login-theme.css");
 @import url("admin-theme.css");

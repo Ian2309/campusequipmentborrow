@@ -1,4 +1,5 @@
 <?php
+// ENDPOINT: Admin Database SQL Backup (POST)
 // Admin-only
 require_once __DIR__ . '/../config/bootstrap.php';
 require_admin();
@@ -15,7 +16,7 @@ function sql_value(PDO $pdo, $v): string {
 
 try {
     $all = implode(', ', BACKUP_TABLES);
-    $sql = '-- CampusMate backup ' . date('c') . "\nBEGIN;\nTRUNCATE $all RESTART IDENTITY CASCADE;\n\n";
+    $sql = '-- RTU Equipment Hub backup ' . date('c') . "\nBEGIN;\nTRUNCATE $all RESTART IDENTITY CASCADE;\n\n";
     foreach (BACKUP_TABLES as $t) {                       // fixed list, safe to interpolate
         $rows = $pdo->query("SELECT * FROM $t ORDER BY id");
         while ($row = $rows->fetch()) {
@@ -30,15 +31,16 @@ try {
     }
     $sql .= "COMMIT;\n";
 
-    $name = 'campusmate_' . date('Ymd_His') . '.sql';
+    $name = 'rtu_equipment_hub_' . date('Ymd_His') . '.sql';
     $dir  = __DIR__ . '/../backups';
     if (is_dir($dir) && is_writable($dir)) {
         file_put_contents("$dir/$name", $sql, LOCK_EX);
-        $old = glob("$dir/campusmate_*.sql") ?: [];
+        $old = glob("$dir/rtu_equipment_hub_*.sql") ?: [];
         sort($old);
         foreach (array_slice($old, 0, max(0, count($old) - 30)) as $f) @unlink($f); // keep the newest 30
     }
 
+    // ENDPOINT RESPONSE: SQL file attachment download output
     header('Content-Type: application/sql; charset=utf-8');
     header("Content-Disposition: attachment; filename=\"$name\"");
     echo $sql;

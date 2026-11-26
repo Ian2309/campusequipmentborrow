@@ -1,11 +1,14 @@
 <?php
+// ENDPOINT: Student Waiver (GET) & Borrow Request Submission (POST)
 // GET  -> returns the waiver text students must accept.
 // POST -> student submits a borrow request with a signed online waiver.
 require_once __DIR__ . '/../config/bootstrap.php';
 $student = require_student();
 
+// ENDPOINT METHOD BRANCH: GET waiver details
 if ($_SERVER['REQUEST_METHOD'] === 'GET') out(['success' => true, 'waiver' => WAIVER_TEXT, 'version' => WAIVER_VERSION]);
 
+// ENDPOINT METHOD BRANCH: POST borrow request
 $in        = post();
 $equipId   = (int)($in['equipment_id'] ?? 0);
 $purpose   = trim((string)($in['purpose'] ?? ''));
@@ -51,6 +54,7 @@ try {
     notify('student', (int)$student['id'], 'submitted', "Request received: {$item['name']} ($range). Receipt no. $receipt. Your signed waiver is on file. PEMU will review it shortly.", $reqId);
 
     $pdo->commit();
+    // ENDPOINT RESPONSE: POST JSON output with receipt details
     out(['success' => true, 'receipt' => [
         'receipt_no' => $receipt, 'equipment' => $item['name'],
         'borrow_date' => $borrow->format('Y-m-d'), 'return_date' => $return->format('Y-m-d'),

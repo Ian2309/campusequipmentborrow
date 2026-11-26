@@ -1,4 +1,5 @@
 <?php
+// ENDPOINT: Admin Manage Equipment (POST - restock or delete)
 // AdminPEMU: add quantity to an item (restock) or delete an item.
 require_once __DIR__ . '/../config/bootstrap.php';
 require_once __DIR__ . '/../config/storage.php';
@@ -34,11 +35,12 @@ try {
         } catch (PDOException $e) {
             error_log('equipment_manage notify: ' . $e->getMessage());
         }
+        // ENDPOINT RESPONSE: JSON output for restock action
         out(['success' => true, 'notified' => $notified,
              'message' => "$qty unit(s) added to {$item['name']}." . ($notified ? " $notified student(s) notified." : ' Students could not be notified (see the server error log).')]);
     }
 
-    // delete
+    // Delete
     $c = $pdo->prepare('SELECT (SELECT COUNT(*) FROM equipment_requests WHERE equipment_id = ?) + (SELECT COUNT(*) FROM damage_reports WHERE equipment_id = ?)');
     $c->execute([$id, $id]);
     if ((int)$c->fetchColumn() > 0) {
@@ -46,8 +48,10 @@ try {
     }
     $pdo->prepare('DELETE FROM equipment WHERE id = ?')->execute([$id]);
     $img = (string)$item['image_url'];
+    // ENDPOINT / STORAGE TARGET: Delete local image or call Supabase Storage delete endpoint
     if (preg_match('#^uploads/equipment/[A-Za-z0-9_.-]+$#', $img)) @unlink(__DIR__ . '/../' . $img);
     elseif (storage_enabled()) storage_delete($img);
+    // ENDPOINT RESPONSE: JSON output for delete action
     out(['success' => true, 'message' => "{$item['name']} was deleted."]);
 } catch (PDOException $e) {
     error_log($e->getMessage());

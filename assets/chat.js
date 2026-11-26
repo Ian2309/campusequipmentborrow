@@ -40,6 +40,7 @@
     add(q, 'me'); input.value = ''; setChips([]);
     const dots = add('', 'bot typing'); dots.innerHTML = '<i></i><i></i><i></i>';
     try {
+      // ENDPOINT CALL (POST): Send assistant prompt/query to chat.php
       const d = await api('chat.php', { query: q });
       await new Promise(r => setTimeout(r, 350));                 // brief pause so the typing dots read naturally
       dots.remove(); add(d.reply, 'bot'); setChips(d.suggestions);

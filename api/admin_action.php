@@ -1,4 +1,5 @@
 <?php
+// ENDPOINT: Admin Handle Equipment Request (POST - approve, reject, return)
 // AdminPEMU: approve or reject a pending request, or mark an approved item as returned (optional sa damage report).
 require_once __DIR__ . '/../config/bootstrap.php';
 $admin = require_admin();
@@ -72,6 +73,7 @@ try {
     }
 
     $pdo->commit();
+    // ENDPOINT RESPONSE: JSON output returned by this endpoint
     out(['success' => true]);
 } catch (UserError $e) {
     rollback();

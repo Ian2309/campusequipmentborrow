@@ -501,12 +501,14 @@ function chat_howto(string $role, array $topics): array {
     return ['Which task? I can explain: ' . implode(', ', array_keys($set)) . '.', array_map(fn($k) => 'How do I ' . $k . '?', array_slice(array_keys($set), 0, 4))];
 }
 
+// ENDPOINT: Assistant Chat Endpoint (POST)
 // Endpoint 
 [$chatRole, $chatUser] = require_login();            
 $in    = post();
 $query = mb_substr(trim((string)($in['query'] ?? '')), 0, 200);
 
 try {
+    // ENDPOINT RESPONSE: JSON output with assistant reply and suggestions
     out(['success' => true] + chat_reply($pdo, $chatRole, $chatUser, $query));
 } catch (Throwable $e) {
     error_log('chat.php: ' . $e->getMessage());
