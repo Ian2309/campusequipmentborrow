@@ -1,4 +1,5 @@
 'use strict';
+// ENDPOINT BASE CONFIGURATION: Base API path from <html data-api="...">
 // Shared helpers used by every page. No inline scripts anywhere (strict CSP).
 const API = document.documentElement.dataset.api;
 let CSRF = '';
@@ -14,6 +15,7 @@ const todayStr = () => new Date(Date.now() - new Date().getTimezoneOffset() * 60
 const badge = (s, label) => `<span class="badge ${esc(s.toLowerCase().replace(/\s+/g, '-'))}">${esc(label || s)}</span>`;
 const peso = n => '₱' + Number(n).toLocaleString('en-PH', { minimumFractionDigits: 2 });
 
+// ENDPOINT CLIENT WRAPPER: Sends GET/POST JSON requests with CSRF token to API + file
 async function api(file, body) {
   const opt = body === undefined
     ? { credentials: 'same-origin' }
@@ -40,6 +42,7 @@ function toast(msg, kind = 'ok') {
 
 // Confirms the visitor holds the right role, stores the CSRF token, returns the user (or redirects to login).
 async function startSession(role) {
+  // ENDPOINT CALL (GET): Verify active session, role, and retrieve CSRF token
   const s = await api('session.php');
   CSRF = s.csrf;
   if (!s.authenticated || s.role !== role) { location.replace(loginUrl()); return null; }
@@ -54,6 +57,7 @@ function logout() {
       + '<div class="dialog-foot"><button type="button" class="btn" data-close>Stay logged in</button><button type="button" class="btn primary" id="logoutYes">Yes, log out</button></div>';
     document.body.append(d);
     $('#logoutYes', d).addEventListener('click', async () => {
+      // ENDPOINT CALL (POST): Destroy user session on the server
       try { await api('logout.php', {}); } catch { /* ignore */ }
       location.replace(loginUrl());
     });
@@ -66,6 +70,7 @@ const every = (ms, fn) => setInterval(() => { if (!document.hidden) fn().catch((
 // Notifications (shared by student + admin pages). New unread items pop up as a toast.
 let seenNotif = null;
 async function loadNotifications() {
+  // ENDPOINT CALL (GET): Fetch notifications list and unread count
   const d = await api('notifications.php');
   if (seenNotif !== null) d.notifications.filter(n => n.id > seenNotif && !n.is_read).reverse().forEach(n => toast(n.message, 'info'));
   seenNotif = Math.max(seenNotif ?? 0, 0, ...d.notifications.map(n => n.id));
@@ -89,6 +94,7 @@ function wireShell(titles, onTab) {
   });
   document.addEventListener('error', e => { if (e.target.tagName === 'IMG') e.target.classList.add('broken'); }, true);
   $('#logout').addEventListener('click', logout);
+  // ENDPOINT CALL (POST): Mark all notifications as read
   $('#markRead').addEventListener('click', async () => { await api('notifications.php', { action: 'read_all' }); loadNotifications(); });
   show(Object.keys(titles)[0]);
 }
@@ -380,5 +386,3 @@ body .wb::after{width:210px;height:210px;right:2rem}
   clean();
   new MutationObserver(clean).observe(document.body,{childList:true,subtree:true,characterData:true});
 })();
-
-

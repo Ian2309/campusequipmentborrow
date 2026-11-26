@@ -1,4 +1,5 @@
 <?php
+// ENDPOINT: Change Own Password (POST - student or admin)
 // A logged-in student OR admin changes their own password.
 // Makakapunta si student dito for temporary password from PEMU.
 require_once __DIR__ . '/../config/bootstrap.php';
@@ -21,6 +22,7 @@ try {
     $set = $table === 'students' ? 'password = ?, must_change_password = false' : 'password = ?';
     $pdo->prepare("UPDATE $table SET $set WHERE id = ?")->execute([password_hash($new, PASSWORD_DEFAULT), $user['id']]);
     session_regenerate_id(true);
+    // ENDPOINT RESPONSE: JSON output confirming password update
     out(['success' => true, 'message' => 'Password updated.']);
 } catch (PDOException $e) {
     error_log($e->getMessage());

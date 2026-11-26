@@ -1,3 +1,4 @@
+/* NOTE: Pure CSS stylesheet — no backend API endpoints are called in this file. */
 /* admin-theme.css v2 — white sidebar with gold brand header, RTU seal, icons, badge-style stat cards.
    Only .theme-admin is touched, so student and login pages are unaffected. Pure CSS: no HTML or JS changes.
    Loaded from the top of app.css:  @import url("admin-theme.css"); */

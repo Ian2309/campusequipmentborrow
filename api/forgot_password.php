@@ -1,4 +1,5 @@
 <?php
+// ENDPOINT: Student Request Password Reset (POST)
 // Student (not logged in): asks PEMU for a temporary password.
 require_once __DIR__ . '/../config/bootstrap.php';
 
@@ -27,6 +28,7 @@ try {
             notify('admin', null, 'password_reset', "{$u['first_name']} {$u['last_name']} ({$u['student_id']}) asked for a password reset.");
         }
     }
+    // ENDPOINT RESPONSE: JSON output returned by this endpoint
     out(['success' => true, 'message' => $reply]);
 } catch (PDOException $e) {
     error_log($e->getMessage());

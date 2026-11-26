@@ -1,4 +1,5 @@
 <?php
+// ENDPOINT: Admin Get Equipment Requests (GET)
 require_once __DIR__ . '/../config/bootstrap.php';
 require_admin();
 
@@ -12,6 +13,7 @@ try {
         JOIN equipment e ON e.id = r.equipment_id
         ORDER BY r.created_at DESC LIMIT 500
     ")->fetchAll();
+    // ENDPOINT RESPONSE: JSON output returned by this endpoint
     out(['success' => true, 'requests' => $rows]);
 } catch (PDOException $e) {
     error_log($e->getMessage());

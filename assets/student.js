@@ -18,6 +18,7 @@ let me, equipment = [], requests = [], waiver = '', current = null, snap = '';
 })();
 
 async function startData() {
+  // ENDPOINT CALL (GET): Fetch borrowing waiver text from borrow.php
   api('borrow.php').then(d => { waiver = d.waiver; }).catch(() => {});
   await refresh();
   every(5000, refresh); // live updates: new equipment, stock changes, decisions, notifications
@@ -41,6 +42,7 @@ $('#pwForm').addEventListener('submit', async e => {
   if ($('#pwNew').value !== $('#pwNew2').value) { m.textContent = 'New passwords do not match.'; return; }
   btn.disabled = true;
   try {
+    // ENDPOINT CALL (POST): Submit password change to change_password.php
     await api('change_password.php', { current: $('#pwCur').value, new: $('#pwNew').value });
     $('#pwDialog').close();
     toast('Password updated.');
@@ -50,6 +52,7 @@ $('#pwForm').addEventListener('submit', async e => {
 });
 
 async function refresh() {
+  // ENDPOINT CALLS (GET): Fetch equipment catalog via equipment.php and student requests via my_requests.php
   const [e, r] = await Promise.all([api('equipment.php'), api('my_requests.php')]);
   const key = JSON.stringify([e.equipment, r.requests]);
   if (key !== snap) { snap = key; equipment = e.equipment; requests = r.requests; renderCatalog(); renderRequests(); }
@@ -109,6 +112,7 @@ $('#reqForm').addEventListener('submit', async e => {
   const btn = $('#reqSubmit'), msg = $('#reqMsg'); msg.textContent = ''; btn.disabled = true;
   const itemName = current.name;
   try {
+    // ENDPOINT CALL (POST): Submit borrow request and signed waiver to borrow.php
     const d = await api('borrow.php', {
       equipment_id: current.id, purpose: $('#purpose').value, borrow_date: $('#bDate').value, return_date: $('#rDate').value,
       course_code: $('#course').value, waiver_agreed: $('#agree').checked, signature: $('#signature').value,

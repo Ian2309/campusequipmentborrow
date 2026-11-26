@@ -1,4 +1,5 @@
 <?php
+// ENDPOINT: User Login (POST - student or admin)
 require_once __DIR__ . '/../config/bootstrap.php';
 
 $in       = post();
@@ -61,6 +62,7 @@ try {
     session_regenerate_id(true);
     $_SESSION['role'] = $role;
     $_SESSION['uid']  = (int)$u['id'];
+    // ENDPOINT RESPONSE: JSON output with role and redirect target
     out(['success' => true, 'role' => $role, 'redirect' => $role === 'admin' ? 'admin/index.html' : 'student/index.html']);
 } catch (PDOException $e) {
     error_log($e->getMessage());

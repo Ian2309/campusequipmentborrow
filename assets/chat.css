@@ -1,3 +1,4 @@
+/* NOTE: Pure CSS stylesheet — no backend API endpoints are called in this file. */
 /* Floating AI orb assistant (bottom left). Aesthetic soft-glass restyle.
    Colors follow the page theme: blue/lilac for students, gold/peach for PEMU admin.
    Needs --primary, --primary-dark, --soft, --ink, --line, --on from the theme files. */

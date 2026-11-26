@@ -14,6 +14,7 @@ let me, equipment = [], requests = [], damages = [], resets = [], snap = '', act
 })();
 
 async function refresh() {
+  // ENDPOINT CALLS (GET): Fetch equipment, admin requests, damage reports, and password resets
   const [e, r, d, p] = await Promise.all([api('equipment.php'), api('admin_requests.php'), api('damage_reports.php'), api('admin_resets.php')]);
   const key = JSON.stringify([e.equipment, r.requests, d.damages, p.resets]);
   if (key !== snap) { snap = key; equipment = e.equipment; requests = r.requests; damages = d.damages; resets = p.resets; renderAll(); }
@@ -25,13 +26,6 @@ const isOverdue = r => r.status === 'Approved' && r.return_date < todayStr();
 const studentCell = r => `<strong>${esc(fullName(r))}</strong><br><small class="muted">${esc(r.student_id)} · ${esc(r.course)}</small>`;
 const dates = r => `${fmtDate(r.borrow_date)} to ${fmtDate(r.return_date)}`;
 const statusCell = r => badge(r.status) + (isOverdue(r) ? ' ' + badge('Overdue') : '');
-// Returned column
-const returnedCell = r => {
-  if (!r.returned_at) return `<small class="muted">${r.status === 'Approved' ? 'Not returned yet' : '—'}</small>`;
-  const late = Math.round((toDate(r.returned_at.slice(0, 10)) - toDate(r.return_date)) / 86400000);
-  const note = late > 0 ? `Late by ${late} day${late > 1 ? 's' : ''}` : 'On time';
-  return `<small>${fmtDateTime(r.returned_at)}<br><span class="muted">${note}</span></small>`;
-};
 const buttons = r => r.status === 'Pending Approval'
   ? `<div class="actions"><button class="btn sm primary" data-act="approve" data-id="${r.id}">Approve</button><button class="btn sm" data-act="reject" data-id="${r.id}">Reject</button></div>`
   : r.status === 'Approved' ? `<div class="actions"><button class="btn sm primary" data-act="return" data-id="${r.id}">Mark returned</button></div>` : '';
@@ -78,9 +72,8 @@ function renderRequests() {
     <td><strong class="receipt-btn">${esc(r.receipt_no || '—')}</strong></td>
     <td>${studentCell(r)}</td><td>${esc(r.equipment_name)}</td><td>${dates(r)}<br><small class="muted">${esc(r.course_code)}</small></td>
     <td>${esc(r.purpose)}</td><td><small>${esc(r.waiver_signature)}<br>${fmtDateTime(r.waiver_signed_at)}</small></td>
-    <td>${returnedCell(r)}</td>
     <td>${statusCell(r)}${r.admin_note ? `<br><small class="muted">${esc(r.admin_note)}</small>` : ''}</td><td>${buttons(r)}</td></tr>`).join('')
-    || '<tr><td colspan="9" class="empty">No requests match.</td></tr>';
+    || '<tr><td colspan="8" class="empty">No requests match.</td></tr>';
 }
 $('#rSearch').addEventListener('input', renderRequests);
 $('#rFilter').addEventListener('change', renderRequests);
@@ -98,6 +91,7 @@ document.addEventListener('click', e => {
   }
   const s = e.target.closest('[data-settle]'); if (s) {
     s.disabled = true;
+    // ENDPOINT CALL (POST): Mark damage record as settled
     api('damage_reports.php', { id: +s.dataset.settle }).then(() => { toast('Damage record marked as settled.'); snap = ''; return refresh(); }).catch(err => { toast(err.message, 'err'); s.disabled = false; });
   }
 });
@@ -111,6 +105,7 @@ $('#actForm').addEventListener('submit', async e => {
   }
   const btn = $('#actSubmit'); btn.disabled = true; $('#actMsg').textContent = '';
   try {
+    // ENDPOINT CALL (POST): Approve, reject, or mark request as returned
     await api('admin_action.php', body);
     $('#actDialog').close();
     toast({ approve: 'Request approved. The student was notified.', reject: 'Request rejected. The student was notified.', return: 'Return recorded. The student was notified.' }[act.type]);
@@ -188,6 +183,7 @@ $('#addForm').addEventListener('submit', async e => {
   if (missing.length) { m.textContent = 'Please complete: ' + missing.map(c => c[2]).join(', ') + '.'; $(missing[0][0]).focus(); return; }
   btn.disabled = true;
   try {
+    // ENDPOINT CALL (POST): Add new equipment item with photo
     const d = await api('add_equipment.php', { ...v, photo: photoData });
     $('#addForm').reset(); $('#eTotal').value = 1; photoData = ''; $('#photoPrev').replaceChildren();
     toast(d.message); snap = ''; await refresh();
@@ -203,22 +199,35 @@ document.getElementById('downloadHistoryExcelBtn')?.addEventListener('click', as
   btn.textContent = 'Exporting...';
 
   try {
-    const res = await fetch('../api/export_history_excel.php', {
-      method: 'POST',
-      headers: {
+
+const res = await fetch('../api/export_history_excel.php', {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
         'Content-Type': 'application/json',
         'X-CSRF-TOKEN': window.CSRF_TOKEN || state?.csrf || ''
-      },
-      body: '{}'
-    });
+    },
+    body: '{}'
+});
 
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || 'Failed to download spreadsheet.');
-    }
+if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to download spreadsheet.');
+}
 
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
+const blob = await res.blob();
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement('a');
+a.href = url;
+a.download = `rtu_borrowing_history_${new Date().toISOString().slice(0, 10)}.xlsx`;
+
+document.body.appendChild(a);
+a.click();
+a.remove();
+
+URL.revokeObjectURL(url);
+
     const a = document.createElement('a');
     a.href = url;
     a.download = `rtu_borrowing_history_${new Date().toISOString().slice(0, 10)}.csv`;
@@ -251,6 +260,7 @@ document.addEventListener('click', async e => {
   const r = resets.find(x => x.id === +b.dataset.reset); if (!r) return;
   b.disabled = true;
   try {
+    // ENDPOINT CALL (POST): Issue temporary password for student reset request
     const d = await api('admin_resets.php', { id: r.id });
     $('#tempFor').textContent = `For ${r.first_name} ${r.last_name} (${r.student_id})`;
     $('#tempPw').textContent = d.temp_password;
@@ -268,6 +278,7 @@ $('#pwForm').addEventListener('submit', async e => {
   if ($('#pwNew').value !== $('#pwNew2').value) { m.textContent = 'New passwords do not match.'; return; }
   btn.disabled = true;
   try {
+    // ENDPOINT CALL (POST): Update admin password
     await api('change_password.php', { current: $('#pwCur').value, new: $('#pwNew').value });
     $('#pwDialog').close(); toast('Password updated.');
   } catch (err) { m.textContent = err.message; }
@@ -293,6 +304,7 @@ $('#stockForm').addEventListener('submit', async e => {
   if (qty < 1 || qty > 1000) { m.textContent = 'Enter a quantity between 1 and 1000.'; return; }
   btn.disabled = true;
   try {
+    // ENDPOINT CALL (POST): Restock equipment item
     const d = await api('equipment_manage.php', { action: 'restock', id: stockItem.id, qty });
     $('#stockDialog').close(); toast(d.message); snap = ''; await refresh();
   } catch (err) { m.textContent = err.message; }
@@ -307,6 +319,7 @@ function openDelete(id) {
 $('#delConfirm').addEventListener('click', async () => {
   const btn = $('#delConfirm'); btn.disabled = true; $('#delMsg').textContent = '';
   try {
+    // ENDPOINT CALL (POST): Delete equipment item
     const d = await api('equipment_manage.php', { action: 'delete', id: delItem.id });
     $('#delDialog').close(); toast(d.message); snap = ''; await refresh();
   } catch (err) { $('#delMsg').textContent = err.message; }

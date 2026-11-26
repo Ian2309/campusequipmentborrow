@@ -4,6 +4,7 @@ const msg = (el, text, ok) => { el.textContent = text; el.classList.toggle('ok',
 
 async function ensureToken() {
   if (CSRF) return;
+  // ENDPOINT CALL (GET): Check active session and fetch CSRF token via session.php
   const s = await api('session.php');
   CSRF = s.csrf;
   if (s.authenticated) location.replace(s.role === 'admin' ? 'admin/index.html' : 'student/index.html');
@@ -44,6 +45,7 @@ $('#loginForm').addEventListener('submit', async e => {
   const btn = $('#loginBtn'); btn.disabled = true; msg($('#loginMsg'), ''); mark(null);
   try {
     await ensureToken();
+    // ENDPOINT CALL (POST): Submit login credentials to login.php
     const d = await api('login.php', { role, username: $('#username').value.trim(), password: $('#password').value });
     location.href = d.redirect;
   } catch (err) { msg($('#loginMsg'), err.message); mark(err.field); btn.disabled = false; }
@@ -69,6 +71,7 @@ async function register() {
   try {
     await ensureToken();
     const sid = $('#r_sid').value.trim();
+    // ENDPOINT CALL (POST): Submit student registration data to register.php
     const d = await api('register.php', {
       firstname: $('#r_first').value, lastname: $('#r_last').value, student_id: sid, email: $('#r_email').value,
       course: $('#r_course').value, year_level: $('#r_year').value, password: $('#r_pass').value,
@@ -85,6 +88,7 @@ $('#forgotForm').addEventListener('submit', async e => {
   const m = $('#forgotMsg'), btn = $('#forgotBtn'); btn.disabled = true; msg(m, '');
   try {
     await ensureToken();
+    // ENDPOINT CALL (POST): Request password reset via forgot_password.php
     const d = await api('forgot_password.php', { student_id: $('#f_sid').value, email: $('#f_email').value });
     $('#forgotForm').reset(); msg(m, d.message, true);
   } catch (err) { msg(m, err.message); }
