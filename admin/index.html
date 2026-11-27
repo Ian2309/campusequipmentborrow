@@ -15,7 +15,7 @@
       <button data-tab="inventory">Inventory</button>
       <button data-tab="damage">Damage records <span class="count" data-damage-badge hidden>0</span></button>
       <button data-tab="notifications">Notifications <span class="count" data-notif-badge hidden>0</span></button>
-      <button data-tab="account">Account and backup</button>
+      <button data-tab="account">Account and reports</button>
     </nav>
     <button class="nav-out" id="logout">Log out</button>
   </aside>
@@ -105,18 +105,15 @@
           <span class="avatar" id="accAvatar"></span>
           <dl class="dl"><dt>Username</dt><dd class="big" id="accUser"></dd><dt>Full name</dt><dd id="accName"></dd><dt>Role</dt><dd>PEMU administrator</dd></dl>
         </div>
-      <section class="card">
-         <h3>Borrowing history export</h3>
-         <p class="muted">
-         </p>
-         <button type="button" class="btn primary" id="downloadHistoryExcelBtn">
-         </button>
-        </section>
+        <div class="panel"><h3>Equipment borrowing history</h3>
+          <p class="muted">Download an Excel report of all equipment borrowing requests, including student details, equipment, borrowing dates, request status, and return information. The report does not include passwords or other login credentials.</p>
+          <button class="btn primary" id="historyExportBtn">Download Excel report</button>
+        </div>
         <div class="panel"><h3>Help and support</h3>
           <details><summary>A student forgot their password</summary><p class="muted">Open Password resets, click Generate temporary password and give it to the student in person. They must choose a new one at next login.</p></details>
           <details><summary>Adding equipment fails or the photo is rejected</summary><p class="muted">Fill in every field and pick a JPG, PNG or WebP photo (it is shrunk automatically). If it still fails, make sure the server's <code>uploads</code> folder is writable.</p></details>
           <details><summary>The page shows old data or an offline message</summary><p class="muted">Check the internet connection. The page refreshes by itself every few seconds once you are back online.</p></details>
-          <details><summary>Protecting the data</summary><p class="muted">Download a backup regularly from this page. Backups contain password hashes, so store them safely.</p></details>
+          <details><summary>Exporting borrowing history</summary><p class="muted">Use Download Excel report to save a spreadsheet of all recorded borrowing requests. Open the .xlsx file in Microsoft Excel or Google Sheets.</p></details>
           <details><summary>Need a quick answer?</summary><p class="muted">Ask the assistant (the glowing orb at the bottom left), for example "Which items are low on stock?".</p></details>
         </div>
         <button class="btn danger" id="logout2">Log out</button>
