@@ -867,3 +867,81 @@ body .wb :is(small,.wb-time,h3){background-image:none!important}
 .theme-student:not([data-dark]) .side .nav button.active * {
     color: #ffffff !important;
 }
+
+/* text puti kapag hover / click / active (student + admin dark) */
+:is(.theme-student,.theme-admin[data-dark]) .side.side .nav button{
+  color:rgba(255,255,255,.85)!important;
+}
+:is(.theme-student,.theme-admin[data-dark]) .side.side .nav button:hover,
+:is(.theme-student,.theme-admin[data-dark]) .side.side .nav button:focus,
+:is(.theme-student,.theme-admin[data-dark]) .side.side .nav button:active,
+:is(.theme-student,.theme-admin[data-dark]) .side.side .nav button.active,
+:is(.theme-student,.theme-admin[data-dark]) .side.side .nav button:hover *,
+:is(.theme-student,.theme-admin[data-dark]) .side.side .nav button.active *{
+  color:#fff!important;
+}
+
+/* dark mode: puti ang title at text sa loob ng dialog */
+[data-dark] dialog h3,
+[data-dark] dialog h2,
+[data-dark] dialog label,
+[data-dark] dialog .field label{
+  color:#fff!important;
+}
+[data-dark] dialog p,
+[data-dark] dialog span,
+[data-dark] dialog small,
+[data-dark] dialog .muted{
+  color:rgba(255,255,255,.85)!important;
+}
+[data-dark] dialog ::placeholder{
+  color:rgba(255,255,255,.55)!important;
+}
+
+/* dark mode: puti ang text sa Help and support (FAQ) */
+[data-dark] .main details summary,
+[data-dark] .main details summary *{color:#fff!important}
+[data-dark] .main details p,
+[data-dark] .main details div,
+[data-dark] .main details li,
+[data-dark] .main details span{color:rgba(255,255,255,.92)!important}
+[data-dark] .main details summary::marker{color:#fff}
+[data-dark] .main details{border-color:rgba(255,255,255,.18)!important}
+
+/* receipt: madilim ang text para kita sa puting papel */
+#receiptPaper,
+#receiptPaper *{color:#0f172a!important}
+#receiptPaper h1,
+#receiptPaper h2,
+#receiptPaper h3,
+#receiptPaper .receipt-no{color:#0a2f7a!important}
+#receiptPaper :is(dt,th,label,.muted,small){color:#475569!important}
+
+/* Close button (dapat laging nasa ibaba ng receipt rules) */
+#receiptPaper button,
+#receiptPaper .btn,
+dialog button:not(.btn):not(.primary):not(.danger){
+  background:linear-gradient(135deg,#3b6ef0,#1d4ed8)!important;
+  color:#fff!important;
+  border:0!important;
+  border-radius:10px;
+  padding:.55rem 1.3rem;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+  transition:transform .15s,box-shadow .15s;
+}
+#receiptPaper button:hover,
+#receiptPaper .btn:hover,
+dialog button:not(.btn):not(.primary):not(.danger):hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(0,0,0,.28);
+}
+
+/* dark mode: puti ang title at labels sa product dialog */
+:is(html[data-dark],html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(h1,h2,h3,h4,strong,[class*="title"],[class*="name"]){
+  color:#fff!important;
+}
+:is(html[data-dark],html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(dt,th,label,.muted,small,p,li){
+  color:rgba(255,255,255,.88)!important;
+}
