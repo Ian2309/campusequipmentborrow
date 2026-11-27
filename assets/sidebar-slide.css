@@ -1,0 +1,860 @@
+/* sidebar-slide.css — slim icon sidebar that slides open on hover (admin + student). Pure CSS, desktop only.
+   Import it AFTER admin-theme.css and student-theme.css in app.css:  @import url("sidebar-slide.css"); */
+@media(min-width:821px){
+  :is(.theme-admin,.theme-student).app,:is(.theme-admin,.theme-student) .app{grid-template-columns:72px 1fr}
+
+  :is(.theme-admin,.theme-student) .side{width:72px;z-index:30;overflow:hidden;transition:width .28s cubic-bezier(.4,0,.2,1),box-shadow .28s}
+  :is(.theme-admin,.theme-student) .side:hover,
+  :is(.theme-admin,.theme-student) .side:focus-within{width:262px;box-shadow:10px 0 34px rgba(0,0,0,.25)}
+
+  /* brand: only the seal while collapsed */
+  :is(.theme-admin,.theme-student) .side .brand{padding:.9rem 9px;flex:none}
+  :is(.theme-admin,.theme-student) .side .brand div{flex:none;white-space:nowrap;opacity:0;transition:opacity .2s}
+  :is(.theme-admin,.theme-student) .side:hover .brand div,
+  :is(.theme-admin,.theme-student) .side:focus-within .brand div{opacity:1;transition-delay:.1s}
+
+  /* menu + logout: icons only while collapsed */
+  :is(.theme-admin,.theme-student) .side .nav button,
+  :is(.theme-admin,.theme-student) .side .nav-out{font-size:0;min-height:44px;white-space:nowrap}
+  :is(.theme-admin,.theme-student) .side:hover .nav button,
+  :is(.theme-admin,.theme-student) .side:hover .nav-out,
+  :is(.theme-admin,.theme-student) .side:focus-within .nav button,
+  :is(.theme-admin,.theme-student) .side:focus-within .nav-out{font-size:.92rem}
+
+  /* notification count becomes a small dot while collapsed */
+  :is(.theme-admin,.theme-student) .side .nav button .count{position:absolute;top:7px;right:7px;min-width:10px;height:10px;padding:0;font-size:0}
+  :is(.theme-admin,.theme-student) .side:hover .nav button .count,
+  :is(.theme-admin,.theme-student) .side:focus-within .nav button .count{position:static;min-width:1.2rem;height:auto;padding:.05rem .45rem;font-size:.72rem}
+}
+
+/* ===== phone / tablet: keep the SAME side layout (slim icon rail, tap to open) ===== */
+@media(max-width:820px){
+  :is(.theme-admin,.theme-student).app,:is(.theme-admin,.theme-student) .app{grid-template-columns:56px 1fr}
+  :is(.theme-admin,.theme-student) .main .top{top:0}
+
+  :is(.theme-admin,.theme-student) .side{position:sticky;top:0;height:100vh;width:56px;flex-direction:column;padding:0;overflow:hidden;z-index:30;transition:width .28s cubic-bezier(.4,0,.2,1),box-shadow .28s}
+  :is(.theme-admin,.theme-student) .side:hover,
+  :is(.theme-admin,.theme-student) .side:focus-within{width:240px;box-shadow:10px 0 30px rgba(0,0,0,.28)}
+
+  :is(.theme-admin,.theme-student) .side .brand{display:flex;padding:.7rem 6px;flex:none;border-bottom:3px solid rgba(0,0,0,.25)}
+  .theme-admin .side .brand{background:linear-gradient(135deg,#fde68a,#f5b301)}
+  .theme-student .side .brand{background:linear-gradient(135deg,#3b6ef0,#1d4ed8);border-bottom-color:#0b2a7a}
+  :is(.theme-admin,.theme-student) .side .brand .logo-mark{width:44px;height:44px}
+  :is(.theme-admin,.theme-student) .side .brand div{display:block;flex:none;white-space:nowrap;opacity:0;transition:opacity .2s}
+  :is(.theme-admin,.theme-student) .side:hover .brand div,
+  :is(.theme-admin,.theme-student) .side:focus-within .brand div{opacity:1}
+
+  :is(.theme-admin,.theme-student) .side .nav{flex-direction:column;flex:none;padding:.7rem 6px 0;gap:.15rem}
+  :is(.theme-admin,.theme-student) .side .nav button,
+  :is(.theme-admin,.theme-student) .side .nav-out{display:flex;font-size:0;min-height:44px;padding:.6rem .6rem .6rem 2.8rem;white-space:nowrap}
+  :is(.theme-admin,.theme-student) .side:hover .nav button,
+  :is(.theme-admin,.theme-student) .side:hover .nav-out,
+  :is(.theme-admin,.theme-student) .side:focus-within .nav button,
+  :is(.theme-admin,.theme-student) .side:focus-within .nav-out{font-size:.92rem}
+  :is(.theme-admin,.theme-student) .side .nav button::before,
+  :is(.theme-admin,.theme-student) .side .nav-out::before{display:block;left:12px}
+  :is(.theme-admin,.theme-student) .side .nav-out{margin:.7rem 6px 0}
+
+  :is(.theme-admin,.theme-student) .side .nav button .count{position:absolute;top:6px;right:6px;min-width:10px;height:10px;padding:0;font-size:0}
+  :is(.theme-admin,.theme-student) .side:hover .nav button .count,
+  :is(.theme-admin,.theme-student) .side:focus-within .nav button .count{position:static;min-width:1.2rem;height:auto;padding:.05rem .45rem;font-size:.72rem}
+
+  :is(.theme-admin,.theme-student) .main .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+}
+
+
+/* notifications: centered empty state + nicer rows */
+:is(.theme-admin,.theme-student) .main .notifs .empty{flex-direction:column;align-items:center;justify-content:center;text-align:center;border-bottom:0;padding:2.4rem 1rem}
+:is(.theme-admin,.theme-student) .main .notifs li:not(.empty){border-radius:12px;padding:.9rem .8rem;transition:background .15s}
+:is(.theme-admin,.theme-student) .main .notifs li:not(.empty):hover{background:var(--soft)}
+:is(.theme-admin,.theme-student) .main .notifs li.unread{background:var(--soft);box-shadow:inset 4px 0 0 var(--primary)}
+
+/* hide "Student portal" under the logo title */
+.theme-student .side .brand small{display:none}
+
+/* ===== banner-style top bar (no icon) ===== */
+.theme-student .main .top{
+  background:radial-gradient(circle at 90% -50%,rgba(255,255,255,.25) 0,transparent 46%),radial-gradient(circle at 68% 170%,rgba(255,255,255,.16) 0,transparent 52%),linear-gradient(120deg,#0a2f7a 0%,#1d4ed8 62%,#3f74f5 100%);
+  border-bottom:3px solid #06255f;box-shadow:0 8px 24px rgba(10,47,122,.25)}
+.theme-admin .main .top{
+  background:radial-gradient(circle at 90% -50%,rgba(255,255,255,.5) 0,transparent 46%),radial-gradient(circle at 68% 170%,rgba(255,255,255,.3) 0,transparent 52%),linear-gradient(120deg,#fcd34d 0%,#f5b301 62%,#e6a100 100%);
+  border-bottom:3px solid #d99a00;box-shadow:0 8px 24px rgba(180,120,0,.22)}
+:is(.theme-admin,.theme-student) .main .top{padding:1.15rem 2rem}
+:is(.theme-admin,.theme-student) .main .top h2{font-size:1.55rem;font-weight:700;letter-spacing:-.01em}
+.theme-student .main .top h2{color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.25)}
+.theme-admin .main .top h2{color:#06255f}
+:is(.theme-admin,.theme-student) .main .top h2::before{display:none}
+:is(.theme-admin,.theme-student) .main .top .chip,
+:is(.theme-admin,.theme-student) .main .top .icon-btn{border-color:transparent;box-shadow:0 4px 12px rgba(0,0,0,.16)}
+@media(max-width:820px){
+  :is(.theme-admin,.theme-student) .main .top{padding:.8rem 1rem}
+  :is(.theme-admin,.theme-student) .main .top h2{font-size:1.15rem}
+}
+
+/* no flash of stacked sections: hide every .view until the page script has picked the active tab */
+body:not(:has(.view[hidden])) .view{display:none!important}
+
+/* ===== mobile fixes v2 ===== */
+@media(max-width:820px){
+  /* header */
+  .top{gap:.5rem !important;padding:.6rem .6rem !important}
+  .top h2{
+    flex:1 1 auto !important;min-width:0 !important;
+    font-size:1.05rem !important;
+    white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;
+  }
+  .top-r{flex:none !important;gap:.35rem !important}
+  .top-r > *{white-space:nowrap !important;flex:none !important}
+  .top-r .icon-btn,.top-r #themeToggle{width:36px !important;height:36px !important}
+  .top-r > :last-child{font-size:.8rem !important;padding:.15rem .5rem .15rem .15rem !important}
+  .top-r .avatar{width:28px !important;height:28px !important;font-size:.72rem !important}
+
+  /* sidebar: icon lang, hindi na putol */
+  .side .nav{padding:.7rem 6px 0 !important}
+  .side:not(:hover):not(:focus-within) .nav button,
+  .side:not(:hover):not(:focus-within) .nav-out{
+    width:44px !important;padding:0 !important;margin-left:auto !important;margin-right:auto !important;
+  }
+}
+
+/* For smaller phones: keep the KZ and student number visible, just make them more compact. */
+@media(max-width:480px){
+  .top{gap:.35rem !important;padding:.6rem .5rem !important}
+  .top h2{font-size:.95rem !important}
+  .top-r{gap:.3rem !important}
+  .top-r .icon-btn,.top-r #themeToggle{width:32px !important;height:32px !important}
+  .top-r > :last-child{
+    font-size:.72rem !important;gap:.3rem !important;
+    padding:.12rem .45rem .12rem .12rem !important;
+  }
+  .top-r .avatar{width:24px !important;height:24px !important;font-size:.62rem !important}
+}
+
+/* ===== greeting banner: professional size ===== */
+body .wb{min-height:185px!important;padding:1.8rem 11rem 1.8rem 2rem!important;border-radius:20px!important}
+body .wb h3{font-size:clamp(1.6rem,4vw,2.3rem)!important;font-weight:700!important;line-height:1.15!important;letter-spacing:-.015em!important;margin:.8rem 0 .2rem!important}
+body .wb small{font-size:.86rem!important;padding:.38rem .9rem!important}
+body .wb .wb-time{font-size:clamp(1.05rem,2.2vw,1.35rem)!important;font-weight:700!important}
+body .wb p{font-size:1rem!important;max-width:34rem}
+body .wb::after{width:150px!important;height:150px!important;right:1.6rem!important}
+@media(max-width:700px){
+  body .wb{padding:1.3rem 7rem 1.3rem 1.2rem!important;min-height:150px!important}
+  body .wb h3{font-size:clamp(1.35rem,6.5vw,1.8rem)!important}
+  body .wb::after{width:100px!important;height:100px!important}
+}
+@media(max-width:480px){
+  body .wb{padding-right:5.8rem!important}
+  body .wb h3{font-size:1.35rem!important}
+  body .wb .wb-time{font-size:1rem!important}
+  body .wb::after{width:80px!important;height:80px!important}
+}
+
+/* ===== greeting banner: text left, date and time on the right side ===== */
+@media(min-width:701px){
+  body .wb{display:grid!important;grid-template-columns:minmax(0,1fr) auto;column-gap:1.5rem;align-items:start;align-content:center}
+  body .wb h3{grid-column:1;grid-row:1;margin:0 0 .5rem!important}
+  body .wb p{grid-column:1;grid-row:2;margin:0!important}
+  body .wb small{grid-column:2;grid-row:1;justify-self:end;align-self:start}
+  body .wb .wb-time{grid-column:2;grid-row:2;justify-self:end;text-align:right;margin:0!important}
+}
+
+/* ===== greeting banner: date and time stacked tight on the right ===== */
+@media(min-width:701px){
+  body .wb{grid-template-rows:auto 1fr auto!important;row-gap:0!important}
+  body .wb h3{grid-column:1!important;grid-row:1 / 3!important;align-self:start}
+  body .wb p{grid-column:1!important;grid-row:3!important}
+  body .wb small{grid-column:2!important;grid-row:1!important;justify-self:end!important;align-self:start!important;margin:0!important}
+  body .wb .wb-time{grid-column:2!important;grid-row:2!important;justify-self:end!important;align-self:start!important;text-align:right;margin:.55rem 0 0!important}
+}
+
+/* ===== greeting banner: date and time level, side by side, small gap ===== */
+@media(min-width:701px){
+  body .wb{grid-template-columns:minmax(0,1fr) auto auto!important;grid-template-rows:auto auto!important;column-gap:0!important;row-gap:.5rem!important;align-items:center!important;align-content:center!important}
+  body .wb h3{grid-column:1!important;grid-row:1!important;margin:0!important}
+  body .wb p{grid-column:1 / 4!important;grid-row:2!important;margin:0!important}
+  body .wb small{grid-column:2!important;grid-row:1!important;justify-self:end!important;align-self:center!important;margin:0 0 0 1.5rem!important;white-space:nowrap}
+  body .wb .wb-time{grid-column:3!important;grid-row:1!important;justify-self:end!important;align-self:center!important;margin:0 0 0 .8rem!important;white-space:nowrap}
+}
+
+/* ===== greeting banner: date same size as the clock ===== */
+body .wb small{font-size:clamp(1.05rem,2.2vw,1.35rem)!important;font-weight:700!important;padding:.3rem 1rem!important;letter-spacing:0!important}
+@media(max-width:700px){
+  body .wb small{font-size:.85rem!important;padding:.35rem .8rem!important}
+}
+
+/* ===== greeting banner: everything on the left, equal sizes (final) ===== */
+.theme-student .wb{background:radial-gradient(circle at 92% -20%,rgba(255,255,255,.28) 0,transparent 52%),linear-gradient(135deg,#0a2f7a 0%,#1d4ed8 70%,#3f74f5 100%)!important}
+.theme-admin .wb{background:radial-gradient(circle at 92% -20%,rgba(255,255,255,.22) 0,transparent 52%),linear-gradient(135deg,#b88a0a 0%,#98720a 60%,#7a5b00 100%)!important}
+.theme-student[data-dark] .wb{background:radial-gradient(circle at 92% -20%,rgba(255,255,255,.12) 0,transparent 52%),linear-gradient(135deg,#07163f 0%,#12308a 100%)!important}
+.theme-admin[data-dark] .wb{background:radial-gradient(circle at 92% -20%,rgba(255,224,138,.18) 0,transparent 52%),linear-gradient(135deg,#2b2208 0%,#6b4e00 100%)!important}
+
+body .wb{display:flex!important;flex-wrap:wrap!important;align-items:center!important;align-content:center!important;gap:.5rem .6rem!important;min-height:0!important;padding:1.4rem 8.5rem 1.4rem 1.6rem!important;border-radius:18px!important;margin-bottom:1.2rem!important;color:#fff!important}
+body .wb small,body .wb .wb-time{order:1!important;margin:0!important;display:inline-flex!important;align-items:center;font-size:clamp(.85rem,2vw,1.05rem)!important;font-weight:700!important;line-height:1.2!important;padding:.35rem .9rem!important;border-radius:99px!important;background:rgba(255,255,255,.18)!important;border:1px solid rgba(255,255,255,.3)!important;color:#fff!important;letter-spacing:0!important;white-space:nowrap}
+body .wb h3{order:2!important;flex:0 0 100%!important;margin:.5rem 0 0!important;font-size:clamp(1.5rem,4vw,2.2rem)!important;font-weight:700!important;line-height:1.15!important;letter-spacing:-.015em!important;color:#fff!important}
+body .wb p{order:3!important;flex:0 0 100%!important;margin:0!important;font-size:1rem!important;line-height:1.45!important;max-width:36rem;color:#fff!important}
+body .wb::after{width:120px!important;height:120px!important;right:1.2rem!important;bottom:-6px!important}
+
+@media(max-width:700px){
+  body .wb{padding:1rem 5.4rem 1rem 1rem!important}
+  body .wb small,body .wb .wb-time{font-size:.78rem!important;padding:.28rem .65rem!important}
+  body .wb h3{font-size:1.3rem!important}
+  body .wb p{font-size:.84rem!important}
+  body .wb::after{width:64px!important;height:64px!important;right:.5rem!important;bottom:.5rem!important}
+}
+
+/* ===== polish: smooth tab change, dialogs, tables, receipt ===== */
+.view:not([hidden]){animation:view-in .3s ease both}
+@keyframes view-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+dialog[open]{animation:dlg-in .22s ease both}
+@keyframes dlg-in{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+dialog::backdrop{background:rgba(15,23,42,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+@media(prefers-reduced-motion:reduce){.view:not([hidden]),dialog[open]{animation:none}}
+
+/* tables scroll sideways on phones instead of squeezing */
+@media(max-width:820px){
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
+  .table-wrap table{min-width:680px}
+  :is(.theme-admin,.theme-student) .main th,:is(.theme-admin,.theme-student) .main td{padding:.65rem .7rem}
+}
+
+/* receipt: looks like a paper slip, stays readable in dark mode */
+#receiptPaper{background:#fff!important;color:#0f172a!important;border:1px dashed #94a3b8;border-radius:14px;padding:1.4rem;box-shadow:0 8px 24px rgba(0,0,0,.14)}
+#receiptPaper h1,#receiptPaper h2,#receiptPaper h3{color:#0a2f7a!important;text-align:center}
+#receiptPaper hr{border:0;border-top:1px dashed #94a3b8;margin:.9rem 0}
+#receiptPaper .muted,#receiptPaper small{color:#475569!important}
+#receiptPaper .receipt-no{text-align:center;color:#0a2f7a!important}
+body .receipt-btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:99px;padding:.55rem 1.1rem}
+@media(max-width:520px){#receiptPaper{padding:1rem;font-size:.9rem}#receiptPaper .receipt-no{font-size:1.3rem!important}}
+@media print{#receiptPaper{box-shadow:none!important;border:0!important}}
+
+/* ===== design polish only (no new elements) ===== */
+
+/* login: animated gold bar and staggered entrance */
+body .auth .auth-card{position:relative}
+
+@keyframes login-bar{from{background-position:200% 0}to{background-position:0 0}}
+@keyframes login-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:no-preference){
+  body .auth .auth-card .role-switch button{animation:login-up .5s ease-out .1s both}
+  body .auth .auth-card .field{animation:login-up .5s ease-out .2s both}
+  body .auth .auth-card .btn.primary{animation:login-up .5s ease-out .3s both}
+}
+@media(prefers-reduced-motion:reduce){body .auth .auth-card::before{animation:none}}
+
+/* scrollbar and text selection match the theme */
+html:has(.theme-admin){scrollbar-width:thin;scrollbar-color:#b88a0a #f3ead0}
+html:has(.theme-student){scrollbar-width:thin;scrollbar-color:#1d4ed8 #e6eeff}
+html:has(.theme-admin[data-dark]){scrollbar-color:#6b4e00 #17120a}
+html:has(.theme-student[data-dark]){scrollbar-color:#2a55d0 #0b1226}
+.theme-admin ::selection{background:#b88a0a;color:#fff}
+.theme-student ::selection{background:#1d4ed8;color:#fff}
+.theme-admin,.theme-student{accent-color:var(--primary)}
+
+/* softer, more consistent surfaces */
+:is(.theme-admin,.theme-student) .main .panel,
+:is(.theme-admin,.theme-student) .main .eq,
+:is(.theme-admin,.theme-student) .main .stat{transition:box-shadow .2s,transform .2s,border-color .2s}
+:is(.theme-admin,.theme-student) .main .panel:hover{box-shadow:0 2px 4px rgba(15,23,42,.06),0 14px 32px rgba(15,23,42,.1)}
+
+/* cleaner typography */
+:is(.theme-admin,.theme-student) .main{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+:is(.theme-admin,.theme-student) .main h3{letter-spacing:-.01em}
+:is(.theme-admin,.theme-student) .main td,:is(.theme-admin,.theme-student) .main th{font-variant-numeric:tabular-nums}
+
+/* nicer keyboard focus (accessibility) */
+:is(.theme-admin,.theme-student) .main :is(button,a,input,select,textarea):focus-visible{outline:3px solid color-mix(in srgb,var(--primary) 55%,transparent);outline-offset:2px;border-radius:10px}
+
+/* ===== login: slow zoom of the campus photo + soft entrance ===== */
+body:has(.auth)::before{content:"";position:fixed;inset:0;z-index:-1;background:url("images/campus.jpg") center/cover no-repeat,linear-gradient(160deg,#dbe8fb,#7fb0ee);transform-origin:center;animation:login-zoom 26s ease-in-out infinite alternate}
+@keyframes login-zoom{from{transform:scale(1)}to{transform:scale(1.14)}}
+body .auth{background:linear-gradient(135deg,#0a2f7a 0 40%,#f6b91d 40% 52%,transparent 52%) top left/190px 190px no-repeat,linear-gradient(315deg,#0a2f7a 0 40%,#f6b91d 40% 52%,transparent 52%) bottom right/190px 190px no-repeat,linear-gradient(180deg,rgba(6,37,95,.38),rgba(6,37,95,.14) 45%,rgba(6,37,95,.42))}
+@keyframes login-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:no-preference){
+  body .auth::before,body .auth::after{animation:login-up .7s ease-out both}
+  body .auth .auth-card{animation:login-up .7s ease-out .15s both}
+}
+@media(prefers-reduced-motion:reduce){body:has(.auth)::before{animation:none}}
+
+/* ===== sticky table headers (desktop) ===== */
+@media(min-width:1000px){
+  :is(.theme-admin,.theme-student) .main .table-wrap{overflow:visible}
+  :is(.theme-admin,.theme-student) .main .panel th{position:sticky;top:90px;z-index:2;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+  .theme-student[data-dark] .main .panel th{background:#1b2440}
+  .theme-admin[data-dark] .main .panel th{background:#2a2410}
+}
+
+/* password lock now comes from JS; keep autofill looking clean */
+body .auth .auth-card .field input[type=password]{background-image:none!important}
+body .auth .auth-card input:-webkit-autofill,
+body .auth .auth-card input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px #eaf1ff inset!important;-webkit-text-fill-color:#0f172a!important;caret-color:#0f172a}
+
+/* ===== chatbot: nicer bubbles, clearer suggestions, smoother motion ===== */
+body .orb-wrap .orb-log{scroll-behavior:smooth;overscroll-behavior:contain;padding-bottom:.4rem}
+
+/* message bubbles */
+body .orb-wrap .msg{max-width:86%;padding:.65rem .95rem;font-size:.92rem;line-height:1.55;border-radius:18px;box-shadow:0 2px 6px rgba(15,23,42,.08)}
+body .orb-wrap .msg.bot{background:#fff;color:var(--ink);border:1px solid var(--line);border-left:3px solid var(--primary);border-bottom-left-radius:6px;transform-origin:left bottom;animation:chat-in-bot .35s cubic-bezier(.2,.8,.3,1) both}
+body .orb-wrap .msg.me{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--on);border:0;border-bottom-right-radius:6px;box-shadow:0 6px 14px rgba(0,0,0,.18);transform-origin:right bottom;animation:chat-in-me .3s cubic-bezier(.2,.8,.3,1) both}
+body .orb-wrap .msg.typing{padding:.8rem 1rem;gap:6px}
+body .orb-wrap .msg.typing i{width:8px;height:8px}
+@keyframes chat-in-bot{from{opacity:0;transform:translateX(-12px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes chat-in-me{from{opacity:0;transform:translateX(12px) scale(.96)}to{opacity:1;transform:none}}
+
+/* suggested questions: clearer pills */
+body .orb-wrap .orb-chips{padding:.8rem 1.1rem .2rem;gap:.45rem}
+body .orb-wrap .orb-chips button{border:0;padding:.45rem .95rem;font-size:.82rem;font-weight:600;line-height:1.25;background:var(--soft);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--primary);transition:background .18s,color .18s,transform .18s,box-shadow .18s}
+body .orb-wrap .orb-chips button:hover{background:var(--primary);color:var(--on);transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.18)}
+body .orb-wrap .orb-chips button:active{transform:scale(.97)}
+
+/* window and orb motion */
+body .orb-wrap .orb-panel{transform-origin:bottom left;animation:chat-pop .34s cubic-bezier(.2,.9,.3,1.15) both}
+@keyframes chat-pop{from{opacity:0;transform:translateY(14px) scale(.92)}to{opacity:1;transform:none}}
+body .orb-wrap .orb-core{transition:transform .25s cubic-bezier(.2,.9,.3,1.3)}
+body .orb-wrap .orb:hover .orb-core{transform:scale(1.08)}
+body .orb-wrap .orb:active .orb-core{transform:scale(.93)}
+body .orb-wrap .orb-send{transition:transform .2s cubic-bezier(.2,.9,.3,1.3),box-shadow .2s}
+body .orb-wrap .orb-send:active:not(:disabled){transform:scale(.92)}
+body .orb-wrap .orb-form{padding-bottom:calc(1.1rem + env(safe-area-inset-bottom,0px))}
+
+/* phone: slide-up sheet, suggestions in one swipeable row */
+@media(max-width:820px){
+  body .orb-wrap .orb-panel{border-radius:22px;animation-name:chat-sheet}
+  body .orb-wrap .orb-chips{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;max-height:none;padding-bottom:.45rem;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  body .orb-wrap .orb-chips::-webkit-scrollbar{display:none}
+  body .orb-wrap .orb-chips button{flex:none;white-space:nowrap;scroll-snap-align:start}
+  body .orb-wrap .msg{max-width:90%;font-size:.9rem}
+}
+@keyframes chat-sheet{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+@media(prefers-reduced-motion:reduce){
+  body .orb-wrap .orb-panel,body .orb-wrap .msg.bot,body .orb-wrap .msg.me{animation:none}
+  body .orb-wrap .orb-core,body .orb-wrap .orb-chips button,body .orb-wrap .orb-send{transition:none}
+}
+
+/* ===== page title in the top banner: serif font, gold accent line, subtle pattern ===== */
+:is(.theme-admin,.theme-student) .main .top::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 2px,transparent 2px 16px)}
+:is(.theme-admin,.theme-student) .main .top>*{position:relative;z-index:1}
+:is(.theme-admin,.theme-student) .main .top h2{display:block;font-family:"Cambria","Georgia","Noto Serif","Times New Roman",serif!important;font-weight:700!important;font-size:clamp(1.35rem,3.2vw,1.9rem)!important;letter-spacing:.01em;line-height:1.1;color:#fff!important;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+:is(.theme-admin,.theme-student) .main .top h2::before{display:none}
+
+.theme-admin[data-dark] .main .top h2{color:#ffe08a!important}
+@media(max-width:820px){
+  :is(.theme-admin,.theme-student) .main .top h2{font-size:1.2rem!important;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+}
+
+/* light mode: dialog text in black so it is easy to read */
+html:not([data-dark]) dialog{color:#0f172a}
+html:not([data-dark]) dialog p,
+html:not([data-dark]) dialog .muted,
+html:not([data-dark]) dialog small,
+html:not([data-dark]) dialog label,
+html:not([data-dark]) dialog .field,
+html:not([data-dark]) dialog span{color:#0f172a}
+html:not([data-dark]) dialog h3{color:#06255f}
+html:not([data-dark]) dialog .btn.primary{color:var(--on)}
+html:not([data-dark]) dialog .btn.danger{color:#b91c1c}
+
+/* ===== phone: collapsible sidebar (thin 18px handle, tap to open) ===== */
+@media(max-width:820px){
+  :is(.theme-admin,.theme-student).app,:is(.theme-admin,.theme-student) .app{grid-template-columns:18px 1fr}
+  :is(.theme-admin,.theme-student) .side{width:18px}
+  :is(.theme-admin,.theme-student) .side:hover,
+  :is(.theme-admin,.theme-student) .side:focus-within{width:240px}
+
+  :is(.theme-admin,.theme-student) .side>*{opacity:0;pointer-events:none;transition:opacity .2s}
+  :is(.theme-admin,.theme-student) .side:hover>*,
+  :is(.theme-admin,.theme-student) .side:focus-within>*{opacity:1;pointer-events:auto;transition-delay:.12s}
+
+  :is(.theme-admin,.theme-student) .side::after{content:"";position:absolute;left:0;top:50%;width:18px;height:68px;transform:translateY(-50%);border-radius:0 10px 10px 0;transition:opacity .2s;
+    background:rgba(255,255,255,.24) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/14px no-repeat}
+  :is(.theme-admin,.theme-student) .side:hover::after,
+  :is(.theme-admin,.theme-student) .side:focus-within::after{opacity:0}
+}
+
+/* more readable titles: stronger contrast, no busy pattern */
+:is(.theme-admin,.theme-student) .main .top::before{display:none!important}
+:is(.theme-admin,.theme-student) .main .top h2{display:block;font-family:"Poppins","Segoe UI",system-ui,Arial,sans-serif!important;font-weight:600!important;font-size:clamp(1.4rem,3.4vw,2rem)!important;letter-spacing:-.01em;line-height:1.15;color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.5)!important}
+.theme-admin:not([data-dark]) .main .top{background:linear-gradient(120deg,#8a650a 0%,#6f5006 100%)!important}
+.theme-admin:not([data-dark]) .wb{background:radial-gradient(circle at 92% -20%,rgba(255,255,255,.18) 0,transparent 52%),linear-gradient(135deg,#8f6a08 0%,#775706 60%,#5e4504 100%)!important}
+@media(max-width:820px){:is(.theme-admin,.theme-student) .main .top h2{font-size:1.25rem!important}}
+
+/* ===== phone only: sidebar becomes a bottom navigation bar (laptop unchanged) ===== */
+@media(max-width:820px){
+  :is(.theme-admin,.theme-student).app,:is(.theme-admin,.theme-student) .app{grid-template-columns:1fr!important}
+  :is(.theme-admin,.theme-student) .main{padding-bottom:calc(78px + env(safe-area-inset-bottom,0px))!important}
+
+  :is(.theme-admin,.theme-student) .side,
+  :is(.theme-admin,.theme-student) .side:hover,
+  :is(.theme-admin,.theme-student) .side:focus-within{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;width:auto!important;height:auto!important;flex-direction:row!important;align-items:center!important;gap:.25rem!important;padding:.45rem .6rem calc(.45rem + env(safe-area-inset-bottom,0px))!important;overflow:visible!important;z-index:40!important;border-radius:22px 22px 0 0!important;box-shadow:0 -8px 24px rgba(0,0,0,.28)!important}
+  :is(.theme-admin,.theme-student) .side .brand{display:none!important}
+  :is(.theme-admin,.theme-student) .side::after{content:none!important;display:none!important}
+  :is(.theme-admin,.theme-student) .side>*{opacity:1!important;pointer-events:auto!important}
+
+  :is(.theme-admin,.theme-student) .side .nav{display:flex!important;flex-direction:row!important;flex:1!important;justify-content:space-around;gap:.15rem!important;padding:0!important;margin:0!important}
+  :is(.theme-admin,.theme-student) .side .nav button,
+  :is(.theme-admin,.theme-student) .side .nav-out{position:relative!important;display:flex!important;align-items:center;justify-content:center;flex:1!important;min-width:0;min-height:48px!important;padding:0!important;margin:0!important;border-radius:99px!important;font-size:0!important}
+  :is(.theme-admin,.theme-student) .side .nav-out{flex:0 0 52px!important;border:0!important;background:transparent!important}
+  :is(.theme-admin,.theme-student) .side .nav button::before,
+  :is(.theme-admin,.theme-student) .side .nav-out::before{position:static!important;display:block!important;left:auto!important;top:auto!important;margin:0!important;width:24px!important;height:24px!important;flex:none}
+  :is(.theme-admin,.theme-student) .side .nav button.active::after{display:none!important}
+  :is(.theme-admin,.theme-student) .side .nav button.active{box-shadow:0 4px 12px rgba(0,0,0,.25)!important}
+  :is(.theme-admin,.theme-student) .side .nav button .count{position:absolute!important;top:5px!important;right:calc(50% - 22px)!important}
+
+  /* keep the chatbot and toasts above the bar */
+  .orb-wrap{bottom:calc(78px + env(safe-area-inset-bottom,0px))!important}
+  .orb-wrap .orb-panel{bottom:calc(142px + env(safe-area-inset-bottom,0px))!important;height:calc(100vh - 200px)!important;height:calc(100dvh - 200px)!important}
+  #toasts{bottom:calc(142px + env(safe-area-inset-bottom,0px))!important}
+}
+
+/* password field: never show the person icon, even while the password is revealed */
+body .auth .auth-card .field input[data-pw]{background-image:none!important}
+
+/* ===== draggable chatbot orb ===== */
+.orb-wrap .orb{cursor:grab}
+.orb-wrap.orb-dragging .orb{cursor:grabbing;animation:none!important}
+@media(min-width:821px){
+  .orb-wrap.orb-right .orb-panel{left:auto;right:0;transform-origin:bottom right}
+  .orb-wrap.orb-down .orb-panel{bottom:auto;top:88px;transform-origin:top left}
+  .orb-wrap.orb-right .orb-tip{left:auto;right:84px}
+}
+
+/* sidebar brand title: same serif look as the page titles */
+:is(.theme-admin,.theme-student) .side .brand strong{
+  font-family:"Poppins","Segoe UI",system-ui,Arial,sans-serif!important;
+  font-weight:600!important;letter-spacing:-.01em;line-height:1.15;
+  color:#fff!important;text-shadow:0 1px 4px rgba(0,0,0,.35);white-space:nowrap}
+
+/* phone: centered key icon that fits inside the box (same box size as the bell) */
+@media(max-width:820px){
+  .theme-admin .main .top-r [data-tab="resets"]{font-size:0!important;width:38px!important;height:38px!important;min-height:0!important;padding:0!important;border-radius:10px;flex:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate%28-.5 .5%29'%3E%3Ccircle cx='16.5' cy='7.5' r='4'/%3E%3Cpath d='M13.6 10.4L4.5 19.5'/%3E%3Cpath d='M7.5 16.5l2.5 2.5'/%3E%3Cpath d='M10.5 13.5l2 2'/%3E%3C/g%3E%3C/svg%3E")!important;
+    background-repeat:no-repeat!important;background-position:center!important;background-size:18px 18px!important}
+  .theme-admin[data-dark] .main .top-r [data-tab="resets"]{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5efdc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate%28-.5 .5%29'%3E%3Ccircle cx='16.5' cy='7.5' r='4'/%3E%3Cpath d='M13.6 10.4L4.5 19.5'/%3E%3Cpath d='M7.5 16.5l2.5 2.5'/%3E%3Cpath d='M10.5 13.5l2 2'/%3E%3C/g%3E%3C/svg%3E")!important}
+  .theme-admin .main .top-r [data-tab="resets"]::before,
+  .theme-admin .main .top-r [data-tab="resets"]::after{content:none!important;display:none!important}
+
+}
+
+/* admin sidebar: "Account & Backup" gets a database icon instead of the sun-like gear */
+.theme-admin .side.side .nav button:nth-child(6)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b4e00' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='12' cy='5.5' rx='7.5' ry='3'/%3E%3Cpath d='M4.5 5.5v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6'/%3E%3Cpath d='M4.5 11.5v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6'/%3E%3C/svg%3E")}
+.theme-admin .side.side .nav button:nth-child(6).active::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b86e00' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='12' cy='5.5' rx='7.5' ry='3'/%3E%3Cpath d='M4.5 5.5v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6'/%3E%3Cpath d='M4.5 11.5v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6'/%3E%3C/svg%3E")}
+
+/* ===== sidebar: iisang gradient, logo, at kulay kapag cliniclick ===== */
+.theme-student{--side-a:#0a2f7a;--side-b:#06255f;--act-a:#3b6ef0;--act-b:#1d4ed8}
+.theme-admin{--side-a:#8a650a;--side-b:#6f5006;--act-a:#b88a0a;--act-b:#98720a}
+
+/* 1) sidebar: tuloy-tuloy na gradient */
+:is(.theme-admin,.theme-student) .side.side,
+:is(.theme-admin,.theme-student) .side.side:hover,
+:is(.theme-admin,.theme-student) .side.side:focus-within{
+  background:linear-gradient(180deg,var(--side-a),var(--side-b))!important;
+}
+
+/* 2) logo: rtu-logo.png, walang puting kahon */
+:is(.theme-admin,.theme-student) .side.side .brand{
+  background:transparent!important;border-bottom:0!important;box-shadow:none!important;
+}
+:is(.theme-admin,.theme-student) .side .brand .logo-mark{
+  width:44px!important;height:44px!important;flex:none;
+  font-size:0!important;           /* itago ang anumang text sa loob */
+  padding:0!important;border:0!important;box-shadow:none!important;
+  background-color:transparent!important;
+  background-image:url("images/rtu-logo.png")!important;
+  background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important;
+}
+:is(.theme-admin,.theme-student) .side .brand .logo-mark>*{display:none!important}
+
+/* 3) kapag cliniclick / hover / active: kulay ng gradient, hindi puti */
+:is(.theme-admin,.theme-student) .side .nav button,
+:is(.theme-admin,.theme-student) .side .nav-out{
+  background:transparent!important;box-shadow:none!important;outline:none!important;
+  -webkit-tap-highlight-color:transparent;
+}
+:is(.theme-admin,.theme-student) .side .nav button:hover,
+:is(.theme-admin,.theme-student) .side .nav button:focus,
+:is(.theme-admin,.theme-student) .side .nav button:active,
+:is(.theme-admin,.theme-student) .side .nav button.active,
+:is(.theme-admin,.theme-student) .side .nav-out:hover,
+:is(.theme-admin,.theme-student) .side .nav-out:active{
+  background:linear-gradient(135deg,var(--act-a),var(--act-b))!important;
+  box-shadow:0 4px 12px rgba(0,0,0,.25)!important;
+  outline:none!important;
+}
+:is(.theme-admin,.theme-student) .side .nav button.active::after{display:none!important}
+
+/* 4) puting icons para kita sa gradient */
+:is(.theme-admin,.theme-student) .side .nav button::before,
+:is(.theme-admin,.theme-student) .side .nav-out::before{filter:brightness(0) invert(1)!important;opacity:.8}
+:is(.theme-admin,.theme-student) .side .nav button.active::before,
+:is(.theme-admin,.theme-student) .side .nav button:hover::before{opacity:1}
+
+/* ===== frame para sa logo + PEMU Admin (sidebar) ===== */
+@media(min-width:821px){
+  /* frame ng buong brand area */
+  :is(.theme-admin,.theme-student) .side.side .brand{
+    margin:.7rem 6px .4rem!important;
+    padding:.5rem 5px!important;
+    border:1.5px solid rgba(246,185,29,.75)!important;
+    border-radius:16px!important;
+    background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.04))!important;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.10),0 6px 16px rgba(0,0,0,.20)!important;
+    gap:.7rem;
+    align-items:center;
+  }
+
+  /* singsing na ginto sa palibot ng logo */
+  :is(.theme-admin,.theme-student) .side.side .brand .logo-mark{
+    border:2px solid #f6b91d!important;
+    border-radius:50%!important;
+    box-shadow:0 0 0 3px rgba(246,185,29,.25),0 4px 10px rgba(0,0,0,.30)!important;
+    background-color:rgba(255,255,255,.12)!important;
+  }
+
+  /* maliit na gold na guhit sa ilalim ng title */
+  :is(.theme-admin,.theme-student) .side .brand strong{
+    display:inline-block;
+    padding-bottom:.2rem;
+    border-bottom:2px solid rgba(246,185,29,.8);
+  }
+}
+
+/* ===== ayusin ang lagpas na text sa brand frame ===== */
+@media(min-width:821px){
+  /* ang text area: patayo (title sa taas, subtitle sa baba), hindi lalagpas */
+  :is(.theme-admin,.theme-student) .side.side .brand div{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start;
+    justify-content:center;
+    gap:.2rem;
+    min-width:0;
+    flex:1 1 auto!important;
+    overflow:hidden;
+  }
+
+  /* title: bahagyang mas maliit, may guhit na kasing-haba lang ng text */
+  :is(.theme-admin,.theme-student) .side .brand strong{
+    display:block!important;
+    align-self:flex-start;
+    font-size:1rem!important;
+    line-height:1.2;
+    padding-bottom:.2rem;
+    border-bottom:2px solid rgba(246,185,29,.8);
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  /* subtitle (RTU Equipment Hub): nasa baba at hindi lalagpas */
+  :is(.theme-admin,.theme-student) .side .brand div>*:not(strong){
+    display:block!important;
+    max-width:100%;
+    font-size:.72rem!important;
+    line-height:1.2;
+    letter-spacing:.02em;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    color:rgba(255,255,255,.85)!important;
+  }
+}
+
+/* ===== Log out: kapareho ng kulay ng ibang buttons ===== */
+:is(.theme-admin,.theme-student) .side.side .nav-out{
+  color:#fff!important;
+  background:transparent!important;
+  border:1.5px solid rgba(255,255,255,.45)!important;
+  border-radius:14px;
+  box-shadow:none!important;
+}
+:is(.theme-admin,.theme-student) .side.side .nav-out *{color:#fff!important}
+
+/* icon: puti rin */
+:is(.theme-admin,.theme-student) .side.side .nav-out::before{
+  filter:brightness(0) invert(1)!important;
+  opacity:.85;
+}
+
+/* hover / pindot: kulay ng gradient, tulad ng ibang menu */
+:is(.theme-admin,.theme-student) .side.side .nav-out:hover,
+:is(.theme-admin,.theme-student) .side.side .nav-out:focus-visible,
+:is(.theme-admin,.theme-student) .side.side .nav-out:active{
+  background:linear-gradient(135deg,var(--act-a,#3b6ef0),var(--act-b,#1d4ed8))!important;
+  border-color:transparent!important;
+  box-shadow:0 4px 12px rgba(0,0,0,.25)!important;
+}
+:is(.theme-admin,.theme-student) .side.side .nav-out:hover::before{opacity:1}
+
+/* phone (bottom bar): walang border, icon lang */
+@media(max-width:820px){
+  :is(.theme-admin,.theme-student) .side.side .nav-out{border:0!important}
+}
+
+/* ===== PEMU admin: soft, light, professional (light mode lang) ===== */
+.theme-admin:not([data-dark]){
+  --soft-1:#fff6dc;   /* pinakamaliwanag */
+  --soft-2:#fbe4a1;   /* gitna */
+  --soft-3:#f3d170;   /* pinakamatingkad (pa rin ay soft) */
+  --ink-gold:#5a4300; /* text at icons */
+}
+
+/* ---------- top bar ---------- */
+.theme-admin:not([data-dark]) .main .top{
+  background:linear-gradient(120deg,var(--soft-1) 0%,var(--soft-2) 60%,var(--soft-3) 100%)!important;
+  border-bottom:2px solid rgba(138,101,10,.35)!important;
+  box-shadow:0 6px 18px rgba(138,101,10,.14)!important;
+}
+.theme-admin:not([data-dark]) .main .top h2{
+  color:var(--ink-gold)!important;text-shadow:none!important;
+}
+.theme-admin:not([data-dark]) .main .top .chip,
+.theme-admin:not([data-dark]) .main .top .icon-btn{
+  background:rgba(255,255,255,.8)!important;
+  box-shadow:0 3px 10px rgba(138,101,10,.16)!important;
+}
+
+/* ---------- sidebar (desktop) ---------- */
+.theme-admin:not([data-dark]) .side.side,
+.theme-admin:not([data-dark]) .side.side:hover,
+.theme-admin:not([data-dark]) .side.side:focus-within{
+  background:linear-gradient(180deg,var(--soft-1),var(--soft-2) 55%,var(--soft-3))!important;
+  box-shadow:6px 0 24px rgba(138,101,10,.12)!important;
+}
+.theme-admin:not([data-dark]) .side.side:hover,
+.theme-admin:not([data-dark]) .side.side:focus-within{box-shadow:10px 0 30px rgba(138,101,10,.20)!important}
+
+/* brand (logo + PEMU Admin) */
+.theme-admin:not([data-dark]) .side .brand strong{
+  color:var(--ink-gold)!important;text-shadow:none!important;
+  border-bottom-color:rgba(138,101,10,.55)!important;
+}
+.theme-admin:not([data-dark]) .side .brand div>*:not(strong){color:rgba(90,67,0,.75)!important}
+.theme-admin:not([data-dark]) .side.side .brand{
+  border-color:rgba(138,101,10,.40)!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.65),rgba(255,255,255,.25))!important;
+  box-shadow:0 4px 12px rgba(138,101,10,.12)!important;
+}
+
+/* menu: brown icons at text, white pill kapag active/hover */
+.theme-admin:not([data-dark]) .side .nav button,
+.theme-admin:not([data-dark]) .side .nav-out{color:var(--ink-gold)!important}
+.theme-admin:not([data-dark]) .side .nav button::before,
+.theme-admin:not([data-dark]) .side .nav-out::before{filter:none!important;opacity:.85}
+.theme-admin:not([data-dark]) .side .nav button:hover{
+  background:rgba(255,255,255,.55)!important;box-shadow:none!important;
+}
+.theme-admin:not([data-dark]) .side .nav button.active{
+  background:rgba(255,255,255,.9)!important;
+  box-shadow:0 4px 12px rgba(138,101,10,.18)!important;
+}
+.theme-admin:not([data-dark]) .side .nav button.active::before,
+.theme-admin:not([data-dark]) .side .nav button:hover::before{opacity:1}
+
+/* log out: kapareho ng iba, soft outline */
+.theme-admin:not([data-dark]) .side.side .nav-out,
+.theme-admin:not([data-dark]) .side.side .nav-out *{color:var(--ink-gold)!important}
+.theme-admin:not([data-dark]) .side.side .nav-out{border-color:rgba(138,101,10,.40)!important}
+.theme-admin:not([data-dark]) .side.side .nav-out:hover,
+.theme-admin:not([data-dark]) .side.side .nav-out:active{
+  background:rgba(255,255,255,.7)!important;border-color:transparent!important;
+}
+
+/* ---------- phone: bottom bar = pareho ng top bar (120deg) ---------- */
+@media(max-width:820px){
+  .theme-admin:not([data-dark]) .side.side,
+  .theme-admin:not([data-dark]) .side.side:hover,
+  .theme-admin:not([data-dark]) .side.side:focus-within{
+    background:linear-gradient(120deg,var(--soft-1) 0%,var(--soft-2) 60%,var(--soft-3) 100%)!important;
+    box-shadow:0 -6px 20px rgba(138,101,10,.18)!important;
+  }
+  .theme-admin:not([data-dark]) .side.side .nav-out{border:0!important}
+}
+
+/* ---------- greeting banner ---------- */
+.theme-admin:not([data-dark]) .wb{
+  background:radial-gradient(circle at 92% -20%,rgba(255,255,255,.7) 0,transparent 52%),linear-gradient(135deg,var(--soft-1) 0%,var(--soft-2) 65%,var(--soft-3) 100%)!important;
+  color:var(--ink-gold)!important;
+  box-shadow:0 10px 26px rgba(138,101,10,.16);
+}
+.theme-admin:not([data-dark]) .wb h3,
+.theme-admin:not([data-dark]) .wb p{color:var(--ink-gold)!important}
+.theme-admin:not([data-dark]) .wb small,
+.theme-admin:not([data-dark]) .wb .wb-time{
+  color:var(--ink-gold)!important;
+  background:rgba(255,255,255,.6)!important;
+  border-color:rgba(138,101,10,.28)!important;
+}
+
+/* greeting banner: walang icon */
+body .wb::before,
+body .wb :is(small,.wb-time,h3,p)::before,
+body .wb :is(small,.wb-time,h3,p)::after{content:none!important;display:none!important}
+body .wb :is(svg,i,img,.icon,[class*="ico"],[class*="emoji"]){display:none!important}
+body .wb :is(small,.wb-time,h3){background-image:none!important}
+
+/* ===== phone: chat window stays attached to the orb (moves with it); orb sits a little aside ===== */
+@media(max-width:820px){
+  .orb-wrap:not([style*="left"]){left:auto!important;right:10px!important;top:auto!important;bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
+  .orb-wrap[style*="left"]{right:auto!important}
+  .orb-wrap .orb{width:46px;height:46px}
+  .orb-wrap .orb::after{width:12px;height:12px;border-width:2px}
+  .orb-wrap .orb-tip{display:none!important}
+
+  .orb-wrap .orb-panel{position:absolute!important;top:auto!important;bottom:calc(100% + 10px)!important;left:auto!important;right:0!important;width:min(88vw,330px)!important;height:min(56vh,420px)!important;height:min(56dvh,420px)!important;border-radius:18px;transform-origin:bottom right}
+  .orb-wrap[style*="left"]:not(.orb-right) .orb-panel{left:0!important;right:auto!important;transform-origin:bottom left}
+  .orb-wrap.orb-down .orb-panel{top:calc(100% + 10px)!important;bottom:auto!important;transform-origin:top right}
+  .orb-wrap.orb-down[style*="left"]:not(.orb-right) .orb-panel{transform-origin:top left}
+
+  .orb-wrap .orb-panel::before{display:none!important}
+  .orb-wrap .orb-head{padding:.55rem .8rem}
+  .orb-wrap .mini-orb{width:32px;height:32px}
+  .orb-wrap .orb-head strong{font-size:.9rem}
+  .orb-wrap .orb-head small{font-size:.7rem}
+  .orb-wrap .orb-x{width:28px;height:28px;font-size:1rem}
+  .orb-wrap .orb-log{padding:.7rem}
+  .orb-wrap .msg{font-size:.84rem;padding:.5rem .75rem}
+  .orb-wrap .orb-panel :is(h1,h2,h3,h4){font-size:1rem!important;line-height:1.2;margin:0 0 .1rem!important}
+  .orb-wrap .orb-panel p{font-size:.76rem!important;margin:0 0 .5rem!important}
+  .orb-wrap .orb-chips{padding:.5rem .7rem .1rem}
+  .orb-wrap .orb-chips button{font-size:.74rem;padding:.35rem .7rem}
+  .orb-wrap .orb-form{gap:.4rem;padding:.5rem .7rem calc(.7rem + env(safe-area-inset-bottom,0px))}
+  .orb-wrap .orb-form input{padding:.5rem .8rem;font-size:16px}
+  .orb-wrap .orb-send{width:38px;height:38px}
+  .orb-wrap .orb-send::before{width:17px;height:17px}
+}
+
+/* Student sa taas, RTU Equipment Hub sa baba (laptop lang) */
+@media(min-width:821px){
+  .theme-student .side.side .brand div{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start;
+    justify-content:center;
+    gap:.15rem;
+  }
+
+  /* itago ang "Student portal" */
+  .theme-student .side.side .brand div>*:not(strong){display:none!important}
+
+  /* "Student" sa taas */
+  .theme-student .side.side .brand div::before{
+    content:"Student";
+    order:-1;
+    font-family:"Poppins","Segoe UI",system-ui,Arial,sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    line-height:1.2;
+    color:#fff;
+    padding-bottom:.2rem;
+    border-bottom:2px solid rgba(246,185,29,.8);
+  }
+
+  /* "RTU Equipment Hub" sa baba, mas maliit */
+  .theme-student .side.side .brand strong{
+    order:1;
+    font-size:.74rem!important;
+    font-weight:500!important;
+    letter-spacing:.02em;
+    border-bottom:0!important;
+    padding-bottom:0!important;
+    color:rgba(255,255,255,.88)!important;
+    text-shadow:none!important;
+  }
+}
+
+/* phone (student lang): title, buttons, at KZ + student number sa isang linya */
+@media(max-width:820px){
+  .theme-student .main .top{flex-wrap:nowrap!important;row-gap:0!important}
+
+  .theme-student .main .top h2{
+    flex:1 1 auto!important;min-width:0!important;
+    font-size:.9rem!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+
+  .theme-student .main .top .top-r{
+    flex:none!important;flex-basis:auto!important;
+    gap:.3rem!important;justify-content:flex-end;align-items:center}
+
+  .theme-student .main .top .chip>:not(.avatar){
+    display:inline-block!important;
+    font-size:.72rem;font-weight:600;
+    white-space:nowrap;overflow:visible}
+}
+
+/* phone (admin lang): mas maliit ang title para kasya, buo ang "pemu" */
+@media(max-width:820px){
+  .theme-admin .main .top{flex-wrap:nowrap!important;gap:.35rem!important}
+
+  .theme-admin .main .top h2{
+    flex:1 1 auto!important;min-width:0!important;
+    font-size:.95rem!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+
+  .theme-admin .main .top .top-r{
+    flex:none!important;gap:.25rem!important;
+    justify-content:flex-end;align-items:center}
+
+  .theme-admin .main .top .top-r .icon-btn,
+  .theme-admin .main .top .top-r #themeToggle,
+  .theme-admin .main .top .top-r [data-tab="resets"]{
+    width:32px!important;height:32px!important}
+
+  .theme-admin .main .top .chip{padding:.1rem .45rem .1rem .1rem!important}
+  .theme-admin .main .top .chip>:not(.avatar){
+    display:inline-block!important;font-size:.72rem;font-weight:600;white-space:nowrap}
+  .theme-admin .main .top .top-r .avatar{width:24px!important;height:24px!important;font-size:.62rem!important}
+}
+
+/* phone/tablet: mas malaking title (student at admin) */
+@media(max-width:820px){
+  :is(.theme-student,.theme-admin) .main .top h2{
+    font-size:clamp(1.05rem,4.6vw,1.45rem)!important;
+    line-height:1.15!important}
+}
+
+/* sobrang liit na phone: konting liit lang para kasya pa rin */
+@media(max-width:400px){
+  :is(.theme-student,.theme-admin) .main .top h2{
+    font-size:1rem!important}
+}
+
+/* Account Details: pantay na laki at pagitan */
+#view-account dl,
+#view-account .info{
+  display:grid;grid-template-columns:minmax(110px,160px) 1fr;
+  gap:.7rem 1.5rem;align-items:baseline}
+
+#view-account dt,
+#view-account .info > :nth-child(odd){
+  font-size:.85rem!important;font-weight:500!important;color:var(--muted)!important}
+
+#view-account dd,
+#view-account .info > :nth-child(even){
+  margin:0;font-size:1rem!important;font-weight:600!important;
+  line-height:1.3!important;color:var(--ink)!important;overflow-wrap:anywhere}
+
+@media(max-width:820px){
+  html body #view-account dl,
+  html body #view-account .info{
+    display:grid!important;
+    grid-template-columns:minmax(96px,130px) 1fr!important;
+    gap:.6rem 1rem!important;align-items:baseline!important}
+
+  html body #view-account dt,
+  html body #view-account .info > :nth-child(odd){
+    font-size:.82rem!important;font-weight:500!important}
+
+  html body #view-account dd,
+  html body #view-account .info > :nth-child(even){
+    margin:0!important;font-size:.95rem!important;font-weight:600!important;
+    line-height:1.3!important;overflow-wrap:anywhere}
+}
+
+@media(max-width:820px){
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
+  .table-wrap table{min-width:680px}
+  :is(.theme-admin,.theme-student) .main th,:is(.theme-admin,.theme-student) .main td{padding:.65rem .7rem}
+}
+
