@@ -954,10 +954,11 @@ dialog button:not(.btn):not(.primary):not(.danger):hover{
   -webkit-text-fill-color: #fff !important;
 }
 
-/* dark mode: black ang text ng status badge (Available, Pending) */
+/* dark mode: black ang text ng status badge (Available, Pending, Approved) */
 :is(html[data-dark], html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(
-  [class*="avail"], [class*="pending"], [class*="status"], [class*="success"]
-):not(:has(*)){
+  [class*="avail"], [class*="pending"], [class*="approved"], [class*="success"],
+  [class*="avail"] *, [class*="pending"] *, [class*="approved"] *, [class*="success"] *
+){
   color: #000 !important;
   -webkit-text-fill-color: #000 !important;
 }
