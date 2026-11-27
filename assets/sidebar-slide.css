@@ -889,8 +889,8 @@ body .wb :is(small,.wb-time,h3){background-image:none!important}
   color:#fff!important;
 }
 [data-dark] dialog p,
-[data-dark] dialog span,
-[data-dark] dialog small,
+[data-dark] dialog span:not([class]),
+[data-dark] dialog small:not([class]),
 [data-dark] dialog .muted{
   color:rgba(255,255,255,.85)!important;
 }
@@ -942,6 +942,14 @@ dialog button:not(.btn):not(.primary):not(.danger):hover{
 :is(html[data-dark],html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(h1,h2,h3,h4,strong,[class*="title"],[class*="name"]){
   color:#fff!important;
 }
-:is(html[data-dark],html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(dt,th,label,.muted,small,p,li){
+:is(html[data-dark],html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(dt,th,label,.muted,small:not([class]),p,li){
   color:rgba(255,255,255,.88)!important;
+}
+
+/* dark mode: madilim ang text ng badges (Available, Pending Approval) para kita sa light na background */
+:is(html[data-dark],html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(
+  [class*="badge"],[class*="pill"],[class*="avail"],[class*="pending"]
+){
+  color:#0f172a!important;
+  -webkit-text-fill-color:#0f172a!important;
 }
