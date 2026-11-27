@@ -118,26 +118,26 @@
 </dialog>
 
 <dialog id="receiptDialog">
-  <div id="receiptPaper" style="height:auto; min-height:0; overflow:visible; box-sizing:border-box;">
+  <div id="receiptPaper">
+
     <p class="muted">RTU Equipment Hub · PEMU</p>
     <h3>Borrow Receipt</h3>
     <p class="receipt-no" id="rcNo"></p>
     <dl class="dl" id="rcFacts"></dl>
-    <p class="muted">Show this receipt number at the PEMU office to claim and return the item.</p>
 
-    <div style="display:flex !important; justify-content:center !important; align-items:center !important; width:100% !important; margin:22px 0 5px !important;">
+    <p class="muted">
+      Show this receipt number at the PEMU office to claim and return the item.
+    </p>
 
-  <form method="dialog" style="display:flex !important; justify-content:center !important; width:100% !important; margin:0 !important;">
+    <div style="display:flex; justify-content:center; width:100%; margin-top:22px; padding-bottom:5px;">
+      <form method="dialog" style="margin:0; width:100%; display:flex; justify-content:center;">
+        <button type="submit"
+          style="display:block; width:140px; height:44px; background:#17418c; color:white; border:none; border-radius:9px; font-size:14px; font-weight:600; cursor:pointer;">
+          Close
+        </button>
+      </form>
+    </div>
 
-    <button type="submit"
-      style="display:block !important; width:140px !important; height:44px !important; background:#17418c !important; color:white !important; border:0 !important; border-radius:9px !important; font-size:14px !important; font-weight:600 !important; cursor:pointer !important;">
-      Close
-    </button>
-
-  </form>
-</div>
-  </form>
-</div>
   </div>
 </dialog>
 
