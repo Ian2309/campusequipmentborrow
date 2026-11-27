@@ -128,7 +128,7 @@ try {
     $tmp = tempnam(sys_get_temp_dir(), 'rtu_xlsx_');
     if ($tmp === false) throw new RuntimeException('Could not create the Excel workbook.');
     $zip = new ZipArchive();
-    if ($zip->open($tmp, ZipArchive::OVERWRITE) !== true) {
+    if ($zip->open($tmp, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
         @unlink($tmp);
         throw new RuntimeException('Could not package the Excel workbook.');
     }
