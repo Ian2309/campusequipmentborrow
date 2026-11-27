@@ -1,6 +1,7 @@
 <?php
+ob_start();
 // ENDPOINT: Export complete equipment borrowing history as an Excel XLSX file (POST).
-// Admin-only. This report intentionally excludes password hashes and login credentials.
+// Admin-only. This report  excludes password hashes and login credentials.
 require_once __DIR__ . '/../config/bootstrap.php';
 require_admin();
 post();
@@ -157,6 +158,12 @@ try {
     $zip->close();
 
     $filename = 'rtu_equipment_borrowing_history_' . date('Ymd_His') . '.xlsx';
+    
+    // Clear unwanted output before sending Excel
+    if (ob_get_level() > 0) {
+    ob_clean();
+    }
+
     header_remove('Content-Type');
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment; filename="' . $filename . '"');
