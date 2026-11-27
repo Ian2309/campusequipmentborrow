@@ -8,7 +8,7 @@ let me, equipment = [], requests = [], damages = [], resets = [], snap = '', act
   $('#chipId').textContent = $('#accUser').textContent = me.username;
   $('#accName').textContent = me.full_name;
   $('#logout2').addEventListener('click', logout);
-  wireShell({ overview: 'Dashboard Overview', requests: 'Borrow Requests', inventory: 'Equipment Inventory', damage: 'Damage Records', resets: 'Password Reset Requests', notifications: 'Notifications', account: 'Account & Backup' });
+  wireShell({ overview: 'Dashboard Overview', requests: 'Borrow Requests', inventory: 'Equipment Inventory', damage: 'Damage Records', resets: 'Password Reset Requests', notifications: 'Notifications', account: 'Account & Reports' });
   await refresh();
   every(5000, refresh); // new student requests and notifications appear within seconds
 })();
@@ -191,56 +191,30 @@ $('#addForm').addEventListener('submit', async e => {
   btn.disabled = false;
 });
 
-// Backup download
-document.getElementById('downloadHistoryExcelBtn')?.addEventListener('click', async (e) => {
-  const btn = e.currentTarget;
-  btn.disabled = true;
-  const originalText = btn.textContent;
-  btn.textContent = 'Exporting...';
-
+// Export the complete equipment borrowing history as an Excel workbook.
+$('#historyExportBtn').addEventListener('click', async () => {
+  const btn = $('#historyExportBtn'); btn.disabled = true;
+  const original = btn.textContent; btn.textContent = 'Preparing report…';
   try {
-
-const res = await fetch('../api/export_history_excel.php', {
-    method: 'POST',
-    credentials: 'same-origin',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': window.CSRF_TOKEN || state?.csrf || ''
-    },
-    body: '{}'
-});
-
-if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || 'Failed to download spreadsheet.');
-}
-
-const blob = await res.blob();
-const url = URL.createObjectURL(blob);
-
-const a = document.createElement('a');
-a.href = url;
-a.download = `rtu_borrowing_history_${new Date().toISOString().slice(0, 10)}.xlsx`;
-
-document.body.appendChild(a);
-a.click();
-a.remove();
-
-URL.revokeObjectURL(url);
-
+    // ENDPOINT CALL (POST): Download all borrowing history as an XLSX workbook.
+    const res = await fetch(API + 'export_borrowing_history.php', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF }, body: '{}'
+    });
+    if (!res.ok || !(res.headers.get('content-type') || '').includes('spreadsheetml')) {
+      const error = await res.json().catch(() => ({}));
+      throw new Error(error.message || 'Could not export borrowing history.');
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `rtu_borrowing_history_${new Date().toISOString().slice(0, 10)}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  } catch (err) {
-    alert(err.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = originalText;
-  }
+    a.download = (res.headers.get('content-disposition') || '').match(/filename="?([^";]+)"?/)?.[1] || 'rtu_equipment_borrowing_history.xlsx';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    toast('Equipment borrowing history exported successfully.');
+  } catch (err) { toast(err.message, 'err'); }
+  finally { btn.disabled = false; btn.textContent = original; }
 });
 
 // Password resets

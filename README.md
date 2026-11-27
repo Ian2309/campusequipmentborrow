@@ -13,6 +13,7 @@ PHP app in a Docker container on Render, with Supabase for the database (Postgre
 2. Damage reports for admin to be used as a monitoring tool for the equipments para ma ensure ang quality ng mga equipments.
 3. Automated receipts everytime a student borrows an equipment. Pwede magamit para makita kung sino ang huling humiram ng equipment.
 4. Online and can be used by students everywhere, Kailangan lang connected sa internet.
+5. Excel borrowing-history export for PEMU administrators (.xlsx), including student, equipment, request, return, waiver, and damage-report details.
 
 ## Version 1.1.2
 1. **Greetings for users and admin**
@@ -68,6 +69,8 @@ PHP app in a Docker container on Render, with Supabase for the database (Postgre
 ## Version 1.1.5
 1. **Receipt**
    - Receipt print function is removed.
+   - Added a button on admin for backup.
+
 
 ## Made By: ICS-01-502P (GROUP 11)
 1. ESCARA, FRANCIS JUSTINE
