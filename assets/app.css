@@ -226,3 +226,30 @@ h1,h2,h3,h4,h5,h6,
 @media (max-width: 480px) {
   .consent-actions { flex-direction: column-reverse; }
 }
+
+/* Receipt Close Button */
+.receipt-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.receipt-actions form {
+  margin: 0;
+}
+
+.receipt-close-btn {
+  background: #17418c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 35px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.receipt-close-btn:hover {
+  background: #0d2f6b;
+}
