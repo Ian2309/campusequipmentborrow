@@ -963,3 +963,13 @@ dialog button:not(.btn):not(.primary):not(.danger):hover{
   color: #0f172a !important;
   -webkit-text-fill-color: #0f172a !important;
 }
+
+/* admin dialog: status badge (Available, Pending) = madilim na text */
+:is(html[data-dark], html:has([data-dark])) dialog :is(
+  [class*="badge"], [class*="pill"], [class*="chip"], [class*="tag"]
+):is(
+  [class*="avail"], [class*="pending"], [class*="status"], [class*="success"], [class*="ok"]
+){
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+}
