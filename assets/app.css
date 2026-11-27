@@ -225,31 +225,39 @@ h1,h2,h3,h4,h5,h6,
 
 @media (max-width: 480px) {
   .consent-actions { flex-direction: column-reverse; }
+  
 }
 
-/* Receipt Close Button */
-.receipt-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
+/* Borrow Receipt Close Button */
+#receiptDialog #receiptPaper .receipt-actions {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin-top: 22px !important;
 }
 
-.receipt-actions form {
-  margin: 0;
+#receiptDialog #receiptPaper .receipt-actions form {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 !important;
 }
 
-.receipt-close-btn {
-  background: #17418c;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 11px 35px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
+#receiptDialog #receiptPaper .receipt-close-btn {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 140px !important;
+    padding: 12px 25px !important;
+    background: #17418c !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 9px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
 }
 
-.receipt-close-btn:hover {
-  background: #0d2f6b;
+#receiptDialog #receiptPaper .receipt-close-btn:hover {
+    background: #0d2f6b !important;
 }
