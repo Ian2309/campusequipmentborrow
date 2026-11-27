@@ -954,10 +954,9 @@ dialog button:not(.btn):not(.primary):not(.danger):hover{
   -webkit-text-fill-color:#0f172a!important;
 }
 
-/* dark mode: puti ang text ng category badge (AV, Computing, Other), pero hindi ang status badges */
-:is(html[data-dark],html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(
-  [class*="badge"],[class*="pill"],[class*="cat"],[class*="tag"],[class*="chip"],[class*="type"]
-):not([class*="avail"]):not([class*="pending"]):not([class*="status"]):not([class*="ok"]):not([class*="warn"]):not([class*="success"]):not([class*="danger"]){
+/* dark mode: puti ang category badge (Other, AV, Computing) - yung nasa ibabaw ng title */
+:is(html[data-dark],html:has([data-dark])) dialog[open]:not(:has(#receiptPaper)) :is(div,span,small,p,strong):has(+ :is(h1,h2,h3,h4)),
+:is(html[data-dark],html:has([data-dark])) dialog[open]:not(:has(#receiptPaper)) :is(div,span,small,p,strong):has(+ :is(h1,h2,h3,h4)) *{
   color:#fff!important;
   -webkit-text-fill-color:#fff!important;
 }
