@@ -858,3 +858,12 @@ body .wb :is(small,.wb-time,h3){background-image:none!important}
   :is(.theme-admin,.theme-student) .main th,:is(.theme-admin,.theme-student) .main td{padding:.65rem .7rem}
 }
 
+/* Student sidebar light mode fix
+.theme-student:not([data-dark]) .side .nav button.active {
+    color: #ffffff !important;
+}
+
+/* Keep selected menu text readable */
+.theme-student:not([data-dark]) .side .nav button.active * {
+    color: #ffffff !important;
+}
