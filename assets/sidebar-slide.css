@@ -946,17 +946,20 @@ dialog button:not(.btn):not(.primary):not(.danger):hover{
   color:rgba(255,255,255,.88)!important;
 }
 
-/* dark mode: madilim ang text ng badges (Available, Pending Approval) para kita sa light na background */
-:is(html[data-dark],html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(
-  [class*="badge"],[class*="pill"],[class*="avail"],[class*="pending"]
+/* 1) DEFAULT: lahat ng badge/pill sa dark mode = puting text (Computing, AV, Other, atbp.) */
+:is(html[data-dark], html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(
+  [class*="badge"], [class*="pill"], [class*="chip"], [class*="tag"], [class*="cat"]
 ){
-  color:#0f172a!important;
-  -webkit-text-fill-color:#0f172a!important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
 }
 
-/* dark mode: puti ang category badge (Other, AV, Computing) - yung nasa ibabaw ng title */
-:is(html[data-dark],html:has([data-dark])) dialog[open]:not(:has(#receiptPaper)) :is(div,span,small,p,strong):has(+ :is(h1,h2,h3,h4)),
-:is(html[data-dark],html:has([data-dark])) dialog[open]:not(:has(#receiptPaper)) :is(div,span,small,p,strong):has(+ :is(h1,h2,h3,h4)) *{
-  color:#fff!important;
-  -webkit-text-fill-color:#fff!important;
+/* 2) OVERRIDE: status badges (Available, Pending Approval) = madilim na text */
+:is(html[data-dark], html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(
+  [class*="badge"], [class*="pill"], [class*="chip"], [class*="tag"], [class*="cat"]
+):is(
+  [class*="avail"], [class*="pending"], [class*="status"], [class*="success"], [class*="ok"]
+){
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
 }
