@@ -954,22 +954,10 @@ dialog button:not(.btn):not(.primary):not(.danger):hover{
   -webkit-text-fill-color: #fff !important;
 }
 
-/* 2) OVERRIDE: status badges (Available, Pending Approval) = madilim na text */
+/* dark mode: black ang text ng status badge (Available, Pending) */
 :is(html[data-dark], html:has([data-dark])) dialog:not(:has(#receiptPaper)) :is(
-  [class*="badge"], [class*="pill"], [class*="chip"], [class*="tag"], [class*="cat"]
-):is(
-  [class*="avail"], [class*="pending"], [class*="status"], [class*="success"], [class*="ok"]
-){
-  color: #0f172a !important;
-  -webkit-text-fill-color: #0f172a !important;
-}
-
-/* admin dialog: status badge (Available, Pending) = madilim na text */
-:is(html[data-dark], html:has([data-dark])) dialog :is(
-  [class*="badge"], [class*="pill"], [class*="chip"], [class*="tag"]
-):is(
-  [class*="avail"], [class*="pending"], [class*="status"], [class*="success"], [class*="ok"]
-){
-  color: #0f172a !important;
-  -webkit-text-fill-color: #0f172a !important;
+  [class*="avail"], [class*="pending"], [class*="status"], [class*="success"]
+):not(:has(*)){
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
 }
